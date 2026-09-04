@@ -258,6 +258,8 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname.startsWith('/api/') && !session(req)) return json(res, 401, { error: '認証が必要です' });
     if (req.method === 'GET' && url.pathname === '/api/games') {
       const date = url.searchParams.get('date') ?? jstDateString();
+      try { scheduleQueryDates(date); }
+      catch { return json(res, 400, { error: 'dateはJSTのYYYY-MM-DD形式で指定してください' }); }
       return json(res, 200, { date, games: await todayGames(date) });
     }
     const gameMatch = url.pathname.match(/^\/api\/games\/(\d+)$/);

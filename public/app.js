@@ -1,5 +1,5 @@
 const views = { login: document.getElementById('login-view'), games: document.getElementById('games-view'), lineup: document.getElementById('lineup-view') };
-const state = { authenticated: false, games: [], currentGame: null };
+const state = { authenticated: false, games: [], currentGame: null, selectedDate: null };
 
 function showView(name) {
   Object.values(views).forEach(view => view.classList.remove('view-active'));
@@ -10,6 +10,12 @@ function showView(name) {
 const jstFormat = options => new Intl.DateTimeFormat('ja-JP', { timeZone: 'Asia/Tokyo', ...options }).format(new Date());
 function jstDateString() {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+}
+const validDateString = value => /^\d{4}-\d{2}-\d{2}$/.test(value ?? '') && !Number.isNaN(new Date(`${value}T00:00:00Z`).valueOf());
+function shiftDate(date, days) {
+  const shifted = new Date(`${date}T00:00:00Z`);
+  shifted.setUTCDate(shifted.getUTCDate() + days);
+  return shifted.toISOString().slice(0, 10);
 }
 document.getElementById('header-date').textContent = jstFormat({ year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short' });
 
@@ -32,26 +38,34 @@ document.getElementById('login-form').addEventListener('submit', async event => 
 });
 
 const statusLabel = game => game.lineupStatus === 'available' ? 'スタメン取得済み' : 'スタメン未発表または取得不完全';
-async function loadGames() {
+const teamLogoUrl = teamId => `https://www.mlbstatic.com/team-logos/${Number(teamId)}.svg`;
+const selectedDateInput = document.getElementById('selected-date');
+const todayButton = document.getElementById('today-date');
+
+async function loadGames(date = state.selectedDate ?? jstDateString()) {
+  state.selectedDate = validDateString(date) ? date : jstDateString();
+  selectedDateInput.value = state.selectedDate;
+  todayButton.disabled = state.selectedDate === jstDateString();
   showView('games');
   const grid = document.getElementById('games-grid');
   grid.innerHTML = '<p class="loading-message">MLB公式データを取得しています…</p>';
-  try { state.games = (await api(`/api/games?date=${encodeURIComponent(jstDateString())}`)).games; renderGames(); }
+  try { state.games = (await api(`/api/games?date=${encodeURIComponent(state.selectedDate)}`)).games; renderGames(); }
   catch (error) { grid.innerHTML = `<p class="error-message">${escapeHtml(error.message)}</p>`; }
 }
 
 function renderGames() {
   const grid = document.getElementById('games-grid'); grid.innerHTML = '';
-  if (!state.games.length) { grid.innerHTML = '<p class="loading-message">日本時間の本日のMLB試合はありません。</p>'; return; }
+  if (!state.games.length) { grid.innerHTML = `<p class="loading-message">日本時間 ${escapeHtml(state.selectedDate)} のMLB試合はありません。</p>`; return; }
   state.games.forEach(game => {
     const card = document.createElement('article');
     card.className = `game-card ${game.lineupStatus === 'available' ? '' : 'game-card-pending'}`;
     card.tabIndex = 0; card.setAttribute('role', 'button');
     card.innerHTML = `<div class="game-status">${escapeHtml(statusLabel(game))}</div>
-      <div class="game-matchup"><div class="game-team"><div class="game-team-code">${escapeHtml(game.away.code)}</div><div class="game-team-name">${escapeHtml(game.away.name)}</div></div>
-      <div class="game-at">@</div><div class="game-team"><div class="game-team-code">${escapeHtml(game.home.code)}</div><div class="game-team-name">${escapeHtml(game.home.name)}</div></div></div>
+      <div class="game-matchup"><div class="game-team game-team-away"><div class="game-team-primary"><img class="game-team-logo" src="${teamLogoUrl(game.away.id)}" alt="" loading="lazy"/><div class="game-team-code">${escapeHtml(game.away.code)}</div></div><div class="game-team-name">${escapeHtml(game.away.name)}</div></div>
+      <div class="game-at">@</div><div class="game-team game-team-home"><div class="game-team-primary"><div class="game-team-code">${escapeHtml(game.home.code)}</div><img class="game-team-logo" src="${teamLogoUrl(game.home.id)}" alt="" loading="lazy"/></div><div class="game-team-name">${escapeHtml(game.home.name)}</div></div></div>
       <div class="game-footer"><div class="game-time">${escapeHtml(game.time)}</div><div class="game-venue">${escapeHtml(game.venue)}</div></div>`;
-    const open = () => navigate(`#lineup/${game.gamePk}`);
+    card.querySelectorAll('.game-team-logo').forEach(logo => logo.addEventListener('error', () => { logo.hidden = true; }, { once: true }));
+    const open = () => navigate(`#lineup/${game.gamePk}?date=${state.selectedDate}`);
     card.addEventListener('click', open); card.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') open(); });
     grid.appendChild(card);
   });
@@ -106,13 +120,25 @@ function navigate(hash, { replace = false } = {}) {
 }
 async function restoreRoute({ replace = false } = {}) {
   if (!state.authenticated) return showView('login');
-  const match = location.hash.match(/^#lineup\/(\d+)$/);
-  if (match) return openGame(Number(match[1]));
-  if (replace || location.hash !== '#games') history.replaceState({ route: '#games' }, '', '#games');
-  return loadGames();
+  const lineupMatch = location.hash.match(/^#lineup\/(\d+)(?:\?date=(\d{4}-\d{2}-\d{2}))?$/);
+  if (lineupMatch) {
+    state.selectedDate = validDateString(lineupMatch[2]) ? lineupMatch[2] : jstDateString();
+    return openGame(Number(lineupMatch[1]));
+  }
+  const gamesMatch = location.hash.match(/^#games(?:\/(\d{4}-\d{2}-\d{2}))?$/);
+  const date = validDateString(gamesMatch?.[1]) ? gamesMatch[1] : jstDateString();
+  const route = `#games/${date}`;
+  if (replace || location.hash !== route) history.replaceState({ route, date }, '', route);
+  return loadGames(date);
 }
 window.addEventListener('popstate', () => restoreRoute());
-document.getElementById('back-to-games').addEventListener('click', () => navigate('#games'));
+document.getElementById('back-to-games').addEventListener('click', () => navigate(`#games/${state.selectedDate ?? jstDateString()}`));
+document.getElementById('previous-date').addEventListener('click', () => navigate(`#games/${shiftDate(state.selectedDate, -1)}`));
+document.getElementById('next-date').addEventListener('click', () => navigate(`#games/${shiftDate(state.selectedDate, 1)}`));
+todayButton.addEventListener('click', () => navigate(`#games/${jstDateString()}`));
+selectedDateInput.addEventListener('change', () => {
+  if (validDateString(selectedDateInput.value)) navigate(`#games/${selectedDateInput.value}`);
+});
 
 document.getElementById('excel-output-button').addEventListener('click', async () => {
   const message = document.getElementById('output-message'); const button = document.getElementById('excel-output-button');

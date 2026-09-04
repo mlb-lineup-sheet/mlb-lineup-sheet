@@ -419,6 +419,81 @@ button {
    TODAY'S GAMES
 ========================= */
 
+.games-date-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.date-nav-button,
+.today-button,
+.selected-date-control {
+  min-height: 44px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.date-nav-button,
+.today-button {
+  padding: 0 18px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .06em;
+  cursor: pointer;
+  transition: border-color .18s ease, background .18s ease;
+}
+
+.date-nav-button:hover,
+.today-button:hover {
+  border-color: #aebbc7;
+  background: #f4f7f9;
+}
+
+.selected-date-control {
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+}
+
+.selected-date-control input {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.today-button {
+  margin-left: 4px;
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.today-button:disabled {
+  border-color: var(--line);
+  color: var(--muted);
+  cursor: default;
+  opacity: .65;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .games-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -487,6 +562,28 @@ button {
 
 .game-team:last-child {
   text-align: right;
+}
+
+.game-team-primary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.game-team-home .game-team-primary {
+  justify-content: flex-end;
+}
+
+.game-team-logo {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  object-fit: contain;
+}
+
+.game-team-logo[hidden] {
+  display: none;
 }
 
 .game-team-code {
@@ -784,6 +881,35 @@ button {
   .lineup-grid,
   .starter-row {
     grid-template-columns: 1fr;
+  }
+
+  .games-date-nav {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1fr;
+  }
+
+  .date-nav-button,
+  .today-button {
+    padding: 0 10px;
+  }
+
+  .game-team-primary {
+    gap: 8px;
+  }
+
+  .game-team-logo {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+  }
+
+  .selected-date-control {
+    justify-content: center;
+  }
+
+  .today-button {
+    grid-column: 1 / -1;
+    margin-left: 0;
   }
 
   .login-content {
