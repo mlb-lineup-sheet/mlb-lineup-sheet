@@ -59,7 +59,7 @@ button {
   min-height: 100vh;
   color: white;
   isolation: isolate;
-  background: #17261d;
+  background: #020b19;
 }
 
 .login-stadium {
@@ -68,12 +68,11 @@ button {
   inset: 0;
   z-index: -5;
   background:
-    radial-gradient(ellipse at 50% 108%, rgba(91, 122, 58, .95) 0 15%, transparent 48%),
-    linear-gradient(16deg, transparent 0 45%, rgba(173, 105, 50, .48) 46% 49%, transparent 50%),
-    linear-gradient(-16deg, transparent 0 45%, rgba(173, 105, 50, .48) 46% 49%, transparent 50%),
-    radial-gradient(circle at 9% 11%, rgba(255, 240, 189, .85) 0 1px, rgba(255, 240, 189, .18) 2px, transparent 11%),
-    radial-gradient(circle at 91% 9%, rgba(255, 240, 189, .8) 0 1px, rgba(255, 240, 189, .16) 2px, transparent 11%),
-    linear-gradient(180deg, #344956 0%, #7b6b59 43%, #26382d 73%, #17251c 100%);
+    radial-gradient(circle at 50% 8%, rgba(255,255,255,.62) 0 2px, rgba(70,155,255,.28) 3px, transparent 18%),
+    radial-gradient(ellipse at 8% 48%, rgba(0,103,255,.52), transparent 34%),
+    radial-gradient(ellipse at 92% 48%, rgba(213,18,54,.46), transparent 34%),
+    radial-gradient(ellipse at 50% 108%, rgba(22,96,158,.48) 0 12%, transparent 52%),
+    linear-gradient(180deg, #071c3a 0%, #020b19 54%, #010611 100%);
 }
 
 .login-stadium::before {
@@ -81,9 +80,9 @@ button {
   position: absolute;
   inset: 47% -8% 0;
   background:
-    repeating-linear-gradient(90deg, rgba(244, 226, 194, .08) 0 2px, transparent 2px 43px),
-    linear-gradient(180deg, rgba(8, 15, 13, .08), rgba(6, 12, 9, .82));
-  border-top: 1px solid rgba(255, 233, 188, .24);
+    repeating-linear-gradient(90deg, rgba(76,158,255,.08) 0 2px, transparent 2px 43px),
+    linear-gradient(180deg, rgba(0,88,190,.08), rgba(1,6,17,.92));
+  border-top: 1px solid rgba(80,166,255,.22);
   transform: perspective(500px) rotateX(52deg) scale(1.18);
   transform-origin: center bottom;
 }
@@ -96,16 +95,16 @@ button {
 
 .login-collage {
   z-index: -3;
-  filter: saturate(.86) contrast(1.04);
+  filter: saturate(1.08) contrast(1.06);
 }
 
 .login-vignette {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 50% 48%, transparent 0 24%, rgba(9, 15, 13, .12) 48%, rgba(7, 12, 10, .82) 100%),
-    linear-gradient(90deg, rgba(10, 16, 13, .42), transparent 25% 75%, rgba(10, 16, 13, .42)),
-    linear-gradient(180deg, rgba(12, 18, 16, .22), transparent 28%, rgba(8, 13, 10, .58));
+    radial-gradient(ellipse at 50% 46%, rgba(2,11,25,.28) 0 24%, rgba(2,8,18,.12) 48%, rgba(1,5,13,.82) 100%),
+    linear-gradient(90deg, rgba(0,45,115,.3), transparent 24% 76%, rgba(120,0,25,.28)),
+    linear-gradient(180deg, rgba(2,10,24,.08), transparent 32%, rgba(1,5,14,.66));
 }
 
 .player-visual {
@@ -122,7 +121,7 @@ button {
   background-repeat: no-repeat;
   background-position: center bottom;
   background-size: contain;
-  filter: drop-shadow(0 20px 20px rgba(3, 7, 5, .5));
+  filter: drop-shadow(0 20px 20px rgba(0, 2, 9, .64));
   transform-origin: center bottom;
 }
 
@@ -180,17 +179,6 @@ button {
 .tor { left: 43%; top: -31%; transform: rotate(-3deg) scale(.42); opacity: .54; }
 .wsh { right: 43%; bottom: -38%; transform: rotate(3deg) scale(.42); opacity: .54; }
 
-.login-brand {
-  position: absolute;
-  top: 34px;
-  left: 42px;
-  z-index: 5;
-  color: rgba(255, 255, 255, .78);
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .28em;
-}
-
 .login-content {
   position: absolute;
   left: 50%;
@@ -204,7 +192,7 @@ button {
 
 .login-season {
   margin: 0 0 20px;
-  color: rgba(255, 244, 218, .72);
+  color: rgba(178, 215, 255, .78);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: .42em;
@@ -229,7 +217,7 @@ button {
   margin-bottom: .08em;
   font-size: .58em;
   letter-spacing: .18em;
-  color: #e0b65c;
+  color: #f4f8ff;
 }
 
 .login-title span:nth-child(3) { color: rgba(255, 255, 255, .94); }
@@ -247,20 +235,20 @@ button {
   content: "";
   flex: 1;
   height: 1px;
-  background: rgba(255, 235, 191, .38);
+  background: rgba(80, 173, 255, .48);
 }
 
 .login-rule span {
   width: 7px;
   height: 7px;
-  border: 1px solid #d9af57;
+  border: 1px solid #4ab7ff;
   transform: rotate(45deg);
 }
 
 .login-subtitle {
   margin: 15px 0 36px;
-  color: rgba(255,255,255,.62);
-  font-size: 10px;
+  color: rgba(210,231,255,.82);
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: .38em;
 }
@@ -301,15 +289,15 @@ button {
 }
 
 .login-form input:focus {
-  border-bottom-color: #e0b65c;
+  border-bottom-color: #42b5ff;
 }
 
 .login-form button {
   width: 112px;
   height: 44px;
   border: 1px solid rgba(255,255,255,.66);
-  background: rgba(247, 241, 224, .94);
-  color: #172019;
+  background: linear-gradient(180deg, #168eff, #0753ca);
+  color: white;
   font-size: 10px;
   font-weight: 900;
   letter-spacing: .2em;
@@ -318,7 +306,21 @@ button {
 
 .login-form button:hover {
   transform: translateY(-2px);
-  background: #fff;
+  background: linear-gradient(180deg, #35a7ff, #0961e1);
+}
+
+.login-copyright {
+  position: absolute;
+  z-index: 6;
+  bottom: 18px;
+  left: 50%;
+  margin: 0;
+  transform: translateX(-50%);
+  color: rgba(205, 223, 245, .72);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  white-space: nowrap;
 }
 
 .login-message {
@@ -341,7 +343,6 @@ button {
 }
 
 @media (max-width: 680px) {
-  .login-brand { top: 22px; left: 22px; }
   .login-content { width: calc(100% - 36px); }
   .login-title { font-size: clamp(50px, 17vw, 78px); }
   .login-season { font-size: 8px; letter-spacing: .25em; }
