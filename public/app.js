@@ -59,7 +59,7 @@ function pitcherCard(starter, side) {
     : '予告先発未定';
   return `<div class="game-pitcher game-pitcher-${side}">
     <div class="game-pitcher-photo${photo ? ' has-photo' : ''}">${photo}<span class="game-pitcher-fallback">${fallback}</span></div>
-    <div class="game-pitcher-copy"><span class="game-pitcher-label">PROBABLE</span><strong>${escapeHtml(starter?.name ?? 'TBD')}</strong><span>${escapeHtml(meta)}</span></div>
+    <div class="game-pitcher-copy"><strong>${escapeHtml(starter?.name ?? 'TBD')}</strong><span>${escapeHtml(meta)}</span></div>
   </div>`;
 }
 const selectedDateInput = document.getElementById('selected-date');
@@ -87,13 +87,18 @@ function renderGames() {
     card.tabIndex = 0; card.setAttribute('role', 'button');
     const ready = game.lineupStatus === 'available';
     card.innerHTML = `<div class="game-card-accent" aria-hidden="true"><span></span><span></span></div>
-      <div class="game-card-top"><div class="game-status ${ready ? 'game-status-ready' : 'game-status-pending'}"><span></span>${escapeHtml(statusLabel(game))}</div><div class="game-number">GAME ${escapeHtml(game.gamePk)}</div></div>
-      <div class="game-matchup">
-        <div class="game-team game-team-away"><div class="game-team-primary"><img class="game-team-logo" src="${teamLogoUrl(game.away.id)}" alt="" loading="lazy"/><div><div class="game-team-side">AWAY</div><div class="game-team-code">${escapeHtml(game.away.code)}</div></div></div><div class="game-team-name">${escapeHtml(game.away.name)}</div>${pitcherCard(game.away.starter, 'away')}</div>
-        <div class="game-at"><span>@</span></div>
-        <div class="game-team game-team-home"><div class="game-team-primary"><div><div class="game-team-side">HOME</div><div class="game-team-code">${escapeHtml(game.home.code)}</div></div><img class="game-team-logo" src="${teamLogoUrl(game.home.id)}" alt="" loading="lazy"/></div><div class="game-team-name">${escapeHtml(game.home.name)}</div>${pitcherCard(game.home.starter, 'home')}</div>
+      <div class="game-card-top"><div class="game-status ${ready ? 'game-status-ready' : 'game-status-pending'}"><span></span>${escapeHtml(statusLabel(game))}</div></div>
+      <div class="game-teams">
+        <div class="game-team game-team-away"><img class="game-team-logo" src="${teamLogoUrl(game.away.id)}" alt="" loading="lazy"/><div class="game-team-code">${escapeHtml(game.away.code)}</div></div>
+        <div class="game-versus" aria-hidden="true"></div>
+        <div class="game-team game-team-home"><div class="game-team-code">${escapeHtml(game.home.code)}</div><img class="game-team-logo" src="${teamLogoUrl(game.home.id)}" alt="" loading="lazy"/></div>
       </div>
-      <div class="game-footer"><div><span class="game-footer-label">FIRST PITCH</span><div class="game-time">${escapeHtml(game.time)}</div></div><div class="game-venue"><span class="game-footer-label">BALLPARK</span>${escapeHtml(game.venue)}</div></div>`;
+      <div class="game-pitching-duel">
+        ${pitcherCard(game.away.starter, 'away')}
+        <div class="duel-mark" aria-hidden="true">VS</div>
+        ${pitcherCard(game.home.starter, 'home')}
+      </div>
+      <div class="game-footer"><div class="game-time">${escapeHtml(game.time)}</div><div class="game-venue">${escapeHtml(game.venue)}</div></div>`;
     card.querySelectorAll('.game-team-logo').forEach(logo => logo.addEventListener('error', () => { logo.hidden = true; }, { once: true }));
     card.querySelectorAll('.game-pitcher-image').forEach(photo => photo.addEventListener('error', () => { photo.hidden = true; photo.closest('.game-pitcher-photo').classList.add('photo-missing'); }, { once: true }));
     const open = () => navigate(`#lineup/${game.gamePk}?date=${state.selectedDate}`);
