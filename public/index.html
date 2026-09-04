@@ -78,20 +78,24 @@
       </header>
 
       <div class="page-shell">
-        <div class="page-heading">
-          <p class="eyebrow">TODAY'S GAMES</p>
-          <h2>担当カードを選択してください</h2>
-        </div>
+        <div class="games-toolbar">
+          <div class="page-heading">
+            <p class="eyebrow">TODAY'S GAMES</p>
+            <h2>担当カードを選択してください</h2>
+            <p class="games-heading-copy">試合カードを選択して、スタメン制作を開始します。</p>
+          </div>
 
-        <nav class="games-date-nav" aria-label="試合日を選択">
-          <button id="previous-date" class="date-nav-button" type="button">← 前日</button>
-          <label class="selected-date-control">
-            <span class="sr-only">試合日</span>
-            <input id="selected-date" type="date" aria-label="試合日をカレンダーから選択" />
-          </label>
-          <button id="next-date" class="date-nav-button" type="button">翌日 →</button>
-          <button id="today-date" class="today-button" type="button">今日</button>
-        </nav>
+          <nav class="games-date-nav" aria-label="試合日を選択">
+            <button id="previous-date" class="date-nav-button" type="button"><span aria-hidden="true">‹</span> 前日</button>
+            <label class="selected-date-control">
+              <span class="date-control-icon" aria-hidden="true">▣</span>
+              <span class="sr-only">試合日</span>
+              <input id="selected-date" type="date" aria-label="試合日をカレンダーから選択" />
+            </label>
+            <button id="next-date" class="date-nav-button" type="button">翌日 <span aria-hidden="true">›</span></button>
+            <button id="today-date" class="today-button" type="button">今日</button>
+          </nav>
+        </div>
 
         <div id="games-grid" class="games-grid"></div>
       </div>

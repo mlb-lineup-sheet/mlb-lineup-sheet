@@ -39,6 +39,29 @@ document.getElementById('login-form').addEventListener('submit', async event => 
 
 const statusLabel = game => game.lineupStatus === 'available' ? 'スタメン取得済み' : 'スタメン未発表または取得不完全';
 const teamLogoUrl = teamId => `https://www.mlbstatic.com/team-logos/${Number(teamId)}.svg`;
+const headshotUrl = playerId => `https://img.mlbstatic.com/mlb-photos/image/upload/w_240,q_auto:best/v1/people/${Number(playerId)}/headshot/67/current`;
+const teamColors = Object.freeze({
+  108: '#ba0021', 109: '#a71930', 110: '#df4601', 111: '#bd3039', 112: '#0e3386',
+  113: '#c6011f', 114: '#e31937', 115: '#33006f', 116: '#0c2340', 117: '#002d62',
+  118: '#004687', 119: '#005a9c', 120: '#ab0003', 121: '#ff5910', 133: '#003831',
+  134: '#fdb827', 135: '#2f241d', 136: '#0c2c56', 137: '#fd5a1e', 138: '#c41e3a',
+  139: '#092c5c', 140: '#003278', 141: '#134a8e', 142: '#002b5c', 143: '#e81828',
+  144: '#ce1141', 145: '#27251f', 146: '#00a3e0', 147: '#003087', 158: '#ffc52f',
+});
+const teamColor = teamId => teamColors[Number(teamId)] ?? '#0b4f82';
+function pitcherCard(starter, side) {
+  const fallback = starter ? 'NO PHOTO' : 'TBD';
+  const photo = starter?.playerId
+    ? `<img class="game-pitcher-image" src="${headshotUrl(starter.playerId)}" alt="" loading="lazy"/>`
+    : '';
+  const meta = starter
+    ? [starter.throws ? `${starter.throws}HP` : '', starter.jerseyNumber ? `#${starter.jerseyNumber}` : ''].filter(Boolean).join('  /  ')
+    : '予告先発未定';
+  return `<div class="game-pitcher game-pitcher-${side}">
+    <div class="game-pitcher-photo${photo ? ' has-photo' : ''}">${photo}<span class="game-pitcher-fallback">${fallback}</span></div>
+    <div class="game-pitcher-copy"><span class="game-pitcher-label">PROBABLE</span><strong>${escapeHtml(starter?.name ?? 'TBD')}</strong><span>${escapeHtml(meta)}</span></div>
+  </div>`;
+}
 const selectedDateInput = document.getElementById('selected-date');
 const todayButton = document.getElementById('today-date');
 
@@ -59,12 +82,20 @@ function renderGames() {
   state.games.forEach(game => {
     const card = document.createElement('article');
     card.className = `game-card ${game.lineupStatus === 'available' ? '' : 'game-card-pending'}`;
+    card.style.setProperty('--away-color', teamColor(game.away.id));
+    card.style.setProperty('--home-color', teamColor(game.home.id));
     card.tabIndex = 0; card.setAttribute('role', 'button');
-    card.innerHTML = `<div class="game-status">${escapeHtml(statusLabel(game))}</div>
-      <div class="game-matchup"><div class="game-team game-team-away"><div class="game-team-primary"><img class="game-team-logo" src="${teamLogoUrl(game.away.id)}" alt="" loading="lazy"/><div class="game-team-code">${escapeHtml(game.away.code)}</div></div><div class="game-team-name">${escapeHtml(game.away.name)}</div></div>
-      <div class="game-at">@</div><div class="game-team game-team-home"><div class="game-team-primary"><div class="game-team-code">${escapeHtml(game.home.code)}</div><img class="game-team-logo" src="${teamLogoUrl(game.home.id)}" alt="" loading="lazy"/></div><div class="game-team-name">${escapeHtml(game.home.name)}</div></div></div>
-      <div class="game-footer"><div class="game-time">${escapeHtml(game.time)}</div><div class="game-venue">${escapeHtml(game.venue)}</div></div>`;
+    const ready = game.lineupStatus === 'available';
+    card.innerHTML = `<div class="game-card-accent" aria-hidden="true"><span></span><span></span></div>
+      <div class="game-card-top"><div class="game-status ${ready ? 'game-status-ready' : 'game-status-pending'}"><span></span>${escapeHtml(statusLabel(game))}</div><div class="game-number">GAME ${escapeHtml(game.gamePk)}</div></div>
+      <div class="game-matchup">
+        <div class="game-team game-team-away"><div class="game-team-primary"><img class="game-team-logo" src="${teamLogoUrl(game.away.id)}" alt="" loading="lazy"/><div><div class="game-team-side">AWAY</div><div class="game-team-code">${escapeHtml(game.away.code)}</div></div></div><div class="game-team-name">${escapeHtml(game.away.name)}</div>${pitcherCard(game.away.starter, 'away')}</div>
+        <div class="game-at"><span>@</span></div>
+        <div class="game-team game-team-home"><div class="game-team-primary"><div><div class="game-team-side">HOME</div><div class="game-team-code">${escapeHtml(game.home.code)}</div></div><img class="game-team-logo" src="${teamLogoUrl(game.home.id)}" alt="" loading="lazy"/></div><div class="game-team-name">${escapeHtml(game.home.name)}</div>${pitcherCard(game.home.starter, 'home')}</div>
+      </div>
+      <div class="game-footer"><div><span class="game-footer-label">FIRST PITCH</span><div class="game-time">${escapeHtml(game.time)}</div></div><div class="game-venue"><span class="game-footer-label">BALLPARK</span>${escapeHtml(game.venue)}</div></div>`;
     card.querySelectorAll('.game-team-logo').forEach(logo => logo.addEventListener('error', () => { logo.hidden = true; }, { once: true }));
+    card.querySelectorAll('.game-pitcher-image').forEach(photo => photo.addEventListener('error', () => { photo.hidden = true; photo.closest('.game-pitcher-photo').classList.add('photo-missing'); }, { once: true }));
     const open = () => navigate(`#lineup/${game.gamePk}?date=${state.selectedDate}`);
     card.addEventListener('click', open); card.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') open(); });
     grid.appendChild(card);
