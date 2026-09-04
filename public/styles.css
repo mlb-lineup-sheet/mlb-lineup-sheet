@@ -568,15 +568,50 @@ button {
   border: 1px solid rgba(162, 176, 188, .48);
   border-radius: 14px;
   background:
-    radial-gradient(circle at 5% 27%, color-mix(in srgb, var(--away-color) 12%, transparent), transparent 41%),
-    radial-gradient(circle at 95% 27%, color-mix(in srgb, var(--home-color) 12%, transparent), transparent 41%),
-    linear-gradient(90deg, color-mix(in srgb, var(--away-color) 3%, white), white 44% 56%, color-mix(in srgb, var(--home-color) 3%, white)),
+    radial-gradient(ellipse 70% 72% at -5% 42%, color-mix(in srgb, var(--away-color) 14%, transparent), transparent 73%),
+    radial-gradient(ellipse 70% 72% at 105% 42%, color-mix(in srgb, var(--home-color) 14%, transparent), transparent 73%),
+    linear-gradient(90deg, color-mix(in srgb, var(--away-color) 2.5%, white), white 43% 57%, color-mix(in srgb, var(--home-color) 2.5%, white)),
     white;
-  box-shadow: 0 8px 24px rgba(18, 43, 64, .07);
+  box-shadow: 0 7px 22px rgba(18, 43, 64, .065), inset 0 1px 0 rgba(255, 255, 255, .9);
   transition:
     transform .18s ease,
     box-shadow .18s ease,
     border-color .18s ease;
+}
+
+.game-watermarks {
+  position: absolute;
+  inset: 62px 0 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.game-watermarks img {
+  width: 44%;
+  height: 165px;
+  object-fit: contain;
+  opacity: .075;
+  filter: grayscale(.08) saturate(.9);
+}
+
+.game-watermarks img:first-child {
+  transform: translateX(-20%) scale(1.12);
+}
+
+.game-watermarks img:last-child {
+  transform: translateX(20%) scale(1.12);
+}
+
+.game-card-top,
+.game-teams,
+.game-pitching-duel,
+.game-footer {
+  position: relative;
+  z-index: 1;
 }
 
 .game-card:hover {
@@ -600,7 +635,7 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 18px;
+  min-height: 16px;
 }
 
 .game-status {
@@ -608,7 +643,7 @@ button {
   align-items: center;
   gap: 6px;
   color: #64727e;
-  font-size: 8px;
+  font-size: 7.5px;
   font-weight: 900;
   letter-spacing: .08em;
 }
@@ -657,9 +692,9 @@ button {
 }
 
 .game-team-logo {
-  width: 46px;
-  height: 46px;
-  flex: 0 0 46px;
+  width: 47px;
+  height: 47px;
+  flex: 0 0 47px;
   object-fit: contain;
   filter: drop-shadow(0 3px 5px rgba(9, 26, 43, .11));
 }
@@ -689,14 +724,14 @@ button {
   grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr);
   align-items: end;
   gap: 0;
-  min-height: 175px;
-  margin: 0 -4px;
+  min-height: 196px;
+  margin: -2px -7px 0;
 }
 
 .game-pitcher {
   position: relative;
   display: grid;
-  grid-template-rows: 130px auto;
+  grid-template-rows: 148px auto;
   min-width: 0;
   text-align: center;
 }
@@ -704,20 +739,23 @@ button {
 .game-pitcher-photo {
   position: relative;
   width: 100%;
-  height: 136px;
+  height: 154px;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, black 0 72%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0 72%, transparent 100%);
 }
 
 .game-pitcher-image {
   position: absolute;
-  inset: -3px 0 0;
-  width: 100%;
-  height: 145px;
+  top: -4px;
+  left: 50%;
+  width: 166px;
+  height: 166px;
+  transform: translateX(-50%);
   object-fit: contain;
   object-position: center top;
-  filter: saturate(1.02) contrast(1.03) drop-shadow(0 8px 8px rgba(16, 32, 46, .14));
+  mix-blend-mode: normal;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0 78%, rgba(0,0,0,.88) 86%, rgba(0,0,0,.35) 95%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0 78%, rgba(0,0,0,.88) 86%, rgba(0,0,0,.35) 95%, transparent 100%);
+  filter: saturate(1.05) contrast(1.045) brightness(1.025) drop-shadow(0 9px 9px rgba(16, 32, 46, .12));
   z-index: 1;
 }
 
@@ -740,29 +778,47 @@ button {
 .game-pitcher-copy {
   display: flex;
   min-width: 0;
-  margin-top: -6px;
+  min-height: 45px;
+  margin: 0 3px;
+  padding: 5px 5px 2px;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, .78);
   line-height: 1.2;
   z-index: 2;
 }
 
 .game-pitcher-copy strong {
+  display: -webkit-box;
   overflow: hidden;
+  min-height: 15px;
+  max-height: 31px;
   color: #172431;
   max-width: 100%;
   font-size: 12px;
-  font-weight: 900;
-  line-height: 1.3;
+  font-weight: 950;
+  line-height: 1.25;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .game-pitcher-copy > span:last-child {
-  margin-top: 4px;
+  margin-top: 5px;
   color: #75828d;
   font-size: 9px;
   font-weight: 800;
+}
+
+.game-pitcher-no-starter .game-pitcher-copy strong {
+  display: none;
+}
+
+.game-pitcher-no-starter .game-pitcher-copy {
+  margin-top: 0;
 }
 
 .duel-mark {
@@ -773,12 +829,13 @@ button {
   height: 28px;
   margin-top: 32px;
   border-radius: 50%;
-  background: #14283b;
+  border: 1px solid rgba(255,255,255,.78);
+  background: linear-gradient(145deg, #20384d, #0c1d2e);
   color: white;
   font-size: 8px;
   font-weight: 950;
   letter-spacing: .04em;
-  box-shadow: 0 5px 12px rgba(13, 31, 49, .16);
+  box-shadow: 0 5px 12px rgba(13, 31, 49, .18), inset 0 1px 1px rgba(255,255,255,.18);
   z-index: 3;
 }
 
@@ -795,16 +852,17 @@ button {
 
 .game-time {
   color: #0b1c2d;
-  font-size: 19px;
+  font-size: 20px;
   font-weight: 950;
-  letter-spacing: -.03em;
+  letter-spacing: -.045em;
 }
 
 .game-venue {
   max-width: 210px;
-  color: var(--muted);
+  color: #7a8792;
   text-align: right;
-  font-size: 9px;
+  font-size: 8.5px;
+  font-weight: 650;
   line-height: 1.4;
 }
 

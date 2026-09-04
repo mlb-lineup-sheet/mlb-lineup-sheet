@@ -39,7 +39,7 @@ document.getElementById('login-form').addEventListener('submit', async event => 
 
 const statusLabel = game => game.lineupStatus === 'available' ? 'スタメン取得済み' : 'スタメン未発表または取得不完全';
 const teamLogoUrl = teamId => `https://www.mlbstatic.com/team-logos/${Number(teamId)}.svg`;
-const headshotUrl = playerId => `https://img.mlbstatic.com/mlb-photos/image/upload/w_240,q_auto:best/v1/people/${Number(playerId)}/headshot/67/current`;
+const headshotUrl = playerId => `https://img.mlbstatic.com/mlb-photos/image/upload/w_240,q_auto:best/v1/people/${Number(playerId)}/headshot/silo/current`;
 const teamColors = Object.freeze({
   108: '#ba0021', 109: '#a71930', 110: '#df4601', 111: '#bd3039', 112: '#0e3386',
   113: '#c6011f', 114: '#e31937', 115: '#33006f', 116: '#0c2340', 117: '#002d62',
@@ -57,7 +57,7 @@ function pitcherCard(starter, side) {
   const meta = starter
     ? [starter.throws ? `${starter.throws}HP` : '', starter.jerseyNumber ? `#${starter.jerseyNumber}` : ''].filter(Boolean).join('  /  ')
     : '予告先発未定';
-  return `<div class="game-pitcher game-pitcher-${side}">
+  return `<div class="game-pitcher game-pitcher-${side}${starter ? '' : ' game-pitcher-no-starter'}">
     <div class="game-pitcher-photo${photo ? ' has-photo' : ''}">${photo}<span class="game-pitcher-fallback">${fallback}</span></div>
     <div class="game-pitcher-copy"><strong>${escapeHtml(starter?.name ?? 'TBD')}</strong><span>${escapeHtml(meta)}</span></div>
   </div>`;
@@ -87,6 +87,7 @@ function renderGames() {
     card.tabIndex = 0; card.setAttribute('role', 'button');
     const ready = game.lineupStatus === 'available';
     card.innerHTML = `<div class="game-card-accent" aria-hidden="true"><span></span><span></span></div>
+      <div class="game-watermarks" aria-hidden="true"><img class="game-watermark" src="${teamLogoUrl(game.away.id)}" alt=""/><img class="game-watermark" src="${teamLogoUrl(game.home.id)}" alt=""/></div>
       <div class="game-card-top"><div class="game-status ${ready ? 'game-status-ready' : 'game-status-pending'}"><span></span>${escapeHtml(statusLabel(game))}</div></div>
       <div class="game-teams">
         <div class="game-team game-team-away"><img class="game-team-logo" src="${teamLogoUrl(game.away.id)}" alt="" loading="lazy"/><div class="game-team-code">${escapeHtml(game.away.code)}</div></div>
@@ -100,6 +101,7 @@ function renderGames() {
       </div>
       <div class="game-footer"><div class="game-time">${escapeHtml(game.time)}</div><div class="game-venue">${escapeHtml(game.venue)}</div></div>`;
     card.querySelectorAll('.game-team-logo').forEach(logo => logo.addEventListener('error', () => { logo.hidden = true; }, { once: true }));
+    card.querySelectorAll('.game-watermark').forEach(logo => logo.addEventListener('error', () => { logo.hidden = true; }, { once: true }));
     card.querySelectorAll('.game-pitcher-image').forEach(photo => photo.addEventListener('error', () => { photo.hidden = true; photo.closest('.game-pitcher-photo').classList.add('photo-missing'); }, { once: true }));
     const open = () => navigate(`#lineup/${game.gamePk}?date=${state.selectedDate}`);
     card.addEventListener('click', open); card.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') open(); });
