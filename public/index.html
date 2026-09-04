@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MLB LINEUP GENERATOR</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+
+  <main id="app">
+
+    <section id="login-view" class="view view-active login-view">
+      <div class="login-stadium" aria-hidden="true"></div>
+
+      <div class="login-collage" aria-hidden="true">
+        <div class="player-visual ari" style="--photo:url('./assets/login/ari.webp')"></div>
+        <div class="player-visual ath" style="--photo:url('./assets/login/ath.webp')"></div>
+        <div class="player-visual atl" style="--photo:url('./assets/login/atl.webp')"></div>
+        <div class="player-visual bal" style="--photo:url('./assets/login/bal.webp')"></div>
+        <div class="player-visual bos" style="--photo:url('./assets/login/bos.webp')"></div>
+        <div class="player-visual chc" style="--photo:url('./assets/login/chc.webp')"></div>
+        <div class="player-visual cws" style="--photo:url('./assets/login/cws.webp')"></div>
+        <div class="player-visual cin" style="--photo:url('./assets/login/cin.webp')"></div>
+        <div class="player-visual cle" style="--photo:url('./assets/login/cle.webp')"></div>
+        <div class="player-visual col" style="--photo:url('./assets/login/col.webp')"></div>
+        <div class="player-visual det" style="--photo:url('./assets/login/det.webp')"></div>
+        <div class="player-visual hou" style="--photo:url('./assets/login/hou.webp')"></div>
+        <div class="player-visual kc" style="--photo:url('./assets/login/kc.webp')"></div>
+        <div class="player-visual laa" style="--photo:url('./assets/login/laa.webp')"></div>
+        <div class="player-visual lad" style="--photo:url('./assets/login/lad.webp')"></div>
+        <div class="player-visual mia" style="--photo:url('./assets/login/mia.webp')"></div>
+        <div class="player-visual mil" style="--photo:url('./assets/login/mil.webp')"></div>
+        <div class="player-visual min" style="--photo:url('./assets/login/min.webp')"></div>
+        <div class="player-visual nym" style="--photo:url('./assets/login/nym.webp')"></div>
+        <div class="player-visual nyy" style="--photo:url('./assets/login/nyy.webp')"></div>
+        <div class="player-visual phi" style="--photo:url('./assets/login/phi.webp')"></div>
+        <div class="player-visual pit" style="--photo:url('./assets/login/pit.webp')"></div>
+        <div class="player-visual sd" style="--photo:url('./assets/login/sd.webp')"></div>
+        <div class="player-visual sea" style="--photo:url('./assets/login/sea.webp')"></div>
+        <div class="player-visual sf" style="--photo:url('./assets/login/sf.webp')"></div>
+        <div class="player-visual stl" style="--photo:url('./assets/login/stl.webp')"></div>
+        <div class="player-visual tb" style="--photo:url('./assets/login/tb.webp')"></div>
+        <div class="player-visual tex" style="--photo:url('./assets/login/tex.webp')"></div>
+        <div class="player-visual tor" style="--photo:url('./assets/login/tor.webp')"></div>
+        <div class="player-visual wsh" style="--photo:url('./assets/login/wsh.webp')"></div>
+      </div>
+
+      <div class="login-vignette" aria-hidden="true"></div>
+      <div class="login-brand">SPOTV</div>
+
+      <div class="login-content">
+        <p class="login-season">MAJOR LEAGUE BASEBALL</p>
+        <h1 class="login-title"><span>MLB</span><span>LINEUP</span><span>GENERATOR</span></h1>
+        <div class="login-rule" aria-hidden="true"><span></span></div>
+        <p class="login-subtitle">BROADCAST LINEUP WORKFLOW</p>
+
+        <form id="login-form" class="login-form">
+          <label class="login-field">
+            <span>PASSWORD</span>
+            <input id="password-input" type="password" autocomplete="current-password" aria-label="PASSWORD" />
+          </label>
+          <button type="submit">ENTER <span aria-hidden="true">→</span></button>
+        </form>
+        <p id="login-message" class="login-message" aria-live="polite"></p>
+      </div>
+    </section>
+
+
+    <section id="games-view" class="view games-view">
+      <header class="app-header">
+        <div>
+          <div class="app-brand-small">SPOTV</div>
+          <div class="app-title-small">MLB LINEUP GENERATOR</div>
+        </div>
+
+        <div class="header-date" id="header-date"></div>
+      </header>
+
+      <div class="page-shell">
+        <div class="page-heading">
+          <p class="eyebrow">TODAY'S GAMES</p>
+          <h2>担当カードを選択してください</h2>
+        </div>
+
+        <div id="games-grid" class="games-grid"></div>
+      </div>
+    </section>
+
+
+    <section id="lineup-view" class="view lineup-view">
+      <header class="app-header">
+        <button id="back-to-games" class="back-button">
+          ← TODAY'S GAMES
+        </button>
+
+        <div class="app-title-small">
+          MLB LINEUP GENERATOR
+        </div>
+
+        <div></div>
+      </header>
+
+      <div class="page-shell">
+
+        <div class="match-header">
+          <div>
+            <p class="eyebrow">STARTING LINEUP</p>
+            <h2 id="match-title">STL @ LAD</h2>
+          </div>
+
+          <div class="match-meta">
+            <span id="match-time"></span>
+            <span id="match-venue"></span>
+          </div>
+        </div>
+
+
+        <div class="starter-row">
+
+          <div class="starter-card">
+            <div class="starter-label">AWAY STARTER</div>
+            <div id="away-starter-name" class="starter-name"></div>
+            <div id="away-starter-meta" class="starter-meta"></div>
+          </div>
+
+          <div class="starter-card">
+            <div class="starter-label">HOME STARTER</div>
+            <div id="home-starter-name" class="starter-name"></div>
+            <div id="home-starter-meta" class="starter-meta"></div>
+          </div>
+
+        </div>
+
+
+        <div class="lineup-grid">
+
+          <section class="team-lineup">
+            <div class="team-lineup-header">
+              <div>
+                <div class="team-side-label">AWAY</div>
+                <h3 id="away-team-name"></h3>
+              </div>
+              <div id="away-team-code" class="team-code"></div>
+            </div>
+
+            <div id="away-lineup-list" class="lineup-list"></div>
+          </section>
+
+
+          <section class="team-lineup">
+            <div class="team-lineup-header">
+              <div>
+                <div class="team-side-label">HOME</div>
+                <h3 id="home-team-name"></h3>
+              </div>
+              <div id="home-team-code" class="team-code"></div>
+            </div>
+
+            <div id="home-lineup-list" class="lineup-list"></div>
+          </section>
+
+        </div>
+
+
+        <div class="output-bar">
+          <div>
+            <div class="output-label">LINEUP READY</div>
+            <div class="output-copy">
+              内容を確認してExcelを生成してください
+            </div>
+          </div>
+
+          <button id="excel-output-button" class="excel-output-button">
+            EXCEL OUTPUT
+          </button>
+        </div>
+
+        <p id="output-message" class="output-message"></p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "spotv-lineup-generator",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/run-tests.mjs",
+    "test:integrated": "node tests/validate-integrated-lineup.mjs",
+    "parse:spotv": "node scripts/parse-spotv-readings.mjs",
+    "build:dictionary": "node scripts/build-player-dictionary.mjs",
+    "generate:lineup": "node scripts/generate-lineup-xlsx.mjs",
+    "start": "node server.mjs"
+  }
+}

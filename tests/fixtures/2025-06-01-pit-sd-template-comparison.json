@@ -1,0 +1,443 @@
+{
+  "fixturePath": "/private/tmp/spotv-lineup-api-test/tests/fixtures/2025-06-01-pit-sd.json",
+  "snapshotPath": "/private/tmp/spotv-lineup-api-test/template-snapshot.json",
+  "comparableCount": 26,
+  "matchedCount": 10,
+  "matchRate": 38.46,
+  "comparisons": [
+    {
+      "field": "gameDateET",
+      "api": "2025-06-01, 17:10",
+      "excel": "2025-06-01, 17:10",
+      "comparable": true,
+      "match": true
+    },
+    {
+      "field": "venue",
+      "api": "Petco Park",
+      "excel": "Petco Park",
+      "comparable": true,
+      "match": true
+    },
+    {
+      "field": "awayTeam",
+      "api": "Pittsburgh Pirates",
+      "excel": "Pittsburgh Pirates",
+      "comparable": true,
+      "match": true
+    },
+    {
+      "field": "homeTeam",
+      "api": "San Diego Padres",
+      "excel": "San Diego Padres",
+      "comparable": true,
+      "match": true
+    },
+    {
+      "field": "awayStartingPitcher",
+      "api": "Andrew Heaney",
+      "excel": "Andrew Heaney",
+      "comparable": true,
+      "match": true
+    },
+    {
+      "field": "awayStartingPitcherJersey",
+      "api": "45",
+      "excel": "45",
+      "comparable": true,
+      "match": true
+    },
+    {
+      "field": "away.1.position",
+      "api": "CF",
+      "excel": "SS",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "away.1.fullName",
+      "api": "Oneil Cruz",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.1.jersey",
+      "api": "15",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.2.position",
+      "api": "DH",
+      "excel": "RF",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "away.2.fullName",
+      "api": "Andrew McCutchen",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.2.jersey",
+      "api": "22",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.3.position",
+      "api": "RF",
+      "excel": "1B",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "away.3.fullName",
+      "api": "Bryan Reynolds",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.3.jersey",
+      "api": "10",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.4.position",
+      "api": "1B",
+      "excel": "LF",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "away.4.fullName",
+      "api": "Spencer Horwitz",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.4.jersey",
+      "api": "2",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.5.position",
+      "api": "3B",
+      "excel": "DH",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "away.5.fullName",
+      "api": "Ke'Bryan Hayes",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.5.jersey",
+      "api": "13",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.6.position",
+      "api": "2B",
+      "excel": "3B",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "away.6.fullName",
+      "api": "Adam Frazier",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.6.jersey",
+      "api": "26",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.7.position",
+      "api": "LF",
+      "excel": "C",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "away.7.fullName",
+      "api": "Tommy Pham",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.7.jersey",
+      "api": "28",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.8.position",
+      "api": "C",
+      "excel": "2B",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "away.8.fullName",
+      "api": "Endy Rodríguez",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.8.jersey",
+      "api": "5",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.9.position",
+      "api": "SS",
+      "excel": "CF",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "away.9.fullName",
+      "api": "Isiah Kiner-Falefa",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "away.9.jersey",
+      "api": "7",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "homeStartingPitcher",
+      "api": "Randy Vásquez",
+      "excel": "Randy Vásquez",
+      "comparable": true,
+      "match": true
+    },
+    {
+      "field": "homeStartingPitcherJersey",
+      "api": "98",
+      "excel": "98",
+      "comparable": true,
+      "match": true
+    },
+    {
+      "field": "home.1.position",
+      "api": "RF",
+      "excel": "LF",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "home.1.fullName",
+      "api": "Fernando Tatis Jr.",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.1.jersey",
+      "api": "23",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.2.position",
+      "api": "1B",
+      "excel": "DH",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "home.2.fullName",
+      "api": "Luis Arraez",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.2.jersey",
+      "api": "4",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.3.position",
+      "api": "3B",
+      "excel": "3B",
+      "comparable": true,
+      "match": true
+    },
+    {
+      "field": "home.3.fullName",
+      "api": "Manny Machado",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.3.jersey",
+      "api": "13",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.4.position",
+      "api": "CF",
+      "excel": "RF",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "home.4.fullName",
+      "api": "Jackson Merrill",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.4.jersey",
+      "api": "3",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.5.position",
+      "api": "LF",
+      "excel": "SS",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "home.5.fullName",
+      "api": "Gavin Sheets",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.5.jersey",
+      "api": "30",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.6.position",
+      "api": "DH",
+      "excel": "1B",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "home.6.fullName",
+      "api": "Xander Bogaerts",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.6.jersey",
+      "api": "2",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.7.position",
+      "api": "2B",
+      "excel": "2B",
+      "comparable": true,
+      "match": true
+    },
+    {
+      "field": "home.7.fullName",
+      "api": "Jake Cronenworth",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.7.jersey",
+      "api": "9",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.8.position",
+      "api": "SS",
+      "excel": "C",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "home.8.fullName",
+      "api": "Jose Iglesias",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.8.jersey",
+      "api": "7",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.9.position",
+      "api": "C",
+      "excel": "CF",
+      "comparable": true,
+      "match": false
+    },
+    {
+      "field": "home.9.fullName",
+      "api": "Martín Maldonado",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    },
+    {
+      "field": "home.9.jersey",
+      "api": "15",
+      "excel": null,
+      "comparable": false,
+      "match": null
+    }
+  ]
+}

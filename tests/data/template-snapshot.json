@@ -1,0 +1,40 @@
+{
+  "source": "/Users/hiramotoakihiro/Desktop/0602_PIT@SD_スタメン表.xlsx",
+  "dateText": "6/1 5:10pm ET.",
+  "easternDateKey": "2025-06-01, 17:10",
+  "venueJapanese": "ペトコ・パーク",
+  "venueEnglish": "Petco Park",
+  "awayJapanese": "ピッツバーグ・パイレーツ",
+  "awayEnglish": "Pittsburgh Pirates",
+  "homeJapanese": "サンディエゴ・パドレス",
+  "homeEnglish": "San Diego Padres",
+  "startingPitchers": {
+    "away": {"japanese":"アンドリュー・ヒーニー","english":"Andrew Heaney","jersey":"45","hand":"L"},
+    "home": {"japanese":"ランディ・バスケス","english":"Randy Vásquez","jersey":"98","hand":"R"}
+  },
+  "lineups": {
+    "away": [
+      {"order":1,"position":"SS","fullName":null,"jersey":null},
+      {"order":2,"position":"RF","fullName":null,"jersey":null},
+      {"order":3,"position":"1B","fullName":null,"jersey":null},
+      {"order":4,"position":"LF","fullName":null,"jersey":null},
+      {"order":5,"position":"DH","fullName":null,"jersey":null},
+      {"order":6,"position":"3B","fullName":null,"jersey":null},
+      {"order":7,"position":"C","fullName":null,"jersey":null},
+      {"order":8,"position":"2B","fullName":null,"jersey":null},
+      {"order":9,"position":"CF","fullName":null,"jersey":null}
+    ],
+    "home": [
+      {"order":1,"position":"LF","fullName":null,"jersey":null},
+      {"order":2,"position":"DH","fullName":null,"jersey":null},
+      {"order":3,"position":"3B","fullName":null,"jersey":null},
+      {"order":4,"position":"RF","fullName":null,"jersey":null},
+      {"order":5,"position":"SS","fullName":null,"jersey":null},
+      {"order":6,"position":"1B","fullName":null,"jersey":null},
+      {"order":7,"position":"2B","fullName":null,"jersey":null},
+      {"order":8,"position":"C","fullName":null,"jersey":null},
+      {"order":9,"position":"CF","fullName":null,"jersey":null}
+    ]
+  },
+  "note": "Starting-lineup name and jersey cells are blank. Position/hand values are formula-derived from helper paste columns containing NYM/BOS sample lineups, not PIT/SD player names."
+}

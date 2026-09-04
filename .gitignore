@@ -1,0 +1,10 @@
+private/
+outputs/
+SPOTV読み表*.xlsx
+*.DS_Store
+node_modules/
+.env
+.env.local
+
+# runtime/ is intentionally required by the deployed private repository.
+# NEVER make this repository public: it contains SPOTV-derived runtime data/template.

@@ -1,0 +1,184 @@
+{
+  "sheets": [
+    {
+      "team": "BAL",
+      "teamName": "ボルティモア・オリオールズ",
+      "venueName": "オリオール・パーク・アット・カムデンヤーズ",
+      "playerCount": 47
+    },
+    {
+      "team": "BOS",
+      "teamName": "ボストン・レッドソックス",
+      "venueName": "フェンウェイ・パーク",
+      "playerCount": 47
+    },
+    {
+      "team": "NYY",
+      "teamName": "ニューヨーク・ヤンキース",
+      "venueName": "ヤンキー・スタジアム",
+      "playerCount": 44
+    },
+    {
+      "team": "TB",
+      "teamName": "タンパベイ・レイズ",
+      "venueName": "トロピカーナ・フィールド",
+      "playerCount": 45
+    },
+    {
+      "team": "TOR",
+      "teamName": "トロント・ブルージェイズ",
+      "venueName": "ロジャース・センター",
+      "playerCount": 50
+    },
+    {
+      "team": "CWS",
+      "teamName": "シカゴ・ホワイトソックス",
+      "venueName": "レイト・フィールド",
+      "playerCount": 47
+    },
+    {
+      "team": "CLE",
+      "teamName": "クリーブランド・ガーディアンズ",
+      "venueName": "プログレッシブ・フィールド",
+      "playerCount": 40
+    },
+    {
+      "team": "DET",
+      "teamName": "デトロイト・タイガース",
+      "venueName": "コメリカ・パーク",
+      "playerCount": 49
+    },
+    {
+      "team": "KC",
+      "teamName": "カンザスシティ・ロイヤルズ",
+      "venueName": "カウフマン・スタジアム",
+      "playerCount": 49
+    },
+    {
+      "team": "MIN",
+      "teamName": "ミネソタ・ツインズ",
+      "venueName": "ターゲット・フィールド",
+      "playerCount": 47
+    },
+    {
+      "team": "ATH",
+      "teamName": "アスレチックス",
+      "venueName": "サターヘルス・パーク",
+      "playerCount": 50
+    },
+    {
+      "team": "HOU",
+      "teamName": "ヒューストン・アストロズ",
+      "venueName": "ダイキン・パーク",
+      "playerCount": 43
+    },
+    {
+      "team": "LAA",
+      "teamName": "ロサンゼルス・エンゼルス",
+      "venueName": "エンゼル・スタジアム",
+      "playerCount": 45
+    },
+    {
+      "team": "SEA",
+      "teamName": "シアトル・マリナーズ",
+      "venueName": "T-モバイル・パーク",
+      "playerCount": 45
+    },
+    {
+      "team": "TEX",
+      "teamName": "テキサス・レンジャーズ",
+      "venueName": "グローブライフ・フィールド",
+      "playerCount": 44
+    },
+    {
+      "team": "ATL",
+      "teamName": "アトランタ・ブレーブス",
+      "venueName": "トゥルイスト・パーク",
+      "playerCount": 44
+    },
+    {
+      "team": "MIA",
+      "teamName": "マイアミ・マーリンズ",
+      "venueName": "ローンデポ・パーク",
+      "playerCount": 45
+    },
+    {
+      "team": "NYM",
+      "teamName": "ニューヨーク・メッツ",
+      "venueName": "シティ・フィールド",
+      "playerCount": 44
+    },
+    {
+      "team": "PHI",
+      "teamName": "フィラデルフィア・フィリーズ",
+      "venueName": "シチズンズバンク・パーク",
+      "playerCount": 45
+    },
+    {
+      "team": "WSH",
+      "teamName": "ワシントン・ナショナルズ",
+      "venueName": "ナショナルズ・パーク",
+      "playerCount": 47
+    },
+    {
+      "team": "CHC",
+      "teamName": "シカゴ・カブス",
+      "venueName": "リグレー・フィールド",
+      "playerCount": 49
+    },
+    {
+      "team": "CIN",
+      "teamName": "シンシナティ・レッズ",
+      "venueName": "グレートアメリカン・ボールパーク",
+      "playerCount": 43
+    },
+    {
+      "team": "MIL",
+      "teamName": "ミルウォーキー・ブリュワーズ",
+      "venueName": "アメリカンファミリー・フィールド",
+      "playerCount": 44
+    },
+    {
+      "team": "PIT",
+      "teamName": "ピッツバーグ・パイレーツ",
+      "venueName": "PNCパーク",
+      "playerCount": 42
+    },
+    {
+      "team": "STL",
+      "teamName": "セントルイス・カージナルス",
+      "venueName": "ブッシュ・スタジアム",
+      "playerCount": 41
+    },
+    {
+      "team": "AZ",
+      "teamName": "アリゾナ・ダイヤモンドバックス",
+      "venueName": "チェイス・フィールド",
+      "playerCount": 46
+    },
+    {
+      "team": "COL",
+      "teamName": "コロラド・ロッキーズ",
+      "venueName": "クアーズ・フィールド",
+      "playerCount": 46
+    },
+    {
+      "team": "LAD",
+      "teamName": "ロサンゼルス・ドジャース",
+      "venueName": "ドジャー・スタジアム",
+      "playerCount": 48
+    },
+    {
+      "team": "SD",
+      "teamName": "サンディエゴ・パドレス",
+      "venueName": "ペトコ・パーク",
+      "playerCount": 47
+    },
+    {
+      "team": "SF",
+      "teamName": "サンフランシスコ・ジャイアンツ",
+      "venueName": "オラクル・パーク",
+      "playerCount": 51
+    }
+  ]
+}

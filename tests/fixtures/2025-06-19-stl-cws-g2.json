@@ -1,0 +1,481 @@
+{
+  "gamePk": 777458,
+  "officialDate": "2025-06-19",
+  "gameDate": "2025-06-19T18:15:00Z",
+  "venue": {
+    "id": 4,
+    "name": "Rate Field"
+  },
+  "status": {
+    "abstractGameState": "Final",
+    "codedGameState": "F",
+    "detailedState": "Final",
+    "statusCode": "F",
+    "startTimeTBD": true,
+    "abstractGameCode": "F"
+  },
+  "doubleHeader": "Y",
+  "gameNumber": 2,
+  "away": {
+    "id": 138,
+    "name": "St. Louis Cardinals"
+  },
+  "home": {
+    "id": 145,
+    "name": "Chicago White Sox"
+  },
+  "probablePitchers": {
+    "away": {
+      "playerId": 700241,
+      "fullName": "Michael McGreevy"
+    },
+    "home": {
+      "playerId": 678024,
+      "fullName": "Mike Vasil"
+    }
+  },
+  "actualStartingPitchers": {
+    "away": {
+      "playerId": 700241,
+      "fullName": "Michael McGreevy",
+      "batSide": {
+        "code": "L",
+        "description": "Left"
+      },
+      "pitchHand": {
+        "code": "R",
+        "description": "Right"
+      },
+      "jerseyNumber": null,
+      "starter": true
+    },
+    "home": {
+      "playerId": 678024,
+      "fullName": "Mike Vasil",
+      "batSide": {
+        "code": "L",
+        "description": "Left"
+      },
+      "pitchHand": {
+        "code": "R",
+        "description": "Right"
+      },
+      "jerseyNumber": "61",
+      "starter": true
+    }
+  },
+  "startingLineups": {
+    "away": [
+      {
+        "battingOrder": 1,
+        "playerId": 680977,
+        "fullName": "Brendan Donovan",
+        "batSide": {
+          "code": "L",
+          "description": "Left"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "33",
+        "position": {
+          "code": "4",
+          "abbreviation": "2B",
+          "name": "Second Base"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "100"
+      },
+      {
+        "battingOrder": 2,
+        "playerId": 575929,
+        "fullName": "Willson Contreras",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "40",
+        "position": {
+          "code": "3",
+          "abbreviation": "1B",
+          "name": "First Base"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "200"
+      },
+      {
+        "battingOrder": 3,
+        "playerId": 676475,
+        "fullName": "Alec Burleson",
+        "batSide": {
+          "code": "L",
+          "description": "Left"
+        },
+        "pitchHand": {
+          "code": "L",
+          "description": "Left"
+        },
+        "jerseyNumber": "41",
+        "position": {
+          "code": "3",
+          "abbreviation": "1B",
+          "name": "First Base"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "300"
+      },
+      {
+        "battingOrder": 4,
+        "playerId": 571448,
+        "fullName": "Nolan Arenado",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "28",
+        "position": {
+          "code": "5",
+          "abbreviation": "3B",
+          "name": "Third Base"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "400"
+      },
+      {
+        "battingOrder": 5,
+        "playerId": 663457,
+        "fullName": "Lars Nootbaar",
+        "batSide": {
+          "code": "L",
+          "description": "Left"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "21",
+        "position": {
+          "code": "7",
+          "abbreviation": "LF",
+          "name": "Outfielder"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "500"
+      },
+      {
+        "battingOrder": 6,
+        "playerId": 669357,
+        "fullName": "Nolan Gorman",
+        "batSide": {
+          "code": "L",
+          "description": "Left"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "16",
+        "position": {
+          "code": "10",
+          "abbreviation": "DH",
+          "name": "Designated Hitter"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "600"
+      },
+      {
+        "battingOrder": 7,
+        "playerId": 686780,
+        "fullName": "Pedro Pagés",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "43",
+        "position": {
+          "code": "2",
+          "abbreviation": "C",
+          "name": "Catcher"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "700"
+      },
+      {
+        "battingOrder": 8,
+        "playerId": 676480,
+        "fullName": "José Barrero",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "27",
+        "position": {
+          "code": "6",
+          "abbreviation": "SS",
+          "name": "Shortstop"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "800"
+      },
+      {
+        "battingOrder": 9,
+        "playerId": 687363,
+        "fullName": "Victor Scott II",
+        "batSide": {
+          "code": "L",
+          "description": "Left"
+        },
+        "pitchHand": {
+          "code": "L",
+          "description": "Left"
+        },
+        "jerseyNumber": "11",
+        "position": {
+          "code": "8",
+          "abbreviation": "CF",
+          "name": "Outfielder"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "900"
+      }
+    ],
+    "home": [
+      {
+        "battingOrder": 1,
+        "playerId": 805367,
+        "fullName": "Chase Meidroth",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "10",
+        "position": {
+          "code": "6",
+          "abbreviation": "SS",
+          "name": "Shortstop"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "100"
+      },
+      {
+        "battingOrder": 2,
+        "playerId": 643217,
+        "fullName": "Andrew Benintendi",
+        "batSide": {
+          "code": "L",
+          "description": "Left"
+        },
+        "pitchHand": {
+          "code": "L",
+          "description": "Left"
+        },
+        "jerseyNumber": "23",
+        "position": {
+          "code": "7",
+          "abbreviation": "LF",
+          "name": "Outfielder"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "200"
+      },
+      {
+        "battingOrder": 3,
+        "playerId": 678246,
+        "fullName": "Miguel Vargas",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "20",
+        "position": {
+          "code": "5",
+          "abbreviation": "3B",
+          "name": "Third Base"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "300"
+      },
+      {
+        "battingOrder": 4,
+        "playerId": 700337,
+        "fullName": "Edgar Quero",
+        "batSide": {
+          "code": "S",
+          "description": "Switch"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "7",
+        "position": {
+          "code": "2",
+          "abbreviation": "C",
+          "name": "Catcher"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "400"
+      },
+      {
+        "battingOrder": 5,
+        "playerId": 672820,
+        "fullName": "Lenyn Sosa",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "50",
+        "position": {
+          "code": "10",
+          "abbreviation": "DH",
+          "name": "Designated Hitter"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "500"
+      },
+      {
+        "battingOrder": 6,
+        "playerId": 676116,
+        "fullName": "Ryan Noda",
+        "batSide": {
+          "code": "L",
+          "description": "Left"
+        },
+        "pitchHand": {
+          "code": "L",
+          "description": "Left"
+        },
+        "jerseyNumber": "29",
+        "position": {
+          "code": "3",
+          "abbreviation": "1B",
+          "name": "First Base"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "600"
+      },
+      {
+        "battingOrder": 7,
+        "playerId": 596103,
+        "fullName": "Austin Slater",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "15",
+        "position": {
+          "code": "9",
+          "abbreviation": "RF",
+          "name": "Outfielder"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "700"
+      },
+      {
+        "battingOrder": 8,
+        "playerId": 668942,
+        "fullName": "Josh Rojas",
+        "batSide": {
+          "code": "L",
+          "description": "Left"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "5",
+        "position": {
+          "code": "4",
+          "abbreviation": "2B",
+          "name": "Second Base"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "800"
+      },
+      {
+        "battingOrder": 9,
+        "playerId": 572191,
+        "fullName": "Michael A. Taylor",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "21",
+        "position": {
+          "code": "8",
+          "abbreviation": "CF",
+          "name": "Outfielder"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "900"
+      }
+    ]
+  },
+  "lineupAnnouncementEvidence": {
+    "awayInitialSlots": [
+      "100",
+      "200",
+      "300",
+      "400",
+      "500",
+      "600",
+      "700",
+      "800",
+      "900"
+    ],
+    "homeInitialSlots": [
+      "100",
+      "200",
+      "300",
+      "400",
+      "500",
+      "600",
+      "700",
+      "800",
+      "900"
+    ]
+  },
+  "rawSourceInfo": {
+    "schedule": "https://statsapi.mlb.com/api/v1/schedule",
+    "liveFeed": "https://statsapi.mlb.com/api/v1.1/game/777458/feed/live",
+    "boxscore": "https://statsapi.mlb.com/api/v1/game/777458/boxscore",
+    "extractionRule": "Initial hitters are player records whose battingOrder is exactly 100,200,...,900; current battingOrder arrays are not used after substitutions."
+  }
+}

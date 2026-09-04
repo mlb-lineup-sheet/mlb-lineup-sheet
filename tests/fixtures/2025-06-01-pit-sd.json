@@ -1,0 +1,481 @@
+{
+  "gamePk": 777681,
+  "officialDate": "2025-06-01",
+  "gameDate": "2025-06-01T21:10:00Z",
+  "venue": {
+    "id": 2680,
+    "name": "Petco Park"
+  },
+  "status": {
+    "abstractGameState": "Final",
+    "codedGameState": "F",
+    "detailedState": "Final",
+    "statusCode": "F",
+    "startTimeTBD": false,
+    "abstractGameCode": "F"
+  },
+  "doubleHeader": "N",
+  "gameNumber": 1,
+  "away": {
+    "id": 134,
+    "name": "Pittsburgh Pirates"
+  },
+  "home": {
+    "id": 135,
+    "name": "San Diego Padres"
+  },
+  "probablePitchers": {
+    "away": {
+      "playerId": 571760,
+      "fullName": "Andrew Heaney"
+    },
+    "home": {
+      "playerId": 681190,
+      "fullName": "Randy Vásquez"
+    }
+  },
+  "actualStartingPitchers": {
+    "away": {
+      "playerId": 571760,
+      "fullName": "Andrew Heaney",
+      "batSide": {
+        "code": "L",
+        "description": "Left"
+      },
+      "pitchHand": {
+        "code": "L",
+        "description": "Left"
+      },
+      "jerseyNumber": "45",
+      "starter": true
+    },
+    "home": {
+      "playerId": 681190,
+      "fullName": "Randy Vásquez",
+      "batSide": {
+        "code": "R",
+        "description": "Right"
+      },
+      "pitchHand": {
+        "code": "R",
+        "description": "Right"
+      },
+      "jerseyNumber": "98",
+      "starter": true
+    }
+  },
+  "startingLineups": {
+    "away": [
+      {
+        "battingOrder": 1,
+        "playerId": 665833,
+        "fullName": "Oneil Cruz",
+        "batSide": {
+          "code": "L",
+          "description": "Left"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "15",
+        "position": {
+          "code": "8",
+          "abbreviation": "CF",
+          "name": "Outfielder"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "100"
+      },
+      {
+        "battingOrder": 2,
+        "playerId": 457705,
+        "fullName": "Andrew McCutchen",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "22",
+        "position": {
+          "code": "10",
+          "abbreviation": "DH",
+          "name": "Designated Hitter"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "200"
+      },
+      {
+        "battingOrder": 3,
+        "playerId": 668804,
+        "fullName": "Bryan Reynolds",
+        "batSide": {
+          "code": "S",
+          "description": "Switch"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "10",
+        "position": {
+          "code": "9",
+          "abbreviation": "RF",
+          "name": "Outfielder"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "300"
+      },
+      {
+        "battingOrder": 4,
+        "playerId": 687462,
+        "fullName": "Spencer Horwitz",
+        "batSide": {
+          "code": "L",
+          "description": "Left"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "2",
+        "position": {
+          "code": "3",
+          "abbreviation": "1B",
+          "name": "First Base"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "400"
+      },
+      {
+        "battingOrder": 5,
+        "playerId": 663647,
+        "fullName": "Ke'Bryan Hayes",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "13",
+        "position": {
+          "code": "5",
+          "abbreviation": "3B",
+          "name": "Third Base"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "500"
+      },
+      {
+        "battingOrder": 6,
+        "playerId": 624428,
+        "fullName": "Adam Frazier",
+        "batSide": {
+          "code": "L",
+          "description": "Left"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "26",
+        "position": {
+          "code": "4",
+          "abbreviation": "2B",
+          "name": "Second Base"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "600"
+      },
+      {
+        "battingOrder": 7,
+        "playerId": 502054,
+        "fullName": "Tommy Pham",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "28",
+        "position": {
+          "code": "7",
+          "abbreviation": "LF",
+          "name": "Outfielder"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "700"
+      },
+      {
+        "battingOrder": 8,
+        "playerId": 682848,
+        "fullName": "Endy Rodríguez",
+        "batSide": {
+          "code": "S",
+          "description": "Switch"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "5",
+        "position": {
+          "code": "2",
+          "abbreviation": "C",
+          "name": "Catcher"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "800"
+      },
+      {
+        "battingOrder": 9,
+        "playerId": 643396,
+        "fullName": "Isiah Kiner-Falefa",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "7",
+        "position": {
+          "code": "6",
+          "abbreviation": "SS",
+          "name": "Shortstop"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "900"
+      }
+    ],
+    "home": [
+      {
+        "battingOrder": 1,
+        "playerId": 665487,
+        "fullName": "Fernando Tatis Jr.",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "23",
+        "position": {
+          "code": "9",
+          "abbreviation": "RF",
+          "name": "Outfielder"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "100"
+      },
+      {
+        "battingOrder": 2,
+        "playerId": 650333,
+        "fullName": "Luis Arraez",
+        "batSide": {
+          "code": "L",
+          "description": "Left"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "4",
+        "position": {
+          "code": "3",
+          "abbreviation": "1B",
+          "name": "First Base"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "200"
+      },
+      {
+        "battingOrder": 3,
+        "playerId": 592518,
+        "fullName": "Manny Machado",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "13",
+        "position": {
+          "code": "5",
+          "abbreviation": "3B",
+          "name": "Third Base"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "300"
+      },
+      {
+        "battingOrder": 4,
+        "playerId": 701538,
+        "fullName": "Jackson Merrill",
+        "batSide": {
+          "code": "L",
+          "description": "Left"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "3",
+        "position": {
+          "code": "8",
+          "abbreviation": "CF",
+          "name": "Outfielder"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "400"
+      },
+      {
+        "battingOrder": 5,
+        "playerId": 657757,
+        "fullName": "Gavin Sheets",
+        "batSide": {
+          "code": "L",
+          "description": "Left"
+        },
+        "pitchHand": {
+          "code": "L",
+          "description": "Left"
+        },
+        "jerseyNumber": "30",
+        "position": {
+          "code": "7",
+          "abbreviation": "LF",
+          "name": "Outfielder"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "500"
+      },
+      {
+        "battingOrder": 6,
+        "playerId": 593428,
+        "fullName": "Xander Bogaerts",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "2",
+        "position": {
+          "code": "10",
+          "abbreviation": "DH",
+          "name": "Designated Hitter"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "600"
+      },
+      {
+        "battingOrder": 7,
+        "playerId": 630105,
+        "fullName": "Jake Cronenworth",
+        "batSide": {
+          "code": "L",
+          "description": "Left"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "9",
+        "position": {
+          "code": "4",
+          "abbreviation": "2B",
+          "name": "Second Base"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "700"
+      },
+      {
+        "battingOrder": 8,
+        "playerId": 578428,
+        "fullName": "Jose Iglesias",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "7",
+        "position": {
+          "code": "6",
+          "abbreviation": "SS",
+          "name": "Shortstop"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "800"
+      },
+      {
+        "battingOrder": 9,
+        "playerId": 455117,
+        "fullName": "Martín Maldonado",
+        "batSide": {
+          "code": "R",
+          "description": "Right"
+        },
+        "pitchHand": {
+          "code": "R",
+          "description": "Right"
+        },
+        "jerseyNumber": "15",
+        "position": {
+          "code": "2",
+          "abbreviation": "C",
+          "name": "Catcher"
+        },
+        "starter": true,
+        "sourceBattingOrderCode": "900"
+      }
+    ]
+  },
+  "lineupAnnouncementEvidence": {
+    "awayInitialSlots": [
+      "100",
+      "200",
+      "300",
+      "400",
+      "500",
+      "600",
+      "700",
+      "800",
+      "900"
+    ],
+    "homeInitialSlots": [
+      "100",
+      "200",
+      "300",
+      "400",
+      "500",
+      "600",
+      "700",
+      "800",
+      "900"
+    ]
+  },
+  "rawSourceInfo": {
+    "schedule": "https://statsapi.mlb.com/api/v1/schedule",
+    "liveFeed": "https://statsapi.mlb.com/api/v1.1/game/777681/feed/live",
+    "boxscore": "https://statsapi.mlb.com/api/v1/game/777681/boxscore",
+    "extractionRule": "Initial hitters are player records whose battingOrder is exactly 100,200,...,900; current battingOrder arrays are not used after substitutions."
+  }
+}
