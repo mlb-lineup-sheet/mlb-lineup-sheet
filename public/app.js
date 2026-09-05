@@ -1,5 +1,15 @@
 const views = { login: document.getElementById('login-view'), games: document.getElementById('games-view'), lineup: document.getElementById('lineup-view') };
 const state = { authenticated: false, games: [], currentGame: null, selectedDate: null };
+const sessionIdleMs = 15 * 60 * 1000;
+let sessionExpiryTimer;
+
+function armSessionExpiry() {
+  clearTimeout(sessionExpiryTimer);
+  sessionExpiryTimer = setTimeout(() => {
+    state.authenticated = false;
+    showView('login');
+  }, sessionIdleMs);
+}
 
 function showView(name) {
   Object.values(views).forEach(view => view.classList.remove('view-active'));
@@ -24,17 +34,38 @@ async function api(url, options = {}) {
   const data = (response.headers.get('content-type') ?? '').includes('application/json') ? await response.json() : null;
   if (response.status === 401 && !['/api/login', '/api/session'].includes(url)) { state.authenticated = false; showView('login'); }
   if (!response.ok) throw new Error(data?.error ?? `HTTP ${response.status}`);
+  if (state.authenticated) armSessionExpiry();
   return data;
 }
 
 const passwordInput = document.getElementById('password-input');
 const loginMessage = document.getElementById('login-message');
+const enablePasswordInput = () => { passwordInput.readOnly = false; };
+passwordInput.addEventListener('pointerdown', enablePasswordInput);
+passwordInput.addEventListener('focus', enablePasswordInput);
 document.getElementById('login-form').addEventListener('submit', async event => {
   event.preventDefault(); loginMessage.textContent = '';
+  const submittedPassword = passwordInput.value;
+  passwordInput.value = '';
+  passwordInput.readOnly = true;
   try {
-    await api('/api/login', { method: 'POST', body: JSON.stringify({ password: passwordInput.value }) });
-    passwordInput.value = ''; state.authenticated = true; await restoreRoute({ replace: true });
-  } catch (error) { loginMessage.textContent = error.message; }
+    await api('/api/login', { method: 'POST', body: JSON.stringify({ password: submittedPassword }) });
+    state.authenticated = true; armSessionExpiry(); await restoreRoute({ replace: true });
+  } catch (error) {
+    passwordInput.readOnly = false;
+    loginMessage.textContent = error.message;
+  }
+});
+
+document.addEventListener('visibilitychange', async () => {
+  if (document.visibilityState !== 'visible' || !state.authenticated) return;
+  try {
+    state.authenticated = (await api('/api/session')).authenticated;
+  } catch {
+    state.authenticated = false;
+  }
+  if (state.authenticated) armSessionExpiry();
+  else showView('login');
 });
 
 const statusLabel = game => game.lineupStatus === 'available' ? 'スタメン情報取得済み' : 'スタメン未発表または取得不完全';
@@ -199,5 +230,6 @@ function escapeHtml(value) {
 
 (async () => {
   try { state.authenticated = (await api('/api/session')).authenticated; } catch { state.authenticated = false; }
+  if (state.authenticated) armSessionExpiry();
   await restoreRoute({ replace: !location.hash });
 })();

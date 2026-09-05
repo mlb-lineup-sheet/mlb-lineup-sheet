@@ -23,6 +23,7 @@ const port = Number(process.env.PORT ?? 4173);
 const host = process.env.HOST ?? '0.0.0.0';
 const trustProxy = process.env.TRUST_PROXY === '1';
 const secureCookies = process.env.NODE_ENV === 'production' || process.env.SECURE_COOKIES === '1';
+const sessionIdleMs = 15 * 60 * 1000;
 if (!password) throw new Error('SPOTV_LINEUP_PASSWORD is required');
 
 const sessions = new Map();
@@ -78,6 +79,7 @@ function session(req) {
     if (token) sessions.delete(token);
     return null;
   }
+  sessions.set(token, Date.now() + sessionIdleMs);
   return token;
 }
 
@@ -255,7 +257,7 @@ const server = http.createServer(async (req, res) => {
       }
       failedLogins.delete(ip);
       const token = crypto.randomBytes(32).toString('base64url');
-      sessions.set(token, Date.now() + 12 * 60 * 60 * 1000);
+      sessions.set(token, Date.now() + sessionIdleMs);
       const secure = secureCookies ? '; Secure' : '';
       return json(res, 200, { ok: true }, { 'Set-Cookie': `spotv_session=${token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=43200${secure}` });
     }
