@@ -82,67 +82,66 @@
       </header>
 
       <div class="page-shell">
-
-        <div class="match-header">
-          <div>
-            <p class="eyebrow">STARTING LINEUP</p>
-            <h2 id="match-title">STL @ LAD</h2>
+        <section id="matchup-hero" class="matchup-hero">
+          <div class="matchup-accent" aria-hidden="true"><span></span><span></span></div>
+          <div class="matchup-watermarks" aria-hidden="true">
+            <img id="away-hero-watermark" alt="" />
+            <img id="home-hero-watermark" alt="" />
           </div>
-
+          <div id="matchup-status" class="matchup-status"><span></span></div>
+          <div class="matchup-teams">
+            <div class="matchup-team matchup-team-away">
+              <img id="away-hero-logo" class="matchup-team-logo" alt="" />
+              <div><strong id="away-hero-code"></strong><small id="away-hero-name"></small></div>
+            </div>
+            <div class="matchup-team matchup-team-home">
+              <div><strong id="home-hero-code"></strong><small id="home-hero-name"></small></div>
+              <img id="home-hero-logo" class="matchup-team-logo" alt="" />
+            </div>
+          </div>
+          <div class="matchup-pitchers">
+            <div class="matchup-pitcher">
+              <div class="matchup-pitcher-photo"><img id="away-starter-photo" alt="" /><span>TBD</span></div>
+              <div id="away-starter-name" class="starter-name"></div>
+              <div id="away-starter-meta" class="starter-meta"></div>
+            </div>
+            <div class="matchup-vs">VS</div>
+            <div class="matchup-pitcher">
+              <div class="matchup-pitcher-photo"><img id="home-starter-photo" alt="" /><span>TBD</span></div>
+              <div id="home-starter-name" class="starter-name"></div>
+              <div id="home-starter-meta" class="starter-meta"></div>
+            </div>
+          </div>
           <div class="match-meta">
-            <span id="match-time"></span>
+            <strong id="match-time"></strong>
             <span id="match-venue"></span>
           </div>
+        </section>
+
+        <div class="lineup-section-heading">
+          <p class="eyebrow">STARTING LINEUP</p>
+          <h2>スターティングラインナップ</h2>
         </div>
-
-
-        <div class="starter-row">
-
-          <div class="starter-card">
-            <div class="starter-label">AWAY STARTER</div>
-            <div id="away-starter-name" class="starter-name"></div>
-            <div id="away-starter-meta" class="starter-meta"></div>
-          </div>
-
-          <div class="starter-card">
-            <div class="starter-label">HOME STARTER</div>
-            <div id="home-starter-name" class="starter-name"></div>
-            <div id="home-starter-meta" class="starter-meta"></div>
-          </div>
-
-        </div>
-
-
         <div class="lineup-grid">
-
           <section class="team-lineup">
+            <div class="lineup-board-accent" aria-hidden="true"></div>
+            <img id="away-board-watermark" class="lineup-board-watermark" alt="" aria-hidden="true" />
             <div class="team-lineup-header">
-              <div>
-                <div class="team-side-label">AWAY</div>
-                <h3 id="away-team-name"></h3>
-              </div>
-              <div id="away-team-code" class="team-code"></div>
+              <img id="away-board-logo" class="lineup-board-logo" alt="" />
+              <div><div id="away-team-code" class="team-code"></div><h3 id="away-team-name"></h3></div>
             </div>
-
             <div id="away-lineup-list" class="lineup-list"></div>
           </section>
-
-
           <section class="team-lineup">
+            <div class="lineup-board-accent" aria-hidden="true"></div>
+            <img id="home-board-watermark" class="lineup-board-watermark" alt="" aria-hidden="true" />
             <div class="team-lineup-header">
-              <div>
-                <div class="team-side-label">HOME</div>
-                <h3 id="home-team-name"></h3>
-              </div>
-              <div id="home-team-code" class="team-code"></div>
+              <img id="home-board-logo" class="lineup-board-logo" alt="" />
+              <div><div id="home-team-code" class="team-code"></div><h3 id="home-team-name"></h3></div>
             </div>
-
             <div id="home-lineup-list" class="lineup-list"></div>
           </section>
-
         </div>
-
-
         <div class="output-bar">
           <div>
             <div class="output-label">LINEUP READY</div>

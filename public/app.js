@@ -148,17 +148,38 @@ async function openGame(gamePk) {
 }
 
 function renderGame(game) {
-  document.getElementById('match-title').textContent = `${game.away.code} @ ${game.home.code}`;
   document.getElementById('match-time').textContent = game.time; document.getElementById('match-venue').textContent = game.venue;
+  const hero = document.getElementById('matchup-hero');
+  hero.style.setProperty('--away-color', teamColor(game.away.id));
+  hero.style.setProperty('--home-color', teamColor(game.home.id));
+  const ready = game.lineupStatus === 'available';
+  const heroStatus = document.getElementById('matchup-status');
+  heroStatus.className = `matchup-status ${ready ? 'game-status-ready' : 'game-status-pending'}`;
+  heroStatus.innerHTML = `<span></span>${escapeHtml(statusLabel(game))}`;
   for (const side of ['away', 'home']) {
+    const logoUrl = teamLogoUrl(game[side].id);
+    document.getElementById(`${side}-hero-code`).textContent = game[side].code;
+    document.getElementById(`${side}-hero-name`).textContent = game[side].name;
     document.getElementById(`${side}-team-name`).textContent = game[side].name;
     document.getElementById(`${side}-team-code`).textContent = game[side].code;
+    const board = document.querySelector(`.team-lineup:${side === 'away' ? 'first-child' : 'last-child'}`);
+    board.style.setProperty('--team-color', teamColor(game[side].id));
+    for (const id of [`${side}-hero-logo`, `${side}-hero-watermark`, `${side}-board-logo`, `${side}-board-watermark`]) {
+      const image = document.getElementById(id);
+      image.hidden = false; image.src = logoUrl;
+      image.onerror = () => { image.hidden = true; };
+    }
     const starter = game[side].starter;
     document.getElementById(`${side}-starter-name`).textContent = starter?.name ?? 'TBD';
     document.getElementById(`${side}-starter-meta`).textContent = starter ? `${starter.jerseyNumber ? `#${starter.jerseyNumber} / ` : ''}${starter.throws ? `${starter.throws}HP` : ''}` : '';
+    const starterPhoto = document.getElementById(`${side}-starter-photo`);
+    starterPhoto.hidden = !starter?.playerId;
+    if (starter?.playerId) {
+      starterPhoto.src = headshotUrl(starter.playerId);
+      starterPhoto.onerror = () => { starterPhoto.hidden = true; };
+    }
     renderLineup(document.getElementById(`${side}-lineup-list`), game[side].lineup);
   }
-  const ready = game.lineupStatus === 'available';
   document.getElementById('excel-output-button').disabled = !ready;
   document.querySelector('.output-label').textContent = ready ? 'LINEUP READY' : 'LINEUP PENDING';
   document.getElementById('output-message').textContent = ready ? '' : game.lineupMessage;
@@ -172,8 +193,8 @@ function renderLineup(container, lineup) {
     const nameContent = player.spotvFound
       ? `<div class="player-name-wrap"><div class="player-name">${escapeHtml(player.name)}</div></div>`
       : `<div class="player-name-wrap"><input class="player-name-input" data-player-id="${player.playerId}" data-original-name="${escapeHtml(player.name)}" value="${escapeHtml(player.name)}" aria-label="${escapeHtml(player.name)} のSPOTV表記"/><div class="player-warning">SPOTV表記未登録 / 編集可能</div></div>`;
-    row.innerHTML = `<div class="batting-order">${player.battingOrder}</div><div class="position">${escapeHtml(player.position ?? '--')}</div>
-      <div class="jersey-number">${player.jerseyNumber ? `#${escapeHtml(player.jerseyNumber)}` : '--'}</div>${nameContent}<div class="bats">${escapeHtml(player.bats ?? '--')}</div>`;
+    row.innerHTML = `<div class="batting-order">${String(player.battingOrder).padStart(2, '0')}</div>
+      <div class="lineup-player-main">${nameContent}<div class="lineup-player-details"><span class="position">${escapeHtml(player.position ?? '--')}</span><span class="jersey-number">${player.jerseyNumber ? `#${escapeHtml(player.jerseyNumber)}` : '--'}</span><span class="bats">${escapeHtml(player.bats ?? '--')}</span></div></div>`;
     const input = row.querySelector('.player-name-input');
     if (input) input.addEventListener('input', () => {
       row.querySelector('.player-warning').textContent = input.value.trim() && input.value.trim() !== input.dataset.originalName
