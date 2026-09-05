@@ -159,7 +159,6 @@ function renderGame(game) {
   for (const side of ['away', 'home']) {
     const logoUrl = teamLogoUrl(game[side].id);
     document.getElementById(`${side}-hero-code`).textContent = game[side].code;
-    document.getElementById(`${side}-board-code`).textContent = game[side].code;
     document.getElementById(`${side}-hero-name`).textContent = game[side].name;
     document.getElementById(`${side}-team-name`).textContent = game[side].spotvName ?? game[side].name;
     const board = document.querySelector(`.team-lineup:${side === 'away' ? 'first-child' : 'last-child'}`);

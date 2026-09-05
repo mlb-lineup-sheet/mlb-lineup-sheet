@@ -1112,18 +1112,10 @@ button {
   min-width: 0;
 }
 
-.lineup-board-code {
-  color: #0b1d2f;
-  font-size: 27px;
-  font-weight: 950;
-  line-height: 1;
-  letter-spacing: -.04em;
-}
-
 .team-lineup-header h3 {
   margin: 0;
   color: #0b1d2f;
-  font-size: clamp(15px, 1.35vw, 19px);
+  font-size: clamp(20px, 1.8vw, 26px);
   font-weight: 950;
   line-height: 1.05;
   letter-spacing: -.035em;
@@ -1361,8 +1353,7 @@ button {
   .team-lineup-header { min-height: 90px; padding: 20px 22px 15px; }
   .lineup-board-logo { width: 52px; height: 52px; }
   .team-lineup-header > div { gap: 9px; }
-  .lineup-board-code { font-size: 23px; }
-  .team-lineup-header h3 { font-size: 15px; }
+  .team-lineup-header h3 { font-size: 21px; }
   .lineup-list { padding-inline: 14px; }
   .lineup-player { min-height: 67px; grid-template-columns: 22px minmax(0, 1fr) 30px 27px 26px; gap: 7px; padding-inline: 5px; }
   .batting-order { font-size: 15px; }
