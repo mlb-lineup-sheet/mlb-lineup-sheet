@@ -238,6 +238,13 @@ button {
   background: linear-gradient(180deg, #35a7ff, #0961e1);
 }
 
+.login-form button.is-loading,
+.login-form button.is-loading:hover {
+  cursor: wait;
+  transform: none;
+  background: linear-gradient(180deg, #357cae, #174d83);
+}
+
 .login-copyright {
   position: absolute;
   z-index: 6;
@@ -257,6 +264,11 @@ button {
   margin: 13px auto 0;
   color: #ffd3cf;
   font-size: 12px;
+}
+
+.login-message-loading {
+  color: #d9efff;
+  font-weight: 800;
 }
 
 @keyframes login-rise {

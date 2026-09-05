@@ -40,20 +40,39 @@ async function api(url, options = {}) {
 
 const passwordInput = document.getElementById('password-input');
 const loginMessage = document.getElementById('login-message');
+const loginForm = document.getElementById('login-form');
+const loginButton = loginForm.querySelector('button[type="submit"]');
+const loginButtonLabel = loginButton.innerHTML;
 const enablePasswordInput = () => { passwordInput.readOnly = false; };
 passwordInput.addEventListener('pointerdown', enablePasswordInput);
 passwordInput.addEventListener('focus', enablePasswordInput);
-document.getElementById('login-form').addEventListener('submit', async event => {
-  event.preventDefault(); loginMessage.textContent = '';
+loginForm.addEventListener('submit', async event => {
+  event.preventDefault();
+  if (loginButton.disabled) return;
+  loginButton.disabled = true;
+  loginButton.classList.add('is-loading');
+  loginButton.textContent = 'ログイン中…';
+  loginMessage.className = 'login-message login-message-loading';
+  loginMessage.textContent = '認証しています。しばらくお待ちください…';
   const submittedPassword = passwordInput.value;
   passwordInput.value = '';
   passwordInput.readOnly = true;
   try {
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
     await api('/api/login', { method: 'POST', body: JSON.stringify({ password: submittedPassword }) });
-    state.authenticated = true; armSessionExpiry(); await restoreRoute({ replace: true });
+    state.authenticated = true;
+    armSessionExpiry();
+    loginMessage.textContent = '試合情報を読み込んでいます…';
+    await restoreRoute({ replace: true });
   } catch (error) {
     passwordInput.readOnly = false;
+    loginMessage.className = 'login-message';
     loginMessage.textContent = error.message;
+  } finally {
+    loginButton.disabled = false;
+    loginButton.classList.remove('is-loading');
+    loginButton.innerHTML = loginButtonLabel;
+    if (state.authenticated) loginMessage.textContent = '';
   }
 });
 
