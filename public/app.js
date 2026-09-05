@@ -37,7 +37,7 @@ document.getElementById('login-form').addEventListener('submit', async event => 
   } catch (error) { loginMessage.textContent = error.message; }
 });
 
-const statusLabel = game => game.lineupStatus === 'available' ? 'スタメン取得済み' : 'スタメン未発表または取得不完全';
+const statusLabel = game => game.lineupStatus === 'available' ? 'スタメン情報取得済み' : 'スタメン未発表または取得不完全';
 const teamLogoUrl = teamId => `https://www.mlbstatic.com/team-logos/${Number(teamId)}.svg`;
 const headshotUrl = playerId => `https://img.mlbstatic.com/mlb-photos/image/upload/w_240,q_auto:best/v1/people/${Number(playerId)}/headshot/silo/current`;
 const teamColors = Object.freeze({

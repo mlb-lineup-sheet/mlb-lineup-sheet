@@ -390,7 +390,7 @@ button {
   display: flex;
   align-items: center;
   gap: 0;
-  padding: 4px;
+  padding: 5px;
   border: 1px solid #dce3e9;
   border-radius: 8px;
   background: rgba(255, 255, 255, .82);
@@ -400,7 +400,7 @@ button {
 .date-nav-button,
 .today-button,
 .selected-date-control {
-  min-height: 38px;
+  min-height: 50px;
   border: 1px solid transparent;
   border-radius: 6px;
   background: transparent;
@@ -408,10 +408,10 @@ button {
 
 .date-nav-button,
 .today-button {
-  padding: 0 15px;
+  padding: 0 18px;
   color: var(--ink);
   font: inherit;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 900;
   letter-spacing: .06em;
   cursor: pointer;
@@ -427,15 +427,25 @@ button {
 .selected-date-control {
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 0 14px;
+  gap: 10px;
+  padding: 0 16px;
   border-color: #d6dfe7;
   background: white;
 }
 
+.date-timezone {
+  padding-right: 10px;
+  border-right: 1px solid #dde5eb;
+  color: #60707e;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  white-space: nowrap;
+}
+
 .date-control-icon {
   color: var(--blue);
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .selected-date-control input {
@@ -444,14 +454,14 @@ button {
   background: transparent;
   color: var(--ink);
   font: inherit;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 900;
   cursor: pointer;
 }
 
 .today-button {
   margin-left: 2px;
-  min-width: 72px;
+  min-width: 78px;
   border-color: #0a5e99;
   background: linear-gradient(135deg, #0b568c, #0873b7);
   color: white;
@@ -584,7 +594,21 @@ button {
   box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 13%, transparent);
 }
 
-.game-status-ready { color: #188052; }
+.game-status-ready {
+  color: #188052;
+  gap: 7px;
+  font-size: 12px;
+  letter-spacing: .055em;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .9);
+}
+
+.game-status-ready > span {
+  width: 9px;
+  height: 9px;
+  box-shadow:
+    0 0 0 3px color-mix(in srgb, currentColor 15%, transparent),
+    0 1px 4px rgba(24, 128, 82, .24);
+}
 .game-status-pending { color: #d57a00; }
 
 .loading-message,
@@ -706,7 +730,7 @@ button {
 .game-pitcher-copy {
   display: flex;
   min-width: 0;
-  min-height: 45px;
+  min-height: 51px;
   margin: 0 3px;
   padding: 5px 5px 2px;
   flex-direction: column;
@@ -721,11 +745,11 @@ button {
 .game-pitcher-copy strong {
   display: -webkit-box;
   overflow: hidden;
-  min-height: 15px;
-  max-height: 31px;
+  min-height: 18px;
+  max-height: 36px;
   color: #172431;
   max-width: 100%;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 950;
   line-height: 1.25;
   text-overflow: ellipsis;
@@ -735,10 +759,10 @@ button {
 }
 
 .game-pitcher-copy > span:last-child {
-  margin-top: 5px;
+  margin-top: 4px;
   color: #75828d;
-  font-size: 9px;
-  font-weight: 800;
+  font-size: 11px;
+  font-weight: 900;
 }
 
 .game-pitcher-no-starter .game-pitcher-copy strong {

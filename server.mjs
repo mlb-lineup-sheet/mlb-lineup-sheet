@@ -31,6 +31,7 @@ const downloads = new Map();
 const sourceCache = new Map();
 const dictionary = JSON.parse(await fs.readFile(dictionaryPath, 'utf8')).players;
 const spotvWorkbook = JSON.parse(await fs.readFile(businessNamesPath, 'utf8'));
+const spotvVenueNames = new Map((spotvWorkbook.sheets ?? []).map(sheet => [sheet.team, sheet.venueName]));
 let mlbPeople = [];
 try {
   const cacheFiles = (await fs.readdir(mlbCacheDir)).filter(file => /^players-\d{4}\.json$/.test(file)).sort();
@@ -117,6 +118,10 @@ function formatJstTime(gameDate) {
   }).format(new Date(gameDate)) + ' JST';
 }
 
+function venueView(homeTeamId, officialName = '') {
+  return spotvVenueNames.get(spotvTeamCode(homeTeamId)) || officialName;
+}
+
 function pitcherView(fixture, live, side) {
   const source = fixture.actualStartingPitchers?.[side] ?? fixture.probablePitchers?.[side];
   if (!source) return null;
@@ -149,7 +154,7 @@ function detailView(sources) {
   const homeCode = spotvTeamCode(fixture.home.id);
   return {
     gamePk: fixture.gamePk, gameDate: fixture.gameDate, time: formatJstTime(fixture.gameDate),
-    venue: fixture.venue.name, status: fixture.status, lineupStatus: fixture.lineupStatus,
+    venue: venueView(fixture.home.id, fixture.venue.name), status: fixture.status, lineupStatus: fixture.lineupStatus,
     lineupMessage: fixture.lineupStatus === 'available' ? 'スタメン取得済み' : 'スタメン未発表または取得不完全',
     away: { ...fixture.away, code: awayCode, starter: pitcherView(fixture, live, 'away'), lineup: lineupView(fixture.startingLineups.away) },
     home: { ...fixture.home, code: homeCode, starter: pitcherView(fixture, live, 'home'), lineup: lineupView(fixture.startingLineups.home) },
@@ -166,7 +171,8 @@ async function todayGames(date) {
       return detailView(sources);
     } catch (error) {
       return {
-        gamePk: game.gamePk, gameDate: game.gameDate, time: formatJstTime(game.gameDate), venue: game.venue?.name ?? '',
+        gamePk: game.gamePk, gameDate: game.gameDate, time: formatJstTime(game.gameDate),
+        venue: venueView(game.teams.home.team.id, game.venue?.name ?? ''),
         status: game.status, lineupStatus: 'incomplete', lineupMessage: 'スタメン未発表または取得不完全',
         away: { id: game.teams.away.team.id, code: spotvTeamCode(game.teams.away.team.id), name: game.teams.away.team.name },
         home: { id: game.teams.home.team.id, code: spotvTeamCode(game.teams.home.team.id), name: game.teams.home.team.name },
