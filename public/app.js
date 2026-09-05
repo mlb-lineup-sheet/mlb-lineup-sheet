@@ -54,12 +54,13 @@ function pitcherCard(starter, side) {
   const photo = starter?.playerId
     ? `<img class="game-pitcher-image" src="${headshotUrl(starter.playerId)}" alt="" loading="lazy"/>`
     : '';
-  const meta = starter
-    ? [starter.throws ? `${starter.throws}HP` : '', starter.jerseyNumber ? `#${starter.jerseyNumber}` : ''].filter(Boolean).join('  /  ')
-    : '予告先発未定';
+  const name = starter
+    ? `${starter.jerseyNumber ? `<span class="game-pitcher-jersey">${escapeHtml(starter.jerseyNumber)}</span>` : ''}${escapeHtml(starter.name)}`
+    : 'TBD';
+  const meta = starter ? (starter.throws ? `${starter.throws}HP` : '') : '予告先発未定';
   return `<div class="game-pitcher game-pitcher-${side}${starter ? '' : ' game-pitcher-no-starter'}">
     <div class="game-pitcher-photo${photo ? ' has-photo' : ''}">${photo}<span class="game-pitcher-fallback">${fallback}</span></div>
-    <div class="game-pitcher-copy"><strong>${escapeHtml(starter?.name ?? 'TBD')}</strong><span>${escapeHtml(meta)}</span></div>
+    <div class="game-pitcher-copy"><strong>${name}</strong><span>${escapeHtml(meta)}</span></div>
   </div>`;
 }
 const selectedDateInput = document.getElementById('selected-date');
