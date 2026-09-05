@@ -17,9 +17,9 @@ function showView(name) {
   window.scrollTo(0, 0);
 }
 
-const jstFormat = options => new Intl.DateTimeFormat('ja-JP', { timeZone: 'Asia/Tokyo', ...options }).format(new Date());
-function jstDateString() {
-  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+const easternFormat = options => new Intl.DateTimeFormat('ja-JP', { timeZone: 'America/New_York', ...options }).format(new Date());
+function mlbDateString() {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 }
 const validDateString = value => /^\d{4}-\d{2}-\d{2}$/.test(value ?? '') && !Number.isNaN(new Date(`${value}T00:00:00Z`).valueOf());
 function shiftDate(date, days) {
@@ -27,7 +27,7 @@ function shiftDate(date, days) {
   shifted.setUTCDate(shifted.getUTCDate() + days);
   return shifted.toISOString().slice(0, 10);
 }
-document.getElementById('header-date').textContent = jstFormat({ year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short' });
+document.getElementById('header-date').textContent = easternFormat({ year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short' });
 
 async function api(url, options = {}) {
   const response = await fetch(url, { ...options, headers: { 'Content-Type': 'application/json', ...(options.headers ?? {}) } });
@@ -116,10 +116,10 @@ function pitcherCard(starter, side) {
 const selectedDateInput = document.getElementById('selected-date');
 const todayButton = document.getElementById('today-date');
 
-async function loadGames(date = state.selectedDate ?? jstDateString()) {
-  state.selectedDate = validDateString(date) ? date : jstDateString();
+async function loadGames(date = state.selectedDate ?? mlbDateString()) {
+  state.selectedDate = validDateString(date) ? date : mlbDateString();
   selectedDateInput.value = state.selectedDate;
-  todayButton.disabled = state.selectedDate === jstDateString();
+  todayButton.disabled = state.selectedDate === mlbDateString();
   showView('games');
   const grid = document.getElementById('games-grid');
   grid.innerHTML = '<p class="loading-message">MLB公式データを取得しています…</p>';
@@ -257,20 +257,20 @@ async function restoreRoute({ replace = false } = {}) {
   if (!state.authenticated) return showView('login');
   const lineupMatch = location.hash.match(/^#lineup\/(\d+)(?:\?date=(\d{4}-\d{2}-\d{2}))?$/);
   if (lineupMatch) {
-    state.selectedDate = validDateString(lineupMatch[2]) ? lineupMatch[2] : jstDateString();
+    state.selectedDate = validDateString(lineupMatch[2]) ? lineupMatch[2] : mlbDateString();
     return openGame(Number(lineupMatch[1]));
   }
   const gamesMatch = location.hash.match(/^#games(?:\/(\d{4}-\d{2}-\d{2}))?$/);
-  const date = validDateString(gamesMatch?.[1]) ? gamesMatch[1] : jstDateString();
+  const date = validDateString(gamesMatch?.[1]) ? gamesMatch[1] : mlbDateString();
   const route = `#games/${date}`;
   if (replace || location.hash !== route) history.replaceState({ route, date }, '', route);
   return loadGames(date);
 }
 window.addEventListener('popstate', () => restoreRoute());
-document.getElementById('back-to-games').addEventListener('click', () => navigate(`#games/${state.selectedDate ?? jstDateString()}`));
+document.getElementById('back-to-games').addEventListener('click', () => navigate(`#games/${state.selectedDate ?? mlbDateString()}`));
 document.getElementById('previous-date').addEventListener('click', () => navigate(`#games/${shiftDate(state.selectedDate, -1)}`));
 document.getElementById('next-date').addEventListener('click', () => navigate(`#games/${shiftDate(state.selectedDate, 1)}`));
-todayButton.addEventListener('click', () => navigate(`#games/${jstDateString()}`));
+todayButton.addEventListener('click', () => navigate(`#games/${mlbDateString()}`));
 selectedDateInput.addEventListener('change', () => {
   if (validDateString(selectedDateInput.value)) navigate(`#games/${selectedDateInput.value}`);
 });

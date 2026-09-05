@@ -6,7 +6,7 @@ import { promisify } from 'node:util';
 import { normalizeName } from '../scripts/lib/name-normalization.mjs';
 import { buildDictionary, mergeMlbPeople, resolveDisplayName } from '../scripts/lib/player-dictionary.mjs';
 import { parseSpotvWorkbook } from '../scripts/lib/spotv-xlsx.mjs';
-import { buildGameFixture, gamesOnJstDate, jstDateString, scheduleQueryDates } from '../scripts/lib/mlb-game.mjs';
+import { buildGameFixture, easternDateString, gamesOnJstDate, gamesOnOfficialDate, jstDateString, scheduleQueryDates } from '../scripts/lib/mlb-game.mjs';
 
 const exec = promisify(execFile);
 const spotvPath = process.env.SPOTV_READINGS_PATH ?? '/Users/hiramotoakihiro/Desktop/SPOTV読み表.xlsx';
@@ -85,6 +85,15 @@ const boundarySchedule = { dates: [{ games: [
   { gamePk: 4, gameDate: '2026-09-04T15:00:00Z' },
 ] }] };
 assert.deepEqual(gamesOnJstDate(boundarySchedule, '2026-09-04').map(game => game.gamePk), [2, 3]);
+assert.equal(easternDateString(new Date('2026-09-03T03:59:59Z')), '2026-09-02');
+assert.equal(easternDateString(new Date('2026-09-03T04:00:00Z')), '2026-09-03');
+assert.equal(easternDateString(new Date('2026-12-01T04:59:59Z')), '2026-11-30');
+assert.equal(easternDateString(new Date('2026-12-01T05:00:00Z')), '2026-12-01');
+const officialDateSchedule = { dates: [
+  { date: '2026-09-03', games: [{ gamePk: 11, gameDate: '2026-09-04T02:10:00Z' }] },
+  { date: '2026-09-04', games: [{ gamePk: 12, gameDate: '2026-09-05T00:10:00Z' }] },
+] };
+assert.deepEqual(gamesOnOfficialDate(officialDateSchedule, '2026-09-03').map(game => game.gamePk), [11]);
 
 const [live823907, box823907, schedule823907] = await Promise.all(['live', 'boxscore', 'schedule'].map(async name =>
   JSON.parse(await fs.readFile(`private/cache/games/823907/${name}.json`, 'utf8'))

@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import { buildGameFixture, findScheduledGame, gamesOnJstDate, jstDateString, scheduleQueryDates } from './scripts/lib/mlb-game.mjs';
+import { buildGameFixture, easternDateString, findScheduledGame, gamesOnOfficialDate } from './scripts/lib/mlb-game.mjs';
 import { resolveDisplayName, mergeMlbPeople } from './scripts/lib/player-dictionary.mjs';
 import { spotvTeamCode } from './scripts/lib/mlb-team-map.mjs';
 import { buildTemplateInput, LINEUP_WRITE_ALLOWLIST } from './scripts/lib/template-lineup-input.mjs';
@@ -165,9 +165,8 @@ function detailView(sources) {
 }
 
 async function todayGames(date) {
-  const { startDate, endDate } = scheduleQueryDates(date);
-  const schedule = await fetchJson(`https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=${startDate}&endDate=${endDate}&hydrate=probablePitcher,team,venue`);
-  const games = gamesOnJstDate(schedule, date);
+  const schedule = await fetchJson(`https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=${date}&endDate=${date}&hydrate=probablePitcher,team,venue`);
+  const games = gamesOnOfficialDate(schedule, date);
   return Promise.all(games.map(async game => {
     try {
       const sources = await gameSources(game.gamePk);
@@ -266,9 +265,9 @@ const server = http.createServer(async (req, res) => {
     if (req.method === 'GET' && url.pathname === '/api/session') return json(res, 200, { authenticated: Boolean(session(req)) });
     if (url.pathname.startsWith('/api/') && !session(req)) return json(res, 401, { error: '認証が必要です' });
     if (req.method === 'GET' && url.pathname === '/api/games') {
-      const date = url.searchParams.get('date') ?? jstDateString();
-      try { scheduleQueryDates(date); }
-      catch { return json(res, 400, { error: 'dateはJSTのYYYY-MM-DD形式で指定してください' }); }
+      const date = url.searchParams.get('date') ?? easternDateString();
+      try { gamesOnOfficialDate({ dates: [] }, date); }
+      catch { return json(res, 400, { error: 'dateは現地日付のYYYY-MM-DD形式で指定してください' }); }
       return json(res, 200, { date, games: await todayGames(date) });
     }
     const gameMatch = url.pathname.match(/^\/api\/games\/(\d+)$/);

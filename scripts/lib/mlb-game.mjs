@@ -6,6 +6,12 @@ export function jstDateString(date = new Date()) {
   }).format(date);
 }
 
+export function easternDateString(date = new Date()) {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).format(date);
+}
+
 export function jstDayBounds(dateString) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(dateString)) throw new Error('date must be YYYY-MM-DD');
   const start = new Date(`${dateString}T00:00:00+09:00`);
@@ -25,6 +31,16 @@ export function gamesOnJstDate(schedule, dateString) {
   for (const game of schedule.dates?.flatMap(date => date.games ?? []) ?? []) {
     const instant = new Date(game.gameDate);
     if (instant >= start && instant < end) byGamePk.set(game.gamePk, game);
+  }
+  return [...byGamePk.values()].sort((a, b) => new Date(a.gameDate) - new Date(b.gameDate));
+}
+
+export function gamesOnOfficialDate(schedule, dateString) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(dateString)) throw new Error('date must be YYYY-MM-DD');
+  const byGamePk = new Map();
+  for (const date of schedule.dates ?? []) {
+    if (date.date !== dateString) continue;
+    for (const game of date.games ?? []) byGamePk.set(game.gamePk, game);
   }
   return [...byGamePk.values()].sort((a, b) => new Date(a.gameDate) - new Date(b.gameDate));
 }
