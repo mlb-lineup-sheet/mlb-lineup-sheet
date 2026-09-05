@@ -941,6 +941,30 @@ button {
   box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 13%, transparent);
 }
 
+.lineup-change-alert {
+  position: relative;
+  z-index: 3;
+  width: max-content;
+  margin: 2px auto 0;
+  color: #d71935;
+  font-size: 14px;
+  font-weight: 950;
+  letter-spacing: .08em;
+  text-shadow: 0 1px 0 #fff;
+  animation: lineup-change-blink .9s step-end infinite;
+}
+
+.lineup-change-alert[hidden] { display: none; }
+.lineup-change-alert.is-acknowledged { animation: none; }
+
+@keyframes lineup-change-blink {
+  50% { opacity: .18; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lineup-change-alert { animation: none; }
+}
+
 .matchup-teams {
   position: relative;
   z-index: 2;

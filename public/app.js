@@ -1,5 +1,5 @@
 const views = { login: document.getElementById('login-view'), games: document.getElementById('games-view'), lineup: document.getElementById('lineup-view') };
-const state = { authenticated: false, games: [], currentGame: null, selectedDate: null };
+const state = { authenticated: false, games: [], currentGame: null, selectedDate: null, lineupSnapshots: new Map(), lineupChanged: false };
 const sessionIdleMs = 15 * 60 * 1000;
 let sessionExpiryTimer;
 
@@ -162,8 +162,31 @@ function renderGames() {
 
 async function openGame(gamePk) {
   showView('lineup'); document.getElementById('output-message').textContent = 'MLB公式データを取得しています…';
-  try { state.currentGame = await api(`/api/games/${gamePk}`); renderGame(state.currentGame); }
+  try {
+    const game = await api(`/api/games/${gamePk}`);
+    const previous = state.lineupSnapshots.get(gamePk);
+    const current = lineupSnapshot(game);
+    state.lineupChanged = Boolean(previous?.ready && current.ready && previous.signature !== current.signature);
+    state.lineupSnapshots.set(gamePk, current);
+    state.currentGame = game;
+    renderGame(game);
+  }
   catch (error) { document.getElementById('output-message').textContent = error.message; }
+}
+
+function lineupSnapshot(game) {
+  const snapshotSide = side => ({
+    starterId: game[side].starter?.playerId ?? null,
+    lineup: (game[side].lineup ?? []).map(player => ({
+      playerId: player.playerId,
+      battingOrder: player.battingOrder,
+      position: player.position,
+    })),
+  });
+  return {
+    ready: game.lineupStatus === 'available',
+    signature: JSON.stringify({ away: snapshotSide('away'), home: snapshotSide('home') }),
+  };
 }
 
 function renderGame(game) {
@@ -175,6 +198,9 @@ function renderGame(game) {
   const heroStatus = document.getElementById('matchup-status');
   heroStatus.className = `matchup-status ${ready ? 'game-status-ready' : 'game-status-pending'}`;
   heroStatus.innerHTML = `<span></span>${escapeHtml(statusLabel(game))}`;
+  const changeAlert = document.getElementById('lineup-change-alert');
+  changeAlert.hidden = !state.lineupChanged;
+  changeAlert.classList.remove('is-acknowledged');
   for (const side of ['away', 'home']) {
     const logoUrl = teamLogoUrl(game[side].id);
     document.getElementById(`${side}-hero-code`).textContent = game[side].code;
@@ -259,6 +285,7 @@ document.getElementById('excel-output-button').addEventListener('click', async (
     const result = await api(`/api/games/${state.currentGame.gamePk}/excel`, { method: 'POST', body: JSON.stringify({ overrides }) });
     const link = document.createElement('a'); link.href = result.downloadUrl; link.download = result.filename; document.body.appendChild(link); link.click(); link.remove();
     message.textContent = `${result.filename} を生成しました。`;
+    document.getElementById('lineup-change-alert').classList.add('is-acknowledged');
   } catch (error) { message.textContent = error.message; }
   finally { button.disabled = false; }
 });
