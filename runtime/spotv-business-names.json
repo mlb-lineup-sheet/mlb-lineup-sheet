@@ -28,7 +28,7 @@
       "team": "TOR",
       "teamName": "トロント・ブルージェイズ",
       "venueName": "ロジャース・センター",
-      "playerCount": 50
+      "playerCount": 49
     },
     {
       "team": "CWS",
@@ -40,7 +40,7 @@
       "team": "CLE",
       "teamName": "クリーブランド・ガーディアンズ",
       "venueName": "プログレッシブ・フィールド",
-      "playerCount": 40
+      "playerCount": 41
     },
     {
       "team": "DET",
@@ -58,13 +58,13 @@
       "team": "MIN",
       "teamName": "ミネソタ・ツインズ",
       "venueName": "ターゲット・フィールド",
-      "playerCount": 47
+      "playerCount": 46
     },
     {
       "team": "ATH",
       "teamName": "アスレチックス",
       "venueName": "サターヘルス・パーク",
-      "playerCount": 50
+      "playerCount": 51
     },
     {
       "team": "HOU",
@@ -76,25 +76,25 @@
       "team": "LAA",
       "teamName": "ロサンゼルス・エンゼルス",
       "venueName": "エンゼル・スタジアム",
-      "playerCount": 45
+      "playerCount": 44
     },
     {
       "team": "SEA",
       "teamName": "シアトル・マリナーズ",
       "venueName": "T-モバイル・パーク",
-      "playerCount": 45
+      "playerCount": 46
     },
     {
       "team": "TEX",
       "teamName": "テキサス・レンジャーズ",
       "venueName": "グローブライフ・フィールド",
-      "playerCount": 44
+      "playerCount": 45
     },
     {
       "team": "ATL",
       "teamName": "アトランタ・ブレーブス",
       "venueName": "トゥルイスト・パーク",
-      "playerCount": 44
+      "playerCount": 47
     },
     {
       "team": "MIA",
@@ -118,7 +118,7 @@
       "team": "WSH",
       "teamName": "ワシントン・ナショナルズ",
       "venueName": "ナショナルズ・パーク",
-      "playerCount": 47
+      "playerCount": 48
     },
     {
       "team": "CHC",
@@ -130,7 +130,7 @@
       "team": "CIN",
       "teamName": "シンシナティ・レッズ",
       "venueName": "グレートアメリカン・ボールパーク",
-      "playerCount": 43
+      "playerCount": 44
     },
     {
       "team": "MIL",
@@ -142,7 +142,7 @@
       "team": "PIT",
       "teamName": "ピッツバーグ・パイレーツ",
       "venueName": "PNCパーク",
-      "playerCount": 42
+      "playerCount": 43
     },
     {
       "team": "STL",
@@ -154,7 +154,7 @@
       "team": "AZ",
       "teamName": "アリゾナ・ダイヤモンドバックス",
       "venueName": "チェイス・フィールド",
-      "playerCount": 46
+      "playerCount": 47
     },
     {
       "team": "COL",
@@ -166,19 +166,19 @@
       "team": "LAD",
       "teamName": "ロサンゼルス・ドジャース",
       "venueName": "ドジャー・スタジアム",
-      "playerCount": 48
+      "playerCount": 47
     },
     {
       "team": "SD",
       "teamName": "サンディエゴ・パドレス",
       "venueName": "ペトコ・パーク",
-      "playerCount": 47
+      "playerCount": 48
     },
     {
       "team": "SF",
       "teamName": "サンフランシスコ・ジャイアンツ",
       "venueName": "オラクル・パーク",
-      "playerCount": 51
+      "playerCount": 54
     }
   ]
 }

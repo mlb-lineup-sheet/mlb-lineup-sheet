@@ -14,7 +14,7 @@ const hash = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const beforeHash = hash(await fs.readFile(spotvPath));
 const parsed = parseSpotvWorkbook(spotvPath);
 assert.equal(parsed.sheetCount, 30);
-assert.equal(parsed.players.length, 1374);
+assert.equal(parsed.players.length, 1385);
 
 const cacheFiles = (await fs.readdir('private/cache/mlb')).filter(x => /^players-\d{4}\.json$/.test(x)).sort();
 const payloads = await Promise.all(cacheFiles.map(async file => {

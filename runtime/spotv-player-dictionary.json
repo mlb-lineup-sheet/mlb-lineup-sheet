@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "generatedAt": "2026-09-04T03:35:35.359Z",
-    "sourceSha256": "8d564890f3c3936fef588ecc7ef0c36e57738f02f5394d5432bcb11ac5dd10b3",
-    "sourcePlayerCount": 1374,
+    "generatedAt": "2026-09-05T22:03:07.482Z",
+    "sourceSha256": "f682d8ecb3a0f0550660fea359f25a66049169943230e63e796cb4a46948b566",
+    "sourcePlayerCount": 1385,
     "mlbUniquePlayerCount": 2048,
     "seasons": [
       2024,
@@ -11,7 +11,7 @@
     ],
     "autoConfirmedCount": 1335,
     "manualConfirmedCount": 2,
-    "unresolvedCount": 37
+    "unresolvedCount": 48
   },
   "players": {
     "434378": {
@@ -88,6 +88,17 @@
       "birthDate": "1989-01-24",
       "sourceTeam": "COL",
       "jerseyNumber": "62",
+      "status": "auto-confirmed",
+      "matchMethod": "normalized-name+birthDate"
+    },
+    "502054": {
+      "playerId": 502054,
+      "spotvName": "トミー・ファム",
+      "officialName": "Tommy Pham",
+      "spotvOfficialName": "Tommy Pham",
+      "birthDate": "1988-03-08",
+      "sourceTeam": "CWS",
+      "jerseyNumber": "21",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -223,6 +234,17 @@
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
+    "542194": {
+      "playerId": 542194,
+      "spotvName": "クリスチャン・ベサンコート",
+      "officialName": "Christian Bethancourt",
+      "spotvOfficialName": "Christian Bethancourt",
+      "birthDate": "1991-09-02",
+      "sourceTeam": "PIT",
+      "jerseyNumber": "60",
+      "status": "auto-confirmed",
+      "matchMethod": "normalized-name+birthDate"
+    },
     "542888": {
       "playerId": 542888,
       "spotvName": "ショーン・アームストロング",
@@ -344,6 +366,17 @@
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
+    "544150": {
+      "playerId": 544150,
+      "spotvName": "アルバート・スアレス",
+      "officialName": "Albert Suárez",
+      "spotvOfficialName": "Albert Suarez",
+      "birthDate": "1989-10-08",
+      "sourceTeam": "BAL",
+      "jerseyNumber": "49",
+      "status": "auto-confirmed",
+      "matchMethod": "normalized-name+birthDate"
+    },
     "545121": {
       "playerId": 545121,
       "spotvName": "イルデマロ・バルガス",
@@ -384,7 +417,7 @@
       "spotvOfficialName": "Michael Lorenzen",
       "birthDate": "1992-01-04",
       "sourceTeam": "TOR",
-      "jerseyNumber": null,
+      "jerseyNumber": "55",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -509,6 +542,17 @@
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
+    "571657": {
+      "playerId": 571657,
+      "spotvName": "カイル・ファーマー",
+      "officialName": "Kyle Farmer",
+      "spotvOfficialName": "Kyle Farmer",
+      "birthDate": "1990-08-17",
+      "sourceTeam": "ATL",
+      "jerseyNumber": "15",
+      "status": "auto-confirmed",
+      "matchMethod": "normalized-name+birthDate"
+    },
     "571771": {
       "playerId": 571771,
       "spotvName": "キケ・ヘルナンデス",
@@ -519,6 +563,17 @@
       "jerseyNumber": "8",
       "status": "manual-confirmed",
       "matchMethod": "manual-override"
+    },
+    "571882": {
+      "playerId": 571882,
+      "spotvName": "デレック・ロー",
+      "officialName": "Derek Law",
+      "spotvOfficialName": "Derek Law",
+      "birthDate": "1990-09-14",
+      "sourceTeam": "AZ",
+      "jerseyNumber": "38",
+      "status": "auto-confirmed",
+      "matchMethod": "normalized-name+birthDate"
     },
     "571912": {
       "playerId": 571912,
@@ -559,7 +614,7 @@
       "officialName": "Hoby Milner",
       "spotvOfficialName": "Hoby Milner",
       "birthDate": "1991-01-13",
-      "sourceTeam": "CHC",
+      "sourceTeam": "SEA",
       "jerseyNumber": "41",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
@@ -812,8 +867,8 @@
       "officialName": "Trevor Williams",
       "spotvOfficialName": "Trevor Williams",
       "birthDate": "1992-04-25",
-      "sourceTeam": "WSH",
-      "jerseyNumber": "32",
+      "sourceTeam": "TEX",
+      "jerseyNumber": "51",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -1785,6 +1840,17 @@
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
+    "622694": {
+      "playerId": 622694,
+      "spotvName": "エリーサー・ヘルナンデス",
+      "officialName": "Elieser Hernández",
+      "spotvOfficialName": "Elieser Hernandez",
+      "birthDate": "1995-05-03",
+      "sourceTeam": "ATL",
+      "jerseyNumber": "57",
+      "status": "auto-confirmed",
+      "matchMethod": "normalized-name+birthDate"
+    },
     "622761": {
       "playerId": 622761,
       "spotvName": "ホルヘ・マテオ",
@@ -1837,17 +1903,6 @@
       "birthDate": "1994-04-07",
       "sourceTeam": "HOU",
       "jerseyNumber": "71",
-      "status": "auto-confirmed",
-      "matchMethod": "normalized-name+birthDate"
-    },
-    "623437": {
-      "playerId": 623437,
-      "spotvName": "ジャスティン・トーパ",
-      "officialName": "Justin Topa",
-      "spotvOfficialName": "Justin Topa",
-      "birthDate": "1991-03-07",
-      "sourceTeam": "NYY",
-      "jerseyNumber": "56",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -2079,17 +2134,6 @@
       "birthDate": "1994-07-14",
       "sourceTeam": "TEX",
       "jerseyNumber": "13",
-      "status": "auto-confirmed",
-      "matchMethod": "normalized-name+birthDate"
-    },
-    "641312": {
-      "playerId": 641312,
-      "spotvName": "ショーン・アンダーソン",
-      "officialName": "Shaun Anderson",
-      "spotvOfficialName": "Shaun Anderson",
-      "birthDate": "1994-10-29",
-      "sourceTeam": "LAA",
-      "jerseyNumber": "64",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -2918,6 +2962,17 @@
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
+    "656413": {
+      "playerId": 656413,
+      "spotvName": "スチュアート・フェアチャイルド",
+      "officialName": "Stuart Fairchild",
+      "spotvOfficialName": "Stuart Fairchild",
+      "birthDate": "1996-03-17",
+      "sourceTeam": "SEA",
+      "jerseyNumber": "17",
+      "status": "auto-confirmed",
+      "matchMethod": "normalized-name+birthDate"
+    },
     "656427": {
       "playerId": 656427,
       "spotvName": "ジャック・フラハティ",
@@ -2926,17 +2981,6 @@
       "birthDate": "1995-10-15",
       "sourceTeam": "DET",
       "jerseyNumber": "9",
-      "status": "auto-confirmed",
-      "matchMethod": "normalized-name+birthDate"
-    },
-    "656457": {
-      "playerId": 656457,
-      "spotvName": "タイラー・ギルバート",
-      "officialName": "Tyler Gilbert",
-      "spotvOfficialName": "Tyler Gilbert",
-      "birthDate": "1993-12-22",
-      "sourceTeam": "CWS",
-      "jerseyNumber": "40",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -3047,17 +3091,6 @@
       "birthDate": "1995-12-25",
       "sourceTeam": "MIN",
       "jerseyNumber": "70",
-      "status": "auto-confirmed",
-      "matchMethod": "normalized-name+birthDate"
-    },
-    "656582": {
-      "playerId": 656582,
-      "spotvName": "コナー・ジョー",
-      "officialName": "Connor Joe",
-      "spotvOfficialName": "Connor Joe",
-      "birthDate": "1992-08-16",
-      "sourceTeam": "SEA",
-      "jerseyNumber": "9",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -3344,17 +3377,6 @@
       "birthDate": "1992-01-15",
       "sourceTeam": "COL",
       "jerseyNumber": "83",
-      "status": "auto-confirmed",
-      "matchMethod": "normalized-name+birthDate"
-    },
-    "657571": {
-      "playerId": 657571,
-      "spotvName": "ケイレブ・ファーガソン",
-      "officialName": "Caleb Ferguson",
-      "spotvOfficialName": "Caleb Ferguson",
-      "birthDate": "1996-07-02",
-      "sourceTeam": "STL",
-      "jerseyNumber": "54",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -3673,7 +3695,7 @@
       "spotvOfficialName": "Matt Waldron",
       "birthDate": "1996-09-26",
       "sourceTeam": "WSH",
-      "jerseyNumber": "55",
+      "jerseyNumber": "56",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -3707,17 +3729,6 @@
       "birthDate": "1993-09-30",
       "sourceTeam": "CHC",
       "jerseyNumber": "49",
-      "status": "auto-confirmed",
-      "matchMethod": "normalized-name+birthDate"
-    },
-    "663432": {
-      "playerId": 663432,
-      "spotvName": "タナー・レイニー",
-      "officialName": "Tanner Rainey",
-      "spotvOfficialName": "Tanner Rainey",
-      "birthDate": "1992-12-25",
-      "sourceTeam": "DET",
-      "jerseyNumber": "56",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -4139,17 +4150,6 @@
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
-    "663884": {
-      "playerId": 663884,
-      "spotvName": "ノーラン・キンガム",
-      "officialName": "Nolan Kingham",
-      "spotvOfficialName": "Nolan Kingham",
-      "birthDate": "1996-08-18",
-      "sourceTeam": "SEA",
-      "jerseyNumber": null,
-      "status": "auto-confirmed",
-      "matchMethod": "normalized-name+birthDate"
-    },
     "663886": {
       "playerId": 663886,
       "spotvName": "タイラー・スティーブンソン",
@@ -4234,7 +4234,7 @@
       "spotvOfficialName": "Richard Lovelady",
       "birthDate": "1995-07-07",
       "sourceTeam": "WSH",
-      "jerseyNumber": null,
+      "jerseyNumber": "55",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -4334,6 +4334,17 @@
       "birthDate": "1993-12-16",
       "sourceTeam": "MIA",
       "jerseyNumber": "29",
+      "status": "auto-confirmed",
+      "matchMethod": "normalized-name+birthDate"
+    },
+    "664129": {
+      "playerId": 664129,
+      "spotvName": "ジェフ・ハートリーブ",
+      "officialName": "Geoff Hartlieb",
+      "spotvOfficialName": "Geoff Hartlieb",
+      "birthDate": "1993-12-09",
+      "sourceTeam": "ATH",
+      "jerseyNumber": "31",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -4906,17 +4917,6 @@
       "birthDate": "1998-05-13",
       "sourceTeam": "COL",
       "jerseyNumber": "22",
-      "status": "auto-confirmed",
-      "matchMethod": "normalized-name+birthDate"
-    },
-    "666163": {
-      "playerId": 666163,
-      "spotvName": "ベン・ロートベット",
-      "officialName": "Ben Rortvedt",
-      "spotvOfficialName": "Ben Rortvedt",
-      "birthDate": "1997-09-25",
-      "sourceTeam": "LAD",
-      "jerseyNumber": "47",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -6345,8 +6345,8 @@
       "officialName": "John Schreiber",
       "spotvOfficialName": "John Schreiber",
       "birthDate": "1994-03-05",
-      "sourceTeam": "KC",
-      "jerseyNumber": "46",
+      "sourceTeam": "NYY",
+      "jerseyNumber": "56",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -6526,17 +6526,6 @@
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
-    "671083": {
-      "playerId": 671083,
-      "spotvName": "バディ・ケネディ",
-      "officialName": "Buddy Kennedy",
-      "spotvOfficialName": "Buddy Kennedy",
-      "birthDate": "1998-10-05",
-      "sourceTeam": "SF",
-      "jerseyNumber": "41",
-      "status": "auto-confirmed",
-      "matchMethod": "normalized-name+birthDate"
-    },
     "671096": {
       "playerId": 671096,
       "spotvName": "アンドリュー・アボット",
@@ -6622,6 +6611,17 @@
       "birthDate": "1999-09-07",
       "sourceTeam": "NYY",
       "jerseyNumber": "34",
+      "status": "auto-confirmed",
+      "matchMethod": "normalized-name+birthDate"
+    },
+    "671221": {
+      "playerId": 671221,
+      "spotvName": "ドリュー・ウォーターズ",
+      "officialName": "Drew Waters",
+      "spotvOfficialName": "Drew Waters",
+      "birthDate": "1998-12-30",
+      "sourceTeam": "KC",
+      "jerseyNumber": "8",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -6867,6 +6867,17 @@
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
+    "672578": {
+      "playerId": 672578,
+      "spotvName": "カルロス・ヘルナンデス",
+      "officialName": "Carlos Hernández",
+      "spotvOfficialName": "Carlos Hernandez",
+      "birthDate": "1997-03-11",
+      "sourceTeam": "CLE",
+      "jerseyNumber": "40",
+      "status": "auto-confirmed",
+      "matchMethod": "normalized-name+birthDate"
+    },
     "672580": {
       "playerId": 672580,
       "spotvName": "マイケル・ガルシア",
@@ -7016,7 +7027,7 @@
       "officialName": "Luis Robert Jr.",
       "spotvOfficialName": "Luis Robert Jr.",
       "birthDate": "1997-08-03",
-      "sourceTeam": "NYM",
+      "sourceTeam": "BAL",
       "jerseyNumber": "88",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
@@ -7230,14 +7241,14 @@
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
-    "675919": {
-      "playerId": 675919,
-      "spotvName": "ニック・ラケ",
-      "officialName": "Nick Raquet",
-      "spotvOfficialName": "Nick Raquet",
-      "birthDate": "1995-12-12",
-      "sourceTeam": "BAL",
-      "jerseyNumber": "72",
+    "675920": {
+      "playerId": 675920,
+      "spotvName": "セス・ロンズウェイ",
+      "officialName": "Seth Lonsway",
+      "spotvOfficialName": "Seth Lonsway",
+      "birthDate": "1998-10-07",
+      "sourceTeam": "SF",
+      "jerseyNumber": "86",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -7490,7 +7501,7 @@
       "spotvOfficialName": "Nolan Hoffman",
       "birthDate": "1997-08-09",
       "sourceTeam": "KC",
-      "jerseyNumber": null,
+      "jerseyNumber": "35",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -7623,17 +7634,6 @@
       "birthDate": "1996-02-19",
       "sourceTeam": "SD",
       "jerseyNumber": "39",
-      "status": "auto-confirmed",
-      "matchMethod": "normalized-name+birthDate"
-    },
-    "676679": {
-      "playerId": 676679,
-      "spotvName": "ルイス・バスケス",
-      "officialName": "Luis Vázquez",
-      "spotvOfficialName": "Luis Vazquez",
-      "birthDate": "1999-10-10",
-      "sourceTeam": "BAL",
-      "jerseyNumber": "52",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -8462,17 +8462,6 @@
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
-    "680573": {
-      "playerId": 680573,
-      "spotvName": "シメオン・ウッズ・リチャードソン",
-      "officialName": "Simeon Woods Richardson",
-      "spotvOfficialName": "Simeon Woods Richardson",
-      "birthDate": "2000-09-27",
-      "sourceTeam": "TOR",
-      "jerseyNumber": "10",
-      "status": "auto-confirmed",
-      "matchMethod": "normalized-name+birthDate"
-    },
     "680574": {
       "playerId": 680574,
       "spotvName": "マット・マクレーン",
@@ -8755,7 +8744,7 @@
       "spotvOfficialName": "Grant Holman",
       "birthDate": "2000-05-31",
       "sourceTeam": "PHI",
-      "jerseyNumber": null,
+      "jerseyNumber": "51",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -9470,7 +9459,7 @@
       "spotvOfficialName": "Wikelman Gonzalez",
       "birthDate": "2002-03-25",
       "sourceTeam": "MIA",
-      "jerseyNumber": null,
+      "jerseyNumber": "67",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -9536,7 +9525,7 @@
       "spotvOfficialName": "Juan Brito",
       "birthDate": "2001-09-24",
       "sourceTeam": "CIN",
-      "jerseyNumber": null,
+      "jerseyNumber": "46",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -10844,8 +10833,8 @@
       "officialName": "Cameron Weston",
       "spotvOfficialName": "Cameron Weston",
       "birthDate": "2000-08-27",
-      "sourceTeam": "BAL",
-      "jerseyNumber": "80",
+      "sourceTeam": "NYM",
+      "jerseyNumber": null,
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -12004,17 +11993,6 @@
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
-    "693459": {
-      "playerId": 693459,
-      "spotvName": "カイラー・フェドコ",
-      "officialName": "Kyler Fedko",
-      "spotvOfficialName": "Kyler Fedko",
-      "birthDate": "1999-09-21",
-      "sourceTeam": "MIN",
-      "jerseyNumber": "51",
-      "status": "auto-confirmed",
-      "matchMethod": "normalized-name+birthDate"
-    },
     "693645": {
       "playerId": 693645,
       "spotvName": "キャム・シュリットラー",
@@ -12703,7 +12681,7 @@
       "officialName": "Brett Harris",
       "spotvOfficialName": "Brett Harris",
       "birthDate": "1998-06-24",
-      "sourceTeam": "BOS",
+      "sourceTeam": "SF",
       "jerseyNumber": null,
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
@@ -13095,9 +13073,9 @@
     },
     "699024": {
       "playerId": 699024,
-      "spotvName": "レオナルド・バーナル",
+      "spotvName": "レオ・バーナル",
       "officialName": "Leo Bernal",
-      "spotvOfficialName": "Leonardo Bernal",
+      "spotvOfficialName": "Leo Bernal",
       "birthDate": "2004-02-13",
       "sourceTeam": "STL",
       "jerseyNumber": "13",
@@ -13123,6 +13101,17 @@
       "birthDate": "2003-11-16",
       "sourceTeam": "SD",
       "jerseyNumber": "72",
+      "status": "auto-confirmed",
+      "matchMethod": "normalized-name+birthDate"
+    },
+    "699151": {
+      "playerId": 699151,
+      "spotvName": "ジェディクソン・パイエズ",
+      "officialName": "Jedixson Paez",
+      "spotvOfficialName": "Jedixson Paez",
+      "birthDate": "2004-01-17",
+      "sourceTeam": "BOS",
+      "jerseyNumber": "65",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
@@ -14116,6 +14105,17 @@
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
+    "805074": {
+      "playerId": 805074,
+      "spotvName": "ジュニオール・マルテ",
+      "officialName": "Yunior Marte",
+      "spotvOfficialName": "Yunior Marte",
+      "birthDate": "2003-08-09",
+      "sourceTeam": "SF",
+      "jerseyNumber": "87",
+      "status": "auto-confirmed",
+      "matchMethod": "normalized-name+birthDate"
+    },
     "805123": {
       "playerId": 805123,
       "spotvName": "AJ・ブルーバー",
@@ -14413,6 +14413,17 @@
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
+    "807726": {
+      "playerId": 807726,
+      "spotvName": "ジョン・ペック",
+      "officialName": "John Peck",
+      "spotvOfficialName": "John Peck",
+      "birthDate": "2002-07-18",
+      "sourceTeam": "DET",
+      "jerseyNumber": "18",
+      "status": "auto-confirmed",
+      "matchMethod": "normalized-name+birthDate"
+    },
     "807727": {
       "playerId": 807727,
       "spotvName": "チャールズ・マカドゥー",
@@ -14509,17 +14520,6 @@
       "birthDate": "1998-08-17",
       "sourceTeam": "LAD",
       "jerseyNumber": "18",
-      "status": "auto-confirmed",
-      "matchMethod": "normalized-name+birthDate"
-    },
-    "808970": {
-      "playerId": 808970,
-      "spotvName": "高佑錫（コ・ウソク）",
-      "officialName": "Woo-Suk Go",
-      "spotvOfficialName": "Woo-Suk Go",
-      "birthDate": "1998-08-06",
-      "sourceTeam": "MIN",
-      "jerseyNumber": "1",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
