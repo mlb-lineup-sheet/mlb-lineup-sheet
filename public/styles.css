@@ -500,6 +500,7 @@ button {
 
 .game-card {
   position: relative;
+  cursor: pointer;
   min-height: 316px;
   padding: 15px 18px 0;
   overflow: hidden;
@@ -515,6 +516,10 @@ button {
     transform .18s ease,
     box-shadow .18s ease,
     border-color .18s ease;
+}
+
+.game-card:active {
+  transform: translateY(-1px) scale(.995);
 }
 
 .game-watermarks {
