@@ -829,18 +829,28 @@ button {
 
 .back-button {
   justify-self: start;
-  border: 0;
-  padding: 0;
-  background: transparent;
-  color: var(--muted);
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .08em;
+  min-height: 40px;
+  padding: 0 17px;
+  border: 1px solid #0b2944;
+  border-radius: 7px;
+  background: linear-gradient(180deg, #173e61, #0c2944);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: .055em;
+  box-shadow: 0 4px 12px rgba(9, 32, 53, .24);
+  transition: border-color .16s ease, background .16s ease, color .16s ease, transform .16s ease, box-shadow .16s ease;
 }
 
 .back-button:hover {
-  color: var(--ink);
+  border-color: #216a9d;
+  background: linear-gradient(180deg, #20577f, #103755);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(9, 32, 53, .3);
 }
+
+.back-button:focus-visible { outline: 3px solid rgba(22, 142, 255, .25); outline-offset: 2px; }
 
 .lineup-view .page-shell { padding-top: 28px; }
 
