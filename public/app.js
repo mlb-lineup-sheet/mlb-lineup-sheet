@@ -159,6 +159,7 @@ function renderGame(game) {
   for (const side of ['away', 'home']) {
     const logoUrl = teamLogoUrl(game[side].id);
     document.getElementById(`${side}-hero-code`).textContent = game[side].code;
+    document.getElementById(`${side}-board-code`).textContent = game[side].code;
     document.getElementById(`${side}-hero-name`).textContent = game[side].name;
     document.getElementById(`${side}-team-name`).textContent = game[side].spotvName ?? game[side].name;
     const board = document.querySelector(`.team-lineup:${side === 'away' ? 'first-child' : 'last-child'}`);
@@ -169,8 +170,8 @@ function renderGame(game) {
       image.onerror = () => { image.hidden = true; };
     }
     const starter = game[side].starter;
-    document.getElementById(`${side}-starter-name`).textContent = starter?.name ?? 'TBD';
-    document.getElementById(`${side}-starter-meta`).textContent = starter ? `${starter.jerseyNumber ? `#${starter.jerseyNumber} / ` : ''}${starter.throws ? `${starter.throws}HP` : ''}` : '';
+    document.getElementById(`${side}-starter-name`).textContent = starter ? `${starter.jerseyNumber ? `${starter.jerseyNumber} ` : ''}${starter.name}` : 'TBD';
+    document.getElementById(`${side}-starter-meta`).textContent = starter?.throws ? `${starter.throws}HP` : '';
     const starterPhoto = document.getElementById(`${side}-starter-photo`);
     starterPhoto.hidden = !starter?.playerId;
     if (starter?.playerId) {
@@ -180,7 +181,7 @@ function renderGame(game) {
     renderLineup(document.getElementById(`${side}-lineup-list`), game[side].lineup);
   }
   document.getElementById('excel-output-button').disabled = !ready;
-  document.querySelector('.output-label').textContent = ready ? 'LINEUP READY' : 'LINEUP PENDING';
+  document.querySelector('.output-label').textContent = ready ? 'スタメン情報取得済み' : 'スタメン情報未取得';
   document.getElementById('output-message').textContent = ready ? '' : game.lineupMessage;
 }
 

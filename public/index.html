@@ -112,14 +112,13 @@
               <div id="home-starter-meta" class="starter-meta"></div>
             </div>
           </div>
-          <div class="match-meta">
+          <div class="match-meta matchup-footer">
             <strong id="match-time"></strong>
             <span id="match-venue"></span>
           </div>
         </section>
 
         <div class="lineup-section-heading">
-          <p class="eyebrow">STARTING LINEUP</p>
           <h2>スターティングラインナップ</h2>
         </div>
         <div class="lineup-grid">
@@ -128,7 +127,7 @@
             <img id="away-board-watermark" class="lineup-board-watermark" alt="" aria-hidden="true" />
             <div class="team-lineup-header">
               <img id="away-board-logo" class="lineup-board-logo" alt="" />
-              <div><h3 id="away-team-name"></h3></div>
+              <div><strong id="away-board-code" class="lineup-board-code"></strong><h3 id="away-team-name"></h3></div>
             </div>
             <div id="away-lineup-list" class="lineup-list"></div>
           </section>
@@ -137,21 +136,21 @@
             <img id="home-board-watermark" class="lineup-board-watermark" alt="" aria-hidden="true" />
             <div class="team-lineup-header">
               <img id="home-board-logo" class="lineup-board-logo" alt="" />
-              <div><h3 id="home-team-name"></h3></div>
+              <div><strong id="home-board-code" class="lineup-board-code"></strong><h3 id="home-team-name"></h3></div>
             </div>
             <div id="home-lineup-list" class="lineup-list"></div>
           </section>
         </div>
         <div class="output-bar">
           <div>
-            <div class="output-label">LINEUP READY</div>
+            <div class="output-label">スタメン情報取得済み</div>
             <div class="output-copy">
               内容を確認してExcelを生成してください
             </div>
           </div>
 
           <button id="excel-output-button" class="excel-output-button">
-            EXCEL OUTPUT
+            EXCELを生成 →
           </button>
         </div>
 

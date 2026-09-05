@@ -848,7 +848,7 @@ button {
   position: relative;
   min-height: 430px;
   overflow: hidden;
-  padding: 24px 42px 22px;
+  padding: 24px 42px 78px;
   border: 1px solid #d8e1e8;
   border-radius: 14px;
   background:
@@ -929,15 +929,15 @@ button {
 .matchup-team-home { justify-content: flex-end; text-align: right; }
 
 .matchup-team-logo {
-  width: 76px;
-  height: 76px;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
 }
 
 .matchup-team strong {
   display: block;
   color: #0b1c2d;
-  font-size: clamp(42px, 4.2vw, 64px);
+  font-size: clamp(46px, 4.5vw, 68px);
   font-weight: 950;
   line-height: .88;
   letter-spacing: -.06em;
@@ -946,7 +946,7 @@ button {
 .matchup-team small {
   display: block;
   margin-top: 8px;
-  color: #6d7a86;
+  color: #7b8791;
   font-size: 11px;
   font-weight: 800;
 }
@@ -1024,13 +1024,18 @@ button {
 }
 
 .match-meta {
-  position: relative;
+  position: absolute;
+  inset: auto 0 0;
   z-index: 2;
   display: flex;
   align-items: baseline;
-  justify-content: center;
+  justify-content: space-between;
   gap: 18px;
-  margin-top: 9px;
+  min-height: 62px;
+  margin-top: 0;
+  padding: 0 32px;
+  border-top: 1px solid #dce4ea;
+  background: rgba(249, 251, 252, .95);
 }
 
 .match-meta strong {
@@ -1042,12 +1047,12 @@ button {
 
 .match-meta span {
   color: #667581;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 800;
 }
 
 .lineup-section-heading { margin: 38px 0 15px; }
-.lineup-section-heading h2 { margin: 4px 0 0; font-size: 26px; letter-spacing: -.03em; }
+.lineup-section-heading h2 { margin: 0; font-size: 28px; letter-spacing: -.03em; }
 
 .lineup-grid {
   display: grid;
@@ -1092,16 +1097,23 @@ button {
 .lineup-board-logo { width: 64px; height: 64px; object-fit: contain; }
 
 .team-lineup-header > div {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  display: grid;
+  gap: 2px;
   min-width: 0;
+}
+
+.lineup-board-code {
+  color: #0b1d2f;
+  font-size: 27px;
+  font-weight: 950;
+  line-height: 1;
+  letter-spacing: -.04em;
 }
 
 .team-lineup-header h3 {
   margin: 0;
   color: #0b1d2f;
-  font-size: clamp(20px, 1.8vw, 26px);
+  font-size: clamp(15px, 1.35vw, 19px);
   font-weight: 950;
   line-height: 1.05;
   letter-spacing: -.035em;
@@ -1199,9 +1211,9 @@ button {
 
 .output-label {
   color: #78b7e9;
-  font-size: 9px;
+  font-size: 14px;
   font-weight: 900;
-  letter-spacing: .18em;
+  letter-spacing: .04em;
 }
 
 .output-copy {
@@ -1211,15 +1223,15 @@ button {
 }
 
 .excel-output-button {
-  min-width: 190px;
-  height: 54px;
+  min-width: 220px;
+  height: 60px;
   border: 1px solid #72c2f4;
   border-radius: 6px;
   background: linear-gradient(180deg, #168eff, #0753ca);
   color: white;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 950;
-  letter-spacing: .12em;
+  letter-spacing: .04em;
   transition: .18s ease;
 }
 
@@ -1319,7 +1331,7 @@ button {
 
   .lineup-view .page-shell { width: min(100% - 24px, 1380px); padding-top: 18px; }
 
-  .matchup-hero { min-height: 0; padding: 20px 14px 18px; border-radius: 10px; }
+  .matchup-hero { min-height: 0; padding: 20px 14px 72px; border-radius: 10px; }
   .matchup-status { font-size: 10px; }
   .matchup-teams { margin-top: 8px; }
   .matchup-team { gap: 8px; }
@@ -1331,7 +1343,7 @@ button {
   .matchup-pitcher .starter-name { min-height: 34px; font-size: 14px; }
   .matchup-pitcher .starter-meta { font-size: 10px; }
   .matchup-vs { width: 34px; height: 34px; margin-top: 35px; font-size: 8px; }
-  .match-meta { flex-direction: column; align-items: center; gap: 3px; margin-top: 12px; }
+  .match-meta { min-height: 58px; padding: 0 14px; }
   .match-meta strong { font-size: 23px; }
   .match-meta span { font-size: 11px; text-align: center; }
   .lineup-section-heading { margin-top: 28px; }
@@ -1339,7 +1351,8 @@ button {
   .team-lineup-header { min-height: 90px; padding: 20px 22px 15px; }
   .lineup-board-logo { width: 52px; height: 52px; }
   .team-lineup-header > div { gap: 9px; }
-  .team-lineup-header h3 { font-size: 21px; }
+  .lineup-board-code { font-size: 23px; }
+  .team-lineup-header h3 { font-size: 15px; }
   .lineup-list { padding-inline: 14px; }
   .lineup-player { min-height: 67px; grid-template-columns: 22px minmax(0, 1fr) 30px 27px 26px; gap: 7px; padding-inline: 5px; }
   .batting-order { font-size: 15px; }
