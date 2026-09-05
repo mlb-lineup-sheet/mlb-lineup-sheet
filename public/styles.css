@@ -1342,8 +1342,13 @@ button {
   }
 
   .login-content {
-    width: calc(100% - 48px);
-    margin-left: 24px;
+    left: 18px;
+    right: 18px;
+    width: auto;
+    margin-inline: 0;
+    box-sizing: border-box;
+    transform: translateY(-50%);
+    animation: none;
   }
 
   .output-bar {
