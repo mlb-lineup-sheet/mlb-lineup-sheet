@@ -1091,19 +1091,21 @@ button {
 
 .lineup-board-logo { width: 64px; height: 64px; object-fit: contain; }
 
-.team-lineup-header h3 {
-  margin: 5px 0 0;
-  color: #6a7884;
-  font-size: 12px;
-  font-weight: 800;
+.team-lineup-header > div {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
 }
 
-.team-code {
+.team-lineup-header h3 {
+  margin: 0;
   color: #0b1d2f;
-  font-size: 38px;
+  font-size: clamp(20px, 1.8vw, 26px);
   font-weight: 950;
-  line-height: .9;
-  letter-spacing: -.055em;
+  line-height: 1.05;
+  letter-spacing: -.035em;
+  white-space: nowrap;
 }
 
 .lineup-list { position: relative; padding: 0 24px 10px; }
@@ -1111,9 +1113,9 @@ button {
 .lineup-player {
   min-height: 70px;
   display: grid;
-  grid-template-columns: 52px minmax(0, 1fr);
+  grid-template-columns: 28px minmax(0, 1fr) 38px 36px 34px;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
   padding: 8px 8px;
   border-bottom: 1px solid var(--line);
   transition: background .16s ease;
@@ -1127,21 +1129,18 @@ button {
 
 .batting-order {
   color: color-mix(in srgb, var(--team-color) 72%, #25384a);
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 950;
   letter-spacing: -.05em;
 }
 
-.lineup-player-main { min-width: 0; }
-
-.lineup-player-details { display: flex; align-items: center; gap: 13px; margin-top: 5px; }
-
-.position { min-width: 31px; color: #26394a; font-size: 11px; font-weight: 950; }
+.position { color: #26394a; text-align: center; font-size: 20px; font-weight: 950; }
 
 .jersey-number {
   color: var(--muted);
-  font-size: 10px;
-  font-weight: 750;
+  text-align: right;
+  font-size: 20px;
+  font-weight: 900;
 }
 
 .player-name-wrap {
@@ -1150,7 +1149,7 @@ button {
 
 .player-name {
   color: #102233;
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 950;
   line-height: 1.25;
 }
@@ -1180,8 +1179,9 @@ button {
 
 .bats {
   color: var(--muted);
-  font-size: 10px;
-  font-weight: 850;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 900;
 }
 
 .output-bar {
@@ -1338,11 +1338,15 @@ button {
   .lineup-section-heading h2 { font-size: 22px; }
   .team-lineup-header { min-height: 90px; padding: 20px 22px 15px; }
   .lineup-board-logo { width: 52px; height: 52px; }
-  .team-code { font-size: 32px; }
+  .team-lineup-header > div { gap: 9px; }
+  .team-lineup-header h3 { font-size: 21px; }
   .lineup-list { padding-inline: 14px; }
-  .lineup-player { min-height: 67px; grid-template-columns: 44px minmax(0, 1fr); gap: 8px; padding-inline: 5px; }
-  .batting-order { font-size: 21px; }
-  .player-name { font-size: 16px; }
+  .lineup-player { min-height: 67px; grid-template-columns: 22px minmax(0, 1fr) 30px 27px 26px; gap: 7px; padding-inline: 5px; }
+  .batting-order { font-size: 15px; }
+  .player-name { font-size: clamp(14px, 3.8vw, 17px); }
+  .position,
+  .jersey-number,
+  .bats { font-size: clamp(14px, 3.8vw, 17px); }
 
   .excel-output-button {
     width: 100%;

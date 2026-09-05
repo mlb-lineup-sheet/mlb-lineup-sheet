@@ -160,8 +160,7 @@ function renderGame(game) {
     const logoUrl = teamLogoUrl(game[side].id);
     document.getElementById(`${side}-hero-code`).textContent = game[side].code;
     document.getElementById(`${side}-hero-name`).textContent = game[side].name;
-    document.getElementById(`${side}-team-name`).textContent = game[side].name;
-    document.getElementById(`${side}-team-code`).textContent = game[side].code;
+    document.getElementById(`${side}-team-name`).textContent = game[side].spotvName ?? game[side].name;
     const board = document.querySelector(`.team-lineup:${side === 'away' ? 'first-child' : 'last-child'}`);
     board.style.setProperty('--team-color', teamColor(game[side].id));
     for (const id of [`${side}-hero-logo`, `${side}-hero-watermark`, `${side}-board-logo`, `${side}-board-watermark`]) {
@@ -193,8 +192,8 @@ function renderLineup(container, lineup) {
     const nameContent = player.spotvFound
       ? `<div class="player-name-wrap"><div class="player-name">${escapeHtml(player.name)}</div></div>`
       : `<div class="player-name-wrap"><input class="player-name-input" data-player-id="${player.playerId}" data-original-name="${escapeHtml(player.name)}" value="${escapeHtml(player.name)}" aria-label="${escapeHtml(player.name)} のSPOTV表記"/><div class="player-warning">SPOTV表記未登録 / 編集可能</div></div>`;
-    row.innerHTML = `<div class="batting-order">${String(player.battingOrder).padStart(2, '0')}</div>
-      <div class="lineup-player-main">${nameContent}<div class="lineup-player-details"><span class="position">${escapeHtml(player.position ?? '--')}</span><span class="jersey-number">${player.jerseyNumber ? `#${escapeHtml(player.jerseyNumber)}` : '--'}</span><span class="bats">${escapeHtml(player.bats ?? '--')}</span></div></div>`;
+    row.innerHTML = `<div class="batting-order">${escapeHtml(player.battingOrder)}</div>${nameContent}
+      <div class="bats">(${escapeHtml(player.bats ?? '--')})</div><div class="position">${escapeHtml(player.position ?? '--')}</div><div class="jersey-number">${player.jerseyNumber ? escapeHtml(player.jerseyNumber) : '--'}</div>`;
     const input = row.querySelector('.player-name-input');
     if (input) input.addEventListener('input', () => {
       row.querySelector('.player-warning').textContent = input.value.trim() && input.value.trim() !== input.dataset.originalName

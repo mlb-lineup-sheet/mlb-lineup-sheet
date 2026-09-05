@@ -33,6 +33,7 @@ const sourceCache = new Map();
 const dictionary = JSON.parse(await fs.readFile(dictionaryPath, 'utf8')).players;
 const spotvWorkbook = JSON.parse(await fs.readFile(businessNamesPath, 'utf8'));
 const spotvVenueNames = new Map((spotvWorkbook.sheets ?? []).map(sheet => [sheet.team, sheet.venueName]));
+const spotvTeamNames = new Map((spotvWorkbook.sheets ?? []).map(sheet => [sheet.team, sheet.teamName]));
 let mlbPeople = [];
 try {
   const cacheFiles = (await fs.readdir(mlbCacheDir)).filter(file => /^players-\d{4}\.json$/.test(file)).sort();
@@ -158,8 +159,8 @@ function detailView(sources) {
     gamePk: fixture.gamePk, gameDate: fixture.gameDate, time: formatJstTime(fixture.gameDate),
     venue: venueView(fixture.home.id, fixture.venue.name), status: fixture.status, lineupStatus: fixture.lineupStatus,
     lineupMessage: fixture.lineupStatus === 'available' ? 'スタメン取得済み' : 'スタメン未発表または取得不完全',
-    away: { ...fixture.away, code: awayCode, starter: pitcherView(fixture, live, 'away'), lineup: lineupView(fixture.startingLineups.away) },
-    home: { ...fixture.home, code: homeCode, starter: pitcherView(fixture, live, 'home'), lineup: lineupView(fixture.startingLineups.home) },
+    away: { ...fixture.away, code: awayCode, spotvName: spotvTeamNames.get(awayCode) ?? fixture.away.name, starter: pitcherView(fixture, live, 'away'), lineup: lineupView(fixture.startingLineups.away) },
+    home: { ...fixture.home, code: homeCode, spotvName: spotvTeamNames.get(homeCode) ?? fixture.home.name, starter: pitcherView(fixture, live, 'home'), lineup: lineupView(fixture.startingLineups.home) },
   };
 }
 
