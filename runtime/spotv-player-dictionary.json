@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generatedAt": "2026-09-05T22:03:07.482Z",
+    "generatedAt": "2026-09-05T22:49:24.126Z",
     "sourceSha256": "f682d8ecb3a0f0550660fea359f25a66049169943230e63e796cb4a46948b566",
     "sourcePlayerCount": 1385,
     "mlbUniquePlayerCount": 2048,
@@ -10,8 +10,8 @@
       2026
     ],
     "autoConfirmedCount": 1335,
-    "manualConfirmedCount": 2,
-    "unresolvedCount": 48
+    "manualConfirmedCount": 5,
+    "unresolvedCount": 45
   },
   "players": {
     "434378": {
@@ -926,6 +926,17 @@
       "jerseyNumber": "58",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
+    },
+    "594027": {
+      "playerId": 594027,
+      "spotvName": "タイロン・ゲレーロ",
+      "officialName": "Tyron Guerrero",
+      "spotvOfficialName": "Tayron Guerrero",
+      "birthDate": "1991-01-09",
+      "sourceTeam": "BOS",
+      "jerseyNumber": "41",
+      "status": "manual-confirmed",
+      "matchMethod": "manual-override"
     },
     "594580": {
       "playerId": 594580,
@@ -12752,6 +12763,17 @@
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
     },
+    "695508": {
+      "playerId": 695508,
+      "spotvName": "キャメロン・コーリー",
+      "officialName": "Cam Cauley",
+      "spotvOfficialName": "Cameron Cauley",
+      "birthDate": "2003-02-06",
+      "sourceTeam": "TEX",
+      "jerseyNumber": "27",
+      "status": "manual-confirmed",
+      "matchMethod": "manual-override"
+    },
     "695534": {
       "playerId": 695534,
       "spotvName": "チェイス・ペティ",
@@ -14060,6 +14082,17 @@
       "jerseyNumber": "17",
       "status": "auto-confirmed",
       "matchMethod": "normalized-name+birthDate"
+    },
+    "804267": {
+      "playerId": 804267,
+      "spotvName": "ザック・ソーントン",
+      "officialName": "Zac Thornton",
+      "spotvOfficialName": "Zach Thornton",
+      "birthDate": "2002-01-17",
+      "sourceTeam": "NYM",
+      "jerseyNumber": "49",
+      "status": "manual-confirmed",
+      "matchMethod": "manual-override"
     },
     "804606": {
       "playerId": 804606,
