@@ -8,7 +8,7 @@ import { resolveDisplayName, mergeMlbPeople } from './scripts/lib/player-diction
 import { spotvTeamCode } from './scripts/lib/mlb-team-map.mjs';
 import { buildTemplateInput, LINEUP_WRITE_ALLOWLIST } from './scripts/lib/template-lineup-input.mjs';
 import { writeAllowedCells } from './scripts/lib/ooxml-xlsx.mjs';
-import { buildDetRoster, pregameStandingsDate } from './scripts/lib/mlb-roster.mjs';
+import { buildDetRoster, rosterStatsDate } from './scripts/lib/mlb-roster.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(root, 'public');
@@ -103,10 +103,11 @@ async function fetchJson(url) {
   return response.json();
 }
 
-async function detRosterView(forceRefresh = false, requestedDate = easternDateString()) {
+async function detRosterView(forceRefresh = false, requestedDate = easternDateString(), doubleHeader = 'N', gameNumber = 1) {
   const officialDate = /^\d{4}-\d{2}-\d{2}$/.test(requestedDate ?? '') ? requestedDate : easternDateString();
-  const standingsDate = pregameStandingsDate(officialDate);
-  if (!forceRefresh && detRosterCache?.officialDate === officialDate && detRosterCache.expiresAt > Date.now()) return detRosterCache.value;
+  const standingsDate = rosterStatsDate(officialDate, doubleHeader, gameNumber);
+  const cacheKey = `${officialDate}:${standingsDate}`;
+  if (!forceRefresh && detRosterCache?.cacheKey === cacheKey && detRosterCache.expiresAt > Date.now()) return detRosterCache.value;
   const season = Number(officialDate.slice(0, 4));
   const statsHydrate = `person(stats(group=[hitting,pitching],type=byDateRange,startDate=${season}-01-01,endDate=${standingsDate},gameType=R))`;
   const activeUrl = new URL('https://statsapi.mlb.com/api/v1/teams/116/roster');
@@ -123,7 +124,7 @@ async function detRosterView(forceRefresh = false, requestedDate = easternDateSt
     source: detRosterSource, active, fortyMan, standings, coaches, team,
     fetchedAt: new Date().toISOString(),
   });
-  detRosterCache = { officialDate, expiresAt: Date.now() + 90_000, value };
+  detRosterCache = { cacheKey, expiresAt: Date.now() + 90_000, value };
   return value;
 }
 
@@ -185,6 +186,7 @@ function detailView(sources) {
   const homeCode = spotvTeamCode(fixture.home.id);
   return {
     gamePk: fixture.gamePk, gameDate: fixture.gameDate, time: formatJstTime(fixture.gameDate),
+    doubleHeader: fixture.doubleHeader, gameNumber: fixture.gameNumber,
     venue: venueView(fixture.home.id, fixture.venue.name), status: fixture.status, lineupStatus: fixture.lineupStatus,
     lineupMessage: fixture.lineupStatus === 'available' ? 'スタメン取得済み' : 'スタメン未発表または取得不完全',
     away: { ...fixture.away, code: awayCode, spotvName: spotvTeamNames.get(awayCode) ?? fixture.away.name, starter: pitcherView(fixture, live, 'away'), lineup: lineupView(fixture.startingLineups.away) },
@@ -299,7 +301,12 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, { date, games: await todayGames(date) });
     }
     if (req.method === 'GET' && url.pathname === '/api/roster/det') {
-      return json(res, 200, await detRosterView(url.searchParams.get('refresh') === '1', url.searchParams.get('date') ?? easternDateString()));
+      return json(res, 200, await detRosterView(
+        url.searchParams.get('refresh') === '1',
+        url.searchParams.get('date') ?? easternDateString(),
+        url.searchParams.get('doubleHeader') ?? 'N',
+        Number(url.searchParams.get('gameNumber') ?? 1),
+      ));
     }
     const gameMatch = url.pathname.match(/^\/api\/games\/(\d+)$/);
     if (req.method === 'GET' && gameMatch) return json(res, 200, detailView(await gameSources(Number(gameMatch[1]))));

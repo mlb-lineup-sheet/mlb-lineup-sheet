@@ -258,11 +258,15 @@ function navigate(hash, { replace = false } = {}) {
 }
 async function restoreRoute({ replace = false } = {}) {
   if (!state.authenticated) return showView('login');
-  const rosterMatch = location.hash.match(/^#roster\/det(?:\?date=(\d{4}-\d{2}-\d{2}))?$/);
-  if (rosterMatch) {
+  if (location.hash === '#roster/det' || location.hash.startsWith('#roster/det?')) {
+    const params = new URLSearchParams(location.hash.split('?')[1] ?? '');
     showView('roster');
-    const date = validDateString(rosterMatch[1]) ? rosterMatch[1] : state.selectedDate ?? mlbDateString();
-    return window.detRoster.load({ date });
+    const date = validDateString(params.get('date')) ? params.get('date') : state.selectedDate ?? mlbDateString();
+    return window.detRoster.load({
+      date,
+      doubleHeader: params.get('doubleHeader') ?? 'N',
+      gameNumber: Number(params.get('gameNumber') ?? 1),
+    });
   }
   const lineupMatch = location.hash.match(/^#lineup\/(\d+)(?:\?date=(\d{4}-\d{2}-\d{2}))?$/);
   if (lineupMatch) {
@@ -282,7 +286,13 @@ const rosterRoutes = new Map([[116, '#roster/det']]);
 function rosterRouteForGame(game) {
   const supportedTeamId = [game?.away?.id, game?.home?.id].find(teamId => rosterRoutes.has(Number(teamId)));
   const route = rosterRoutes.get(Number(supportedTeamId)) ?? '#roster/det';
-  return `${route}?date=${state.selectedDate ?? mlbDateString()}`;
+  const params = new URLSearchParams({
+    date: state.selectedDate ?? mlbDateString(),
+    gamePk: String(game?.gamePk ?? ''),
+    doubleHeader: game?.doubleHeader ?? 'N',
+    gameNumber: String(game?.gameNumber ?? 1),
+  });
+  return `${route}?${params}`;
 }
 document.getElementById('lineup-roster-button').addEventListener('click', () => navigate(rosterRouteForGame(state.currentGame)));
 document.getElementById('lineup-print-button').addEventListener('click', () => {

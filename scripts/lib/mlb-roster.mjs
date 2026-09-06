@@ -7,6 +7,12 @@ export function pregameStandingsDate(officialDate) {
   return date.toISOString().slice(0, 10);
 }
 
+export function rosterStatsDate(officialDate, doubleHeader, gameNumber) {
+  return doubleHeader === 'Y' && Number(gameNumber) === 2
+    ? officialDate
+    : pregameStandingsDate(officialDate);
+}
+
 function aggregateStat(person, group) {
   const stats = person?.stats?.find(item => item.group?.displayName === group);
   const split = stats?.splits?.find(item => !item.team)

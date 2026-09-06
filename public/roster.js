@@ -67,8 +67,10 @@
   }
 
   let currentDate = '';
-  async function load({ force = false, date = currentDate } = {}) {
+  let currentGameContext = { doubleHeader: 'N', gameNumber: 1 };
+  async function load({ force = false, date = currentDate, doubleHeader = currentGameContext.doubleHeader, gameNumber = currentGameContext.gameNumber } = {}) {
     currentDate = date;
+    currentGameContext = { doubleHeader, gameNumber };
     const message = document.getElementById('roster-message');
     const refresh = document.getElementById('refresh-roster');
     refresh.disabled = true;
@@ -77,6 +79,8 @@
       const params = new URLSearchParams();
       if (force) params.set('refresh', '1');
       if (currentDate) params.set('date', currentDate);
+      params.set('doubleHeader', currentGameContext.doubleHeader);
+      params.set('gameNumber', String(currentGameContext.gameNumber));
       const data = await window.detRosterApi(`/api/roster/det?${params}`);
       render(data);
       message.textContent = '';

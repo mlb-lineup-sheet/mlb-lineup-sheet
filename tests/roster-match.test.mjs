@@ -1,10 +1,13 @@
 import assert from 'node:assert/strict';
 import { classifyRosterStatus, matchRosterPlayer, normalizeRosterName } from '../scripts/lib/roster-match.mjs';
-import { activePlayerStats, pregameStandingsDate } from '../scripts/lib/mlb-roster.mjs';
+import { activePlayerStats, pregameStandingsDate, rosterStatsDate } from '../scripts/lib/mlb-roster.mjs';
 
 assert.equal(pregameStandingsDate('2026-09-06'), '2026-09-05');
 assert.equal(pregameStandingsDate('2026-03-01'), '2026-02-28');
 assert.equal(pregameStandingsDate('2026-01-01'), '2025-12-31');
+assert.equal(rosterStatsDate('2026-09-06', 'N', 1), '2026-09-05');
+assert.equal(rosterStatsDate('2026-09-06', 'Y', 1), '2026-09-05');
+assert.equal(rosterStatsDate('2026-09-06', 'Y', 2), '2026-09-06');
 const stats = activePlayerStats([{ person: { id: 1, stats: [{ group: { displayName: 'pitching' }, splits: [
   { team: { id: 116 }, sport: { id: 1 }, stat: { gamesPitched: 2 } },
   { sport: { id: 0 }, stat: { gamesPitched: 7 } },
