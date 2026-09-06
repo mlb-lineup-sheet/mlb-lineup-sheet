@@ -1879,9 +1879,7 @@ button {
   }
 
   body.printing-lineup {
-    display: flex;
-    align-items: center;
-    min-height: 198mm;
+    min-height: 0;
   }
 
   body.printing-lineup > main { width: 100%; }
@@ -1904,7 +1902,7 @@ button {
   body.printing-lineup .lineup-view .page-shell {
     width: min(100%, 280mm);
     margin: auto;
-    padding: 0;
+    padding: 8mm 0;
   }
 
   body.printing-lineup .matchup-hero {
