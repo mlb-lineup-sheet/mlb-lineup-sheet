@@ -64,7 +64,10 @@ loginForm.addEventListener('submit', async event => {
     state.authenticated = true;
     armSessionExpiry();
     loginMessage.textContent = '試合情報を読み込んでいます…';
-    await restoreRoute({ replace: true });
+    const loginDate = mlbDateString();
+    state.selectedDate = loginDate;
+    history.replaceState({ route: `#games/${loginDate}`, date: loginDate }, '', `#games/${loginDate}`);
+    await loadGames(loginDate);
   } catch (error) {
     passwordInput.readOnly = false;
     loginMessage.className = 'login-message';
