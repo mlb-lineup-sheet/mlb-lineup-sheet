@@ -25,7 +25,7 @@ const port = Number(process.env.PORT ?? 4173);
 const host = process.env.HOST ?? '0.0.0.0';
 const trustProxy = process.env.TRUST_PROXY === '1';
 const secureCookies = process.env.NODE_ENV === 'production' || process.env.SECURE_COOKIES === '1';
-const sessionIdleMs = 15 * 60 * 1000;
+const sessionIdleMs = 60 * 60 * 1000;
 if (!password) throw new Error('SPOTV_LINEUP_PASSWORD is required');
 
 const sessions = new Map();
@@ -103,13 +103,17 @@ async function fetchJson(url) {
   return response.json();
 }
 
-async function detRosterView(forceRefresh = false) {
-  const officialDate = easternDateString();
+async function detRosterView(forceRefresh = false, requestedDate = easternDateString()) {
+  const officialDate = /^\d{4}-\d{2}-\d{2}$/.test(requestedDate ?? '') ? requestedDate : easternDateString();
   const standingsDate = pregameStandingsDate(officialDate);
   if (!forceRefresh && detRosterCache?.officialDate === officialDate && detRosterCache.expiresAt > Date.now()) return detRosterCache.value;
   const season = Number(officialDate.slice(0, 4));
+  const statsHydrate = `person(stats(group=[hitting,pitching],type=byDateRange,startDate=${season}-01-01,endDate=${standingsDate},gameType=R))`;
+  const activeUrl = new URL('https://statsapi.mlb.com/api/v1/teams/116/roster');
+  activeUrl.searchParams.set('rosterType', 'active');
+  activeUrl.searchParams.set('hydrate', statsHydrate);
   const [active, fortyMan, standings, coaches, team] = await Promise.all([
-    fetchJson('https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=active'),
+    fetchJson(activeUrl),
     fetchJson('https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=40Man'),
     fetchJson(`https://statsapi.mlb.com/api/v1/standings?leagueId=103&season=${season}&standingsTypes=regularSeason&date=${standingsDate}&hydrate=team`),
     fetchJson('https://statsapi.mlb.com/api/v1/teams/116/coaches'),
@@ -295,7 +299,7 @@ const server = http.createServer(async (req, res) => {
       return json(res, 200, { date, games: await todayGames(date) });
     }
     if (req.method === 'GET' && url.pathname === '/api/roster/det') {
-      return json(res, 200, await detRosterView(url.searchParams.get('refresh') === '1'));
+      return json(res, 200, await detRosterView(url.searchParams.get('refresh') === '1', url.searchParams.get('date') ?? easternDateString()));
     }
     const gameMatch = url.pathname.match(/^\/api\/games\/(\d+)$/);
     if (req.method === 'GET' && gameMatch) return json(res, 200, detailView(await gameSources(Number(gameMatch[1]))));

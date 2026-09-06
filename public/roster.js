@@ -12,6 +12,16 @@
     .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 
+  function statLine(player) {
+    if (player.status !== 'ACTIVE' || !player.stats) return '';
+    const stat = player.stats;
+    if (player.category === '投手') {
+      const saves = Number(stat.saves) > 0 ? `　${escapeHtml(stat.saves)}セーブ` : '';
+      return `${escapeHtml(stat.gamesPitched ?? stat.gamesPlayed ?? 0)}試合　${escapeHtml(stat.wins ?? 0)}勝${escapeHtml(stat.losses ?? 0)}敗　防御率${escapeHtml(stat.era ?? '-.--')}${saves}`;
+    }
+    return `打率${escapeHtml(stat.avg ?? '.---')}　${escapeHtml(stat.homeRuns ?? 0)}本塁打　${escapeHtml(stat.rbi ?? 0)}打点　OPS ${escapeHtml(stat.ops ?? '.---')}`;
+  }
+
   function playerRow(player) {
     return `<div class="roster-player roster-status-${player.status.toLowerCase().replace(/[^a-z]/g, '')}">
       <div class="roster-number">${escapeHtml(player.jerseyNumber ?? '--')}</div>
@@ -19,6 +29,7 @@
         <strong>${escapeHtml(player.spotvName)}</strong>
         <span>${escapeHtml(player.mlbOfficialName)}</span>
       </div>
+      <div class="roster-player-stats">${statLine(player)}</div>
       <div class="roster-player-position">${escapeHtml(player.batsThrows ?? '')}</div>
       <div class="roster-player-status"><span></span>${escapeHtml(player.status)}</div>
     </div>`;
@@ -55,13 +66,18 @@
     }
   }
 
-  async function load({ force = false } = {}) {
+  let currentDate = '';
+  async function load({ force = false, date = currentDate } = {}) {
+    currentDate = date;
     const message = document.getElementById('roster-message');
     const refresh = document.getElementById('refresh-roster');
     refresh.disabled = true;
     message.textContent = force ? '最新のロースターを取得しています…' : 'MLB公式ロースターを取得しています…';
     try {
-      const data = await window.detRosterApi(`/api/roster/det${force ? '?refresh=1' : ''}`);
+      const params = new URLSearchParams();
+      if (force) params.set('refresh', '1');
+      if (currentDate) params.set('date', currentDate);
+      const data = await window.detRosterApi(`/api/roster/det?${params}`);
       render(data);
       message.textContent = '';
     } catch (error) {

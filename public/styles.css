@@ -1142,9 +1142,9 @@ button {
 
 .roster-player {
   display: grid;
-  grid-template-columns: 42px minmax(160px, 1.08fr) minmax(145px, .92fr) 38px 78px;
+  grid-template-columns: 38px minmax(170px, .95fr) minmax(215px, 1.05fr) 32px 70px;
   align-items: center;
-  min-height: 43px;
+  min-height: 52px;
   border-bottom: 1px solid #e0e6ea;
   color: #13283c;
 }
@@ -1171,7 +1171,9 @@ button {
 }
 
 .roster-player-names {
-  display: contents;
+  display: grid;
+  gap: 3px;
+  min-width: 0;
   line-height: 1.15;
 }
 
@@ -1183,10 +1185,19 @@ button {
   white-space: nowrap;
 }
 
-.roster-player-names strong,
-.roster-player-names span { padding-right: 9px; font-size: 12.5px; }
+.roster-player-names strong { padding-right: 9px; font-size: 12.5px; }
+.roster-player-names span { padding-right: 9px; font-size: 11.5px; }
 .roster-player-names strong { font-weight: 950; }
 .roster-player-names span { color: #4f606e; font-weight: 650; }
+.roster-player-stats {
+  padding-right: 10px;
+  color: #17334c;
+  font-size: 10.5px;
+  font-weight: 850;
+  line-height: 1.35;
+  text-align: right;
+  white-space: nowrap;
+}
 .roster-player-position { color: #707d88; font-size: 10px; font-weight: 800; text-align: center; }
 
 .roster-player-status {
@@ -1253,7 +1264,8 @@ button {
     grid-template-columns: 38px minmax(0, 1fr) auto;
     grid-template-areas:
       "number names status"
-      "number names position";
+      "number names position"
+      "number stats stats";
     column-gap: 7px;
     min-height: 58px;
     padding: 7px 8px 7px 0;
@@ -1266,17 +1278,18 @@ button {
   .roster-player-names span { margin-top: 3px; }
   .roster-player-position { grid-area: position; align-self: start; text-align: right; font-size: 9px; }
   .roster-player-status { grid-area: status; align-self: end; justify-content: flex-end; padding-right: 0; font-size: 9px; }
+  .roster-player-stats { grid-area: stats; padding: 3px 0 0; font-size: 10px; text-align: left; white-space: normal; }
 }
 
 @media print {
   @page { size: A4 landscape; margin: 6mm; }
-  html, body { width: 297mm; min-height: 210mm; background: #fff !important; }
+  html, body { width: auto; height: auto; min-height: 0; background: #fff !important; }
   body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
   .login-view, .games-view, .lineup-view, .roster-site-header, .roster-controls, .roster-message { display: none !important; }
   .roster-view { display: block !important; min-height: auto; background: #fff !important; }
   .roster-page-shell { width: 100%; margin: 0; padding: 0; }
   .roster-sheet { border-radius: 0; box-shadow: none; }
-  .roster-hero { grid-template-columns: 1.35fr .65fr; min-height: 30mm; gap: 6mm; padding: 3mm 5mm; }
+  .roster-hero { grid-template-columns: 1.35fr .65fr; min-height: 34mm; gap: 6mm; padding: 4mm 5mm; }
   .roster-team-logo { width: 22mm; height: 22mm; }
   .roster-identity { gap: 4mm; }
   .roster-kicker { font-size: 6pt; margin-bottom: 1mm; }
@@ -1292,12 +1305,14 @@ button {
   .roster-group h2 { min-height: 5mm; padding-right: 2mm; gap: 2mm; font-size: 8pt; }
   .roster-group h2 > span { min-width: 9mm; font-size: 7pt; }
   .roster-group h2 small { font-size: 6.5pt; }
-  .roster-player { grid-template-columns: 7mm minmax(0, 1fr) minmax(0, .85fr) 8mm 16mm; min-height: 4.25mm; }
-  .roster-number { font-size: 7pt; }
-  .roster-player-names strong { padding-right: 1.5mm; font-size: 7.2pt; }
-  .roster-player-names span { padding-right: 1.5mm; font-size: 7.2pt; }
-  .roster-player-position { font-size: 5.8pt; }
-  .roster-player-status { gap: 1mm; padding-right: 1mm; font-size: 5.8pt; }
+  .roster-player { grid-template-columns: 7mm minmax(0, .85fr) minmax(0, 1.15fr) 8mm 16mm; min-height: 6.4mm; }
+  .roster-number { font-size: 7.5pt; }
+  .roster-player-names { gap: .5mm; }
+  .roster-player-names strong { padding-right: 1.5mm; font-size: 7.6pt; }
+  .roster-player-names span { padding-right: 1.5mm; font-size: 7pt; }
+  .roster-player-stats { padding-right: 1.5mm; font-size: 6.8pt; }
+  .roster-player-position { font-size: 6.3pt; }
+  .roster-player-status { gap: 1mm; padding-right: 1mm; font-size: 6.3pt; }
   .roster-player-status span { width: 1.3mm; height: 1.3mm; flex-basis: 1.3mm; }
 }
 

@@ -1,6 +1,6 @@
 const views = { login: document.getElementById('login-view'), games: document.getElementById('games-view'), lineup: document.getElementById('lineup-view'), roster: document.getElementById('roster-view') };
 const state = { authenticated: false, games: [], currentGame: null, selectedDate: null, lineupSnapshots: new Map(), lineupChanged: false };
-const sessionIdleMs = 15 * 60 * 1000;
+const sessionIdleMs = 60 * 60 * 1000;
 let sessionExpiryTimer;
 
 function armSessionExpiry() {
@@ -258,9 +258,11 @@ function navigate(hash, { replace = false } = {}) {
 }
 async function restoreRoute({ replace = false } = {}) {
   if (!state.authenticated) return showView('login');
-  if (location.hash === '#roster/det') {
+  const rosterMatch = location.hash.match(/^#roster\/det(?:\?date=(\d{4}-\d{2}-\d{2}))?$/);
+  if (rosterMatch) {
     showView('roster');
-    return window.detRoster.load();
+    const date = validDateString(rosterMatch[1]) ? rosterMatch[1] : state.selectedDate ?? mlbDateString();
+    return window.detRoster.load({ date });
   }
   const lineupMatch = location.hash.match(/^#lineup\/(\d+)(?:\?date=(\d{4}-\d{2}-\d{2}))?$/);
   if (lineupMatch) {
@@ -275,11 +277,12 @@ async function restoreRoute({ replace = false } = {}) {
 }
 window.addEventListener('popstate', () => restoreRoute());
 document.getElementById('back-to-games').addEventListener('click', () => navigate(`#games/${state.selectedDate ?? mlbDateString()}`));
-document.getElementById('open-det-roster').addEventListener('click', () => navigate('#roster/det'));
+document.getElementById('open-det-roster').addEventListener('click', () => navigate(`#roster/det?date=${state.selectedDate ?? mlbDateString()}`));
 const rosterRoutes = new Map([[116, '#roster/det']]);
 function rosterRouteForGame(game) {
   const supportedTeamId = [game?.away?.id, game?.home?.id].find(teamId => rosterRoutes.has(Number(teamId)));
-  return rosterRoutes.get(Number(supportedTeamId)) ?? '#roster/det';
+  const route = rosterRoutes.get(Number(supportedTeamId)) ?? '#roster/det';
+  return `${route}?date=${state.selectedDate ?? mlbDateString()}`;
 }
 document.getElementById('lineup-roster-button').addEventListener('click', () => navigate(rosterRouteForGame(state.currentGame)));
 document.getElementById('lineup-print-button').addEventListener('click', () => {

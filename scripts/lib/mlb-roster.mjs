@@ -7,6 +7,22 @@ export function pregameStandingsDate(officialDate) {
   return date.toISOString().slice(0, 10);
 }
 
+function aggregateStat(person, group) {
+  const stats = person?.stats?.find(item => item.group?.displayName === group);
+  const split = stats?.splits?.find(item => !item.team)
+    ?? stats?.splits?.find(item => item.sport?.id === 1)
+    ?? stats?.splits?.[0];
+  return split?.stat ?? null;
+}
+
+export function activePlayerStats(activeRoster = []) {
+  return new Map(activeRoster.map(entry => {
+    const person = entry.person ?? {};
+    const group = entry.position?.type === 'Pitcher' ? 'pitching' : 'hitting';
+    return [Number(person.id), aggregateStat(person, group)];
+  }));
+}
+
 function detroitRecord(standings) {
   for (const record of standings.records ?? []) {
     const team = record.teamRecords?.find(item => item.team?.id === 116);
@@ -43,6 +59,11 @@ export function buildDetRoster({ source, active, fortyMan, standings, coaches, t
   const counts = { ACTIVE: 0, IL: 0, MINOR: 0, '40-MAN': 0, OTHER: 0 };
   for (const player of merged.players) counts[player.status] += 1;
   const teamData = detroitTeam(team);
+  const statsByPlayerId = activePlayerStats(active.roster);
+  const players = merged.players.map(player => ({
+    ...player,
+    stats: player.status === 'ACTIVE' ? statsByPlayerId.get(Number(player.playerId)) ?? null : null,
+  }));
   return {
     teamId: 116,
     teamName: source.teamName,
@@ -52,7 +73,7 @@ export function buildDetRoster({ source, active, fortyMan, standings, coaches, t
     record: detroitRecord(standings),
     manager: managerView(source, coaches),
     officialVenueName: teamData.venue?.name ?? null,
-    players: merged.players,
+    players,
     counts,
     fetchedAt,
   };
