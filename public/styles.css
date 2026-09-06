@@ -1792,7 +1792,7 @@ button {
 @media print {
   html.printing-lineup,
   body.printing-lineup {
-    width: 297mm;
+    width: auto;
     min-height: 0;
     height: auto;
   }
