@@ -1142,7 +1142,7 @@ button {
 
 .roster-player {
   display: grid;
-  grid-template-columns: 38px minmax(170px, .95fr) minmax(215px, 1.05fr) 32px 70px;
+  grid-template-columns: 42px minmax(160px, 1.08fr) minmax(145px, .92fr) 38px 78px;
   align-items: center;
   min-height: 52px;
   border-bottom: 1px solid #e0e6ea;
@@ -1171,9 +1171,7 @@ button {
 }
 
 .roster-player-names {
-  display: grid;
-  gap: 3px;
-  min-width: 0;
+  display: contents;
   line-height: 1.15;
 }
 
@@ -1185,19 +1183,36 @@ button {
   white-space: nowrap;
 }
 
-.roster-player-names strong { padding-right: 9px; font-size: 12.5px; }
-.roster-player-names span { padding-right: 9px; font-size: 11.5px; }
+.roster-player-names strong,
+.roster-player-names span { padding-right: 9px; font-size: 12.5px; }
 .roster-player-names strong { font-weight: 950; }
 .roster-player-names span { color: #4f606e; font-weight: 650; }
 .roster-player-stats {
-  padding-right: 10px;
+  display: none;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  align-items: center;
   color: #17334c;
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 850;
   line-height: 1.35;
-  text-align: right;
   white-space: nowrap;
 }
+
+.roster-player-stats span { min-width: 0; }
+
+.roster-active-only .roster-player {
+  grid-template-columns: 38px 170px minmax(0, 1fr) 34px;
+}
+
+.roster-active-only .roster-player-names {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.roster-active-only .roster-player-names span { font-size: 11.5px; }
+.roster-active-only .roster-player-stats { display: grid; }
+.roster-active-only .roster-player-status { display: none; }
 .roster-player-position { color: #707d88; font-size: 10px; font-weight: 800; text-align: center; }
 
 .roster-player-status {
@@ -1279,6 +1294,19 @@ button {
   .roster-player-position { grid-area: position; align-self: start; text-align: right; font-size: 9px; }
   .roster-player-status { grid-area: status; align-self: end; justify-content: flex-end; padding-right: 0; font-size: 9px; }
   .roster-player-stats { grid-area: stats; padding: 3px 0 0; font-size: 10px; text-align: left; white-space: normal; }
+
+  .roster-active-only .roster-player {
+    grid-template-columns: 38px minmax(0, 1fr) auto;
+    grid-template-areas:
+      "number names position"
+      "number stats stats";
+  }
+
+  .roster-active-only .roster-player-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 5px;
+    white-space: nowrap;
+  }
 }
 
 @media print {
@@ -1314,6 +1342,9 @@ button {
   .roster-player-position { font-size: 6.3pt; }
   .roster-player-status { gap: 1mm; padding-right: 1mm; font-size: 6.3pt; }
   .roster-player-status span { width: 1.3mm; height: 1.3mm; flex-basis: 1.3mm; }
+  .roster-active-only .roster-player { grid-template-columns: 7mm 48mm minmax(0, 1fr) 8mm; }
+  .roster-active-only .roster-player-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .roster-active-only .roster-player-status { display: none; }
 }
 
 

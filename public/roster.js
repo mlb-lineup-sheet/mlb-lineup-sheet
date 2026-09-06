@@ -12,14 +12,23 @@
     .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 
-  function statLine(player) {
+  function statGrid(player) {
     if (player.status !== 'ACTIVE' || !player.stats) return '';
     const stat = player.stats;
     if (player.category === '投手') {
-      const saves = Number(stat.saves) > 0 ? `　${escapeHtml(stat.saves)}セーブ` : '';
-      return `${escapeHtml(stat.gamesPitched ?? stat.gamesPlayed ?? 0)}試合　${escapeHtml(stat.wins ?? 0)}勝${escapeHtml(stat.losses ?? 0)}敗　防御率${escapeHtml(stat.era ?? '-.--')}${saves}`;
+      return `<div class="roster-player-stats roster-pitching-stats">
+        <span>${escapeHtml(stat.gamesPitched ?? stat.gamesPlayed ?? 0)}試合</span>
+        <span>${escapeHtml(stat.wins ?? 0)}勝${escapeHtml(stat.losses ?? 0)}敗</span>
+        <span>防御率${escapeHtml(stat.era ?? '-.--')}</span>
+        <span>${Number(stat.saves) > 0 ? `${escapeHtml(stat.saves)}セーブ` : ''}</span>
+      </div>`;
     }
-    return `打率${escapeHtml(stat.avg ?? '.---')}　${escapeHtml(stat.homeRuns ?? 0)}本塁打　${escapeHtml(stat.rbi ?? 0)}打点　OPS ${escapeHtml(stat.ops ?? '.---')}`;
+    return `<div class="roster-player-stats roster-hitting-stats">
+      <span>打率${escapeHtml(stat.avg ?? '.---')}</span>
+      <span>${escapeHtml(stat.homeRuns ?? 0)}本塁打</span>
+      <span>${escapeHtml(stat.rbi ?? 0)}打点</span>
+      <span>OPS ${escapeHtml(stat.ops ?? '.---')}</span>
+    </div>`;
   }
 
   function playerRow(player) {
@@ -29,7 +38,7 @@
         <strong>${escapeHtml(player.spotvName)}</strong>
         <span>${escapeHtml(player.mlbOfficialName)}</span>
       </div>
-      <div class="roster-player-stats">${statLine(player)}</div>
+      ${statGrid(player)}
       <div class="roster-player-position">${escapeHtml(player.batsThrows ?? '')}</div>
       <div class="roster-player-status"><span></span>${escapeHtml(player.status)}</div>
     </div>`;
