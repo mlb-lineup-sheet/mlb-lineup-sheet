@@ -72,6 +72,7 @@
   }
 
   document.getElementById('refresh-roster').addEventListener('click', () => load({ force: true }));
+  document.getElementById('print-roster').addEventListener('click', () => window.print());
   const activeToggle = document.getElementById('toggle-active-roster');
   activeToggle.addEventListener('click', () => {
     const activeOnly = document.getElementById('det-roster-sheet').classList.toggle('roster-active-only');

@@ -1030,6 +1030,20 @@ button {
 
 .roster-controls button:disabled { cursor: wait; opacity: .55; }
 
+.roster-controls .roster-print-button {
+  min-height: 34px;
+  padding-inline: 16px;
+  border-color: #9eabb6;
+  background: transparent;
+  color: #425466;
+}
+
+.roster-controls .roster-print-button:hover {
+  border-color: #173b5c;
+  background: #f1f5f8;
+  color: #0c2944;
+}
+
 .roster-controls .roster-active-toggle {
   display: inline-flex;
   align-items: center;
@@ -1228,6 +1242,7 @@ button {
   .roster-controls { padding-inline: 14px; }
   .roster-controls { flex-wrap: wrap; }
   .roster-controls .roster-active-toggle { flex: 1 0 100%; justify-content: center; margin-right: 0; }
+  .roster-controls .roster-print-button { flex: 1 1 auto; }
   .roster-columns { gap: 12px; padding: 14px 10px 18px 14px; }
   .roster-column { gap: 12px; }
   .roster-group h2 { gap: 8px; padding-right: 8px; font-size: 13px; }
