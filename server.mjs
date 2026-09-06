@@ -8,6 +8,7 @@ import { resolveDisplayName, mergeMlbPeople } from './scripts/lib/player-diction
 import { spotvTeamCode } from './scripts/lib/mlb-team-map.mjs';
 import { buildTemplateInput, LINEUP_WRITE_ALLOWLIST } from './scripts/lib/template-lineup-input.mjs';
 import { writeAllowedCells } from './scripts/lib/ooxml-xlsx.mjs';
+import { buildDetRoster } from './scripts/lib/mlb-roster.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(root, 'public');
@@ -16,6 +17,7 @@ const outputDir = process.env.SPOTV_OUTPUT_DIR ?? (process.env.NODE_ENV === 'pro
 const runtimeDir = process.env.SPOTV_RUNTIME_DIR ?? path.join(root, 'runtime');
 const dictionaryPath = process.env.SPOTV_DICTIONARY_PATH ?? path.join(runtimeDir, 'spotv-player-dictionary.json');
 const businessNamesPath = process.env.SPOTV_BUSINESS_NAMES_PATH ?? path.join(runtimeDir, 'spotv-business-names.json');
+const detRosterPath = path.join(runtimeDir, 'det-roster.json');
 const mlbCacheDir = process.env.SPOTV_MLB_CACHE_DIR ?? path.join(root, 'private', 'cache', 'mlb');
 const templatePath = process.env.SPOTV_TEMPLATE_PATH ?? path.join(runtimeDir, 'template.xlsx');
 const password = process.env.SPOTV_LINEUP_PASSWORD;
@@ -30,8 +32,10 @@ const sessions = new Map();
 const failedLogins = new Map();
 const downloads = new Map();
 const sourceCache = new Map();
+let detRosterCache = null;
 const dictionary = JSON.parse(await fs.readFile(dictionaryPath, 'utf8')).players;
 const spotvWorkbook = JSON.parse(await fs.readFile(businessNamesPath, 'utf8'));
+const detRosterSource = JSON.parse(await fs.readFile(detRosterPath, 'utf8'));
 const spotvVenueNames = new Map((spotvWorkbook.sheets ?? []).map(sheet => [sheet.team, sheet.venueName]));
 const spotvTeamNames = new Map((spotvWorkbook.sheets ?? []).map(sheet => [sheet.team, sheet.teamName]));
 let mlbPeople = [];
@@ -97,6 +101,24 @@ async function fetchJson(url) {
   const response = await fetch(url, { headers: { 'User-Agent': 'SPOTV-Lineup-Generator/1.0' } });
   if (!response.ok) throw new Error(`MLB API HTTP ${response.status}`);
   return response.json();
+}
+
+async function detRosterView(forceRefresh = false) {
+  if (!forceRefresh && detRosterCache?.expiresAt > Date.now()) return detRosterCache.value;
+  const season = new Date().getUTCFullYear();
+  const [active, fortyMan, standings, coaches, team] = await Promise.all([
+    fetchJson('https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=active'),
+    fetchJson('https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=40Man'),
+    fetchJson(`https://statsapi.mlb.com/api/v1/standings?leagueId=103&season=${season}&standingsTypes=regularSeason&hydrate=team`),
+    fetchJson('https://statsapi.mlb.com/api/v1/teams/116/coaches'),
+    fetchJson('https://statsapi.mlb.com/api/v1/teams/116?hydrate=venue,division'),
+  ]);
+  const value = buildDetRoster({
+    source: detRosterSource, active, fortyMan, standings, coaches, team,
+    fetchedAt: new Date().toISOString(),
+  });
+  detRosterCache = { expiresAt: Date.now() + 90_000, value };
+  return value;
 }
 
 async function gameSources(gamePk) {
@@ -232,7 +254,7 @@ async function serveLoginAsset(url, res) {
 }
 async function serveStatic(url, res) {
   const relative = url.pathname === '/' ? 'index.html' : url.pathname.slice(1);
-  if (!['index.html', 'styles.css', 'app.js'].includes(relative)) return false;
+  if (!['index.html', 'styles.css', 'app.js', 'roster.js'].includes(relative)) return false;
   const file = path.join(publicDir, relative);
   res.writeHead(200, { ...baseHeaders(), 'Content-Type': mime[path.extname(file)], 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
   res.end(await fs.readFile(file));
@@ -269,6 +291,9 @@ const server = http.createServer(async (req, res) => {
       try { gamesOnOfficialDate({ dates: [] }, date); }
       catch { return json(res, 400, { error: 'dateは現地日付のYYYY-MM-DD形式で指定してください' }); }
       return json(res, 200, { date, games: await todayGames(date) });
+    }
+    if (req.method === 'GET' && url.pathname === '/api/roster/det') {
+      return json(res, 200, await detRosterView(url.searchParams.get('refresh') === '1'));
     }
     const gameMatch = url.pathname.match(/^\/api\/games\/(\d+)$/);
     if (req.method === 'GET' && gameMatch) return json(res, 200, detailView(await gameSources(Number(gameMatch[1]))));

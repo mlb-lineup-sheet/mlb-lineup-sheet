@@ -40,6 +40,8 @@
         </div>
 
         <div class="header-date" id="header-date"></div>
+
+        <button id="open-det-roster" class="header-roster-button" type="button">ROSTER</button>
       </header>
 
       <div class="page-shell">
@@ -143,14 +145,8 @@
           </section>
         </div>
         <div class="output-bar">
-          <div>
-            <div class="output-label">スタメン情報取得済み</div>
-            <div class="output-copy">
-              内容を確認してExcelを生成してください
-            </div>
-          </div>
-
-          <button id="excel-output-button" class="excel-output-button">
+          <button id="lineup-roster-button" class="lineup-roster-button" type="button">ROSTER</button>
+          <button id="excel-output-button" class="excel-output-button" type="button">
             EXCELを生成 →
           </button>
         </div>
@@ -160,8 +156,62 @@
       </div>
     </section>
 
+
+    <section id="roster-view" class="view roster-view">
+      <header class="app-header roster-site-header">
+        <button id="back-from-roster" class="back-button" type="button">← TODAY'S GAMES</button>
+        <div class="app-title-small">MLB LINEUP GENERATOR</div>
+        <div></div>
+      </header>
+
+      <div class="roster-page-shell">
+        <section id="det-roster-sheet" class="roster-sheet" aria-labelledby="roster-team-name">
+          <img class="roster-watermark" src="https://www.mlbstatic.com/team-logos/116.svg" alt="" aria-hidden="true" />
+          <header class="roster-hero">
+            <div class="roster-identity">
+              <img class="roster-team-logo" src="https://www.mlbstatic.com/team-logos/116.svg" alt="Detroit Tigers" />
+              <div>
+                <p class="roster-kicker">DET ROSTER</p>
+                <h1 id="roster-team-name">デトロイト・タイガース</h1>
+                <p id="roster-record" class="roster-record"></p>
+                <p id="roster-standing" class="roster-standing"></p>
+              </div>
+            </div>
+            <div class="roster-ballpark">
+              <div class="roster-ballpark-placeholder" aria-hidden="true">
+                <span>COMERICA PARK</span>
+              </div>
+              <div class="roster-ballpark-copy">
+                <strong id="roster-venue">コメリカ・パーク</strong>
+                <span>監督　<span id="roster-manager">A・J・ヒンチ</span></span>
+              </div>
+            </div>
+          </header>
+
+          <div class="roster-controls">
+            <p id="roster-updated">最終更新：--:-- JST</p>
+            <button id="refresh-roster" type="button">更新</button>
+          </div>
+          <p id="roster-message" class="roster-message" role="status" aria-live="polite"></p>
+
+          <div class="roster-columns">
+            <div class="roster-column">
+              <section class="roster-group"><h2><span>P</span>PITCHERS <small>投手</small></h2><div id="roster-pitchers"></div></section>
+            </div>
+            <div class="roster-column">
+              <section class="roster-group"><h2><span>C</span>CATCHERS <small>捕手</small></h2><div id="roster-catchers"></div></section>
+              <section class="roster-group"><h2><span>IF</span>INFIELDERS <small>内野手</small></h2><div id="roster-infielders"></div></section>
+              <section class="roster-group"><h2><span>OF</span>OUTFIELDERS <small>外野手</small></h2><div id="roster-outfielders"></div></section>
+              <section class="roster-group roster-group-dh"><h2><span>DH</span>DESIGNATED HITTERS <small>指名打者</small></h2><div id="roster-dh"></div></section>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
   </main>
 
+  <script src="./roster.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>

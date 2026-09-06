@@ -839,6 +839,372 @@ button {
   line-height: 1.3;
 }
 
+.header-roster-button {
+  justify-self: end;
+  min-height: 38px;
+  padding: 0 18px;
+  border: 1px solid #173b5c;
+  border-radius: 7px;
+  background: #0c2944;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .13em;
+}
+
+/* =========================
+   DET ROSTER PILOT
+========================= */
+
+.roster-view {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(12, 35, 64, .08), transparent 34%),
+    linear-gradient(180deg, #f8fafc, #edf2f6);
+}
+
+.roster-page-shell {
+  width: min(1140px, calc(100% - 56px));
+  margin: 0 auto;
+  padding: 28px 0 56px;
+}
+
+.roster-sheet {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #d6e0e7;
+  border-top: 6px solid #0c2340;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, .97);
+  box-shadow: 0 18px 48px rgba(16, 39, 59, .10);
+  isolation: isolate;
+}
+
+.roster-sheet::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  content: '';
+  background: #fa4616;
+  z-index: 3;
+}
+
+.roster-watermark {
+  position: absolute;
+  z-index: -1;
+  top: 54px;
+  left: 31%;
+  width: 430px;
+  opacity: .035;
+  pointer-events: none;
+}
+
+.roster-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(330px, .7fr);
+  align-items: stretch;
+  gap: 28px;
+  min-height: 188px;
+  padding: 24px 28px 20px 34px;
+  border-bottom: 1px solid #d9e2e8;
+  background: linear-gradient(110deg, rgba(12, 35, 64, .055), transparent 58%, rgba(250, 70, 22, .045));
+}
+
+.roster-identity {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  min-width: 0;
+}
+
+.roster-team-logo {
+  width: 128px;
+  height: 128px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 12px rgba(12, 35, 64, .12));
+}
+
+.roster-kicker {
+  margin: 0 0 5px;
+  color: #fa4616;
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .19em;
+}
+
+.roster-identity h1 {
+  margin: 0;
+  color: #0c2340;
+  font-size: clamp(32px, 3.5vw, 53px);
+  font-weight: 950;
+  letter-spacing: -.055em;
+  line-height: 1.08;
+}
+
+.roster-record {
+  margin: 12px 0 2px;
+  color: #172a3d;
+  font-size: 19px;
+  font-weight: 950;
+}
+
+.roster-standing {
+  margin: 0;
+  color: #64717c;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.roster-ballpark {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #cad6df;
+  border-radius: 10px;
+  background: #f2f5f7;
+}
+
+.roster-ballpark-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 105px;
+  background:
+    linear-gradient(180deg, rgba(10, 35, 61, .15), rgba(10, 35, 61, .72)),
+    repeating-linear-gradient(135deg, #426078 0 2px, #334d64 2px 8px);
+}
+
+.roster-ballpark-placeholder span {
+  color: rgba(255, 255, 255, .72);
+  font-size: 11px;
+  font-weight: 950;
+  letter-spacing: .22em;
+}
+
+.roster-ballpark-copy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 13px;
+  background: #fff;
+  color: #52606b;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.roster-ballpark-copy strong {
+  color: #10273d;
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.roster-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  min-height: 47px;
+  padding: 7px 27px;
+  border-bottom: 1px solid #e0e6eb;
+  background: #fbfcfd;
+}
+
+.roster-controls p {
+  margin: 0;
+  color: #77838d;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.roster-controls button {
+  min-height: 30px;
+  padding: 0 14px;
+  border: 1px solid #cbd6de;
+  border-radius: 6px;
+  background: #fff;
+  color: #16334d;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.roster-controls button:disabled { cursor: wait; opacity: .55; }
+
+.roster-message {
+  min-height: 0;
+  margin: 0;
+  padding: 0 28px;
+  color: #697680;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.roster-message:not(:empty) { padding-block: 10px; border-bottom: 1px solid #e2e8ed; }
+
+.roster-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 18px 22px 24px;
+}
+
+.roster-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+
+.roster-group {
+  overflow: hidden;
+  border: 1px solid #d4dde4;
+  border-radius: 9px;
+  background: rgba(255,255,255,.92);
+  break-inside: avoid;
+}
+
+.roster-group h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 39px;
+  margin: 0;
+  padding: 0 14px 0 0;
+  border-bottom: 1px solid #cbd6de;
+  background: linear-gradient(90deg, #edf2f5, #f9fafb);
+  color: #102a43;
+  font-size: 16px;
+  font-weight: 950;
+  letter-spacing: .02em;
+}
+
+.roster-group h2 > span {
+  display: grid;
+  align-self: stretch;
+  place-items: center;
+  min-width: 48px;
+  background: #fa4616;
+  color: white;
+  font-size: 14px;
+}
+
+.roster-group h2 small {
+  color: #53616d;
+  font-size: 12px;
+}
+
+.roster-player {
+  display: grid;
+  grid-template-columns: 42px minmax(160px, 1.08fr) minmax(145px, .92fr) 38px 78px;
+  align-items: center;
+  min-height: 43px;
+  border-bottom: 1px solid #e0e6ea;
+  color: #13283c;
+}
+
+.roster-active .roster-player:last-child,
+.roster-nonactive .roster-player:last-child { border-bottom: 0; }
+
+.roster-nonactive {
+  border-top: 2px solid #d6dce1;
+  background: #e6e8eb;
+}
+
+.roster-active .roster-player { background: #fff; }
+.roster-nonactive .roster-player { background: transparent; }
+
+.roster-number {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 950;
+  font-variant-numeric: tabular-nums;
+}
+
+.roster-player-names {
+  display: contents;
+  line-height: 1.15;
+}
+
+.roster-player-names strong,
+.roster-player-names span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.roster-player-names strong,
+.roster-player-names span { padding-right: 9px; font-size: 12.5px; }
+.roster-player-names strong { font-weight: 950; }
+.roster-player-names span { color: #4f606e; font-weight: 650; }
+.roster-player-position { color: #707d88; font-size: 10px; font-weight: 800; text-align: center; }
+
+.roster-player-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-right: 9px;
+  color: #64717b;
+  font-size: 10px;
+  font-weight: 950;
+  white-space: nowrap;
+}
+
+.roster-player-status span {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.roster-status-active .roster-player-status { color: #13864d; }
+.roster-status-il .roster-player-status { color: #cc2839; }
+.roster-status-minor .roster-player-status { color: #727d87; }
+.roster-status-man .roster-player-status { color: #1767aa; }
+.roster-status-other .roster-player-status { color: #9a6720; }
+
+@media (max-width: 900px) {
+  .roster-page-shell { width: min(100% - 28px, 720px); }
+  .roster-hero { grid-template-columns: 1fr; }
+  .roster-columns { grid-template-columns: 1fr; }
+  .roster-team-logo { width: 100px; height: 100px; }
+  .roster-site-header .app-title-small { display: none; }
+}
+
+@media print {
+  @page { size: A4 landscape; margin: 6mm; }
+  html, body { width: 297mm; min-height: 210mm; background: #fff !important; }
+  body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+  .login-view, .games-view, .lineup-view, .roster-site-header, .roster-controls, .roster-message { display: none !important; }
+  .roster-view { display: block !important; min-height: auto; background: #fff !important; }
+  .roster-page-shell { width: 100%; margin: 0; padding: 0; }
+  .roster-sheet { border-radius: 0; box-shadow: none; }
+  .roster-hero { grid-template-columns: 1.35fr .65fr; min-height: 30mm; gap: 6mm; padding: 3mm 5mm; }
+  .roster-team-logo { width: 22mm; height: 22mm; }
+  .roster-identity { gap: 4mm; }
+  .roster-kicker { font-size: 6pt; margin-bottom: 1mm; }
+  .roster-identity h1 { font-size: 22pt; }
+  .roster-record { margin: 1.5mm 0 0; font-size: 10pt; }
+  .roster-standing { font-size: 8pt; }
+  .roster-ballpark-placeholder { min-height: 18mm; }
+  .roster-ballpark-copy { padding: 1.2mm 2mm; font-size: 6.5pt; }
+  .roster-ballpark-copy strong { font-size: 7.5pt; }
+  .roster-columns { grid-template-columns: 1fr 1fr; gap: 3mm; padding: 2.5mm 3mm 3mm; }
+  .roster-column { gap: 2mm; }
+  .roster-group { border-radius: 2mm; }
+  .roster-group h2 { min-height: 5mm; padding-right: 2mm; gap: 2mm; font-size: 8pt; }
+  .roster-group h2 > span { min-width: 9mm; font-size: 7pt; }
+  .roster-group h2 small { font-size: 6.5pt; }
+  .roster-player { grid-template-columns: 7mm minmax(0, 1fr) minmax(0, .85fr) 8mm 16mm; min-height: 4.25mm; }
+  .roster-number { font-size: 7pt; }
+  .roster-player-names strong { padding-right: 1.5mm; font-size: 7.2pt; }
+  .roster-player-names span { padding-right: 1.5mm; font-size: 7.2pt; }
+  .roster-player-position { font-size: 5.8pt; }
+  .roster-player-status { gap: 1mm; padding-right: 1mm; font-size: 5.8pt; }
+  .roster-player-status span { width: 1.3mm; height: 1.3mm; flex-basis: 1.3mm; }
+}
+
 
 /* =========================
    LINEUP
@@ -1244,46 +1610,41 @@ button {
 
 .output-bar {
   margin-top: 34px;
-  padding: 28px 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 25px;
-  color: white;
-  border-radius: 12px;
-  background: linear-gradient(115deg, #0c2034, #102f4b);
-  box-shadow: 0 14px 32px rgba(11, 32, 52, .14);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 220px));
+  justify-content: end;
+  gap: 20px;
+  padding: 0;
+  background: transparent;
 }
 
-.output-label {
-  color: #78b7e9;
-  font-size: 14px;
-  font-weight: 900;
-  letter-spacing: .04em;
-}
-
-.output-copy {
-  margin-top: 5px;
-  font-size: 14px;
-  font-weight: 700;
-}
-
+.lineup-roster-button,
 .excel-output-button {
-  min-width: 220px;
+  width: 100%;
   height: 60px;
-  border: 1px solid #72c2f4;
   border-radius: 6px;
-  background: linear-gradient(180deg, #168eff, #0753ca);
-  color: white;
   font-size: 16px;
   font-weight: 950;
   letter-spacing: .04em;
   transition: .18s ease;
 }
 
+.lineup-roster-button {
+  border: 1px solid #173b5c;
+  background: #fff;
+  color: #0c2944;
+}
+
+.excel-output-button {
+  border: 1px solid #72c2f4;
+  background: linear-gradient(180deg, #168eff, #0753ca);
+  color: white;
+}
+
+.lineup-roster-button:hover,
 .excel-output-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 9px 24px rgba(0,0,0,.18);
+  box-shadow: 0 7px 18px rgba(11, 32, 52, .14);
 }
 
 .output-message {
@@ -1376,8 +1737,8 @@ button {
   }
 
   .output-bar {
-    align-items: flex-start;
-    flex-direction: column;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
   }
 
   .lineup-view .page-shell { width: min(100% - 24px, 1380px); padding-top: 18px; }
@@ -1411,7 +1772,6 @@ button {
   .jersey-number,
   .bats { font-size: clamp(14px, 3.8vw, 17px); }
 
-  .excel-output-button {
-    width: 100%;
-  }
+  .lineup-roster-button,
+  .excel-output-button { height: 54px; font-size: 13px; }
 }

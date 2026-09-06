@@ -1,4 +1,4 @@
-const views = { login: document.getElementById('login-view'), games: document.getElementById('games-view'), lineup: document.getElementById('lineup-view') };
+const views = { login: document.getElementById('login-view'), games: document.getElementById('games-view'), lineup: document.getElementById('lineup-view'), roster: document.getElementById('roster-view') };
 const state = { authenticated: false, games: [], currentGame: null, selectedDate: null, lineupSnapshots: new Map(), lineupChanged: false };
 const sessionIdleMs = 15 * 60 * 1000;
 let sessionExpiryTimer;
@@ -37,6 +37,7 @@ async function api(url, options = {}) {
   if (state.authenticated) armSessionExpiry();
   return data;
 }
+window.detRosterApi = api;
 
 const passwordInput = document.getElementById('password-input');
 const loginMessage = document.getElementById('login-message');
@@ -225,7 +226,6 @@ function renderGame(game) {
     renderLineup(document.getElementById(`${side}-lineup-list`), game[side].lineup);
   }
   document.getElementById('excel-output-button').disabled = !ready;
-  document.querySelector('.output-label').textContent = ready ? 'スタメン情報取得済み' : 'スタメン情報未取得';
   document.getElementById('output-message').textContent = ready ? '' : game.lineupMessage;
 }
 
@@ -255,6 +255,10 @@ function navigate(hash, { replace = false } = {}) {
 }
 async function restoreRoute({ replace = false } = {}) {
   if (!state.authenticated) return showView('login');
+  if (location.hash === '#roster/det') {
+    showView('roster');
+    return window.detRoster.load();
+  }
   const lineupMatch = location.hash.match(/^#lineup\/(\d+)(?:\?date=(\d{4}-\d{2}-\d{2}))?$/);
   if (lineupMatch) {
     state.selectedDate = validDateString(lineupMatch[2]) ? lineupMatch[2] : mlbDateString();
@@ -268,6 +272,9 @@ async function restoreRoute({ replace = false } = {}) {
 }
 window.addEventListener('popstate', () => restoreRoute());
 document.getElementById('back-to-games').addEventListener('click', () => navigate(`#games/${state.selectedDate ?? mlbDateString()}`));
+document.getElementById('open-det-roster').addEventListener('click', () => navigate('#roster/det'));
+document.getElementById('lineup-roster-button').addEventListener('click', () => navigate('#roster/det'));
+document.getElementById('back-from-roster').addEventListener('click', () => navigate(`#games/${state.selectedDate ?? mlbDateString()}`));
 document.getElementById('previous-date').addEventListener('click', () => navigate(`#games/${shiftDate(state.selectedDate, -1)}`));
 document.getElementById('next-date').addEventListener('click', () => navigate(`#games/${shiftDate(state.selectedDate, 1)}`));
 todayButton.addEventListener('click', () => navigate(`#games/${mlbDateString()}`));

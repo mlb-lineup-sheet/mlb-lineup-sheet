@@ -1,0 +1,503 @@
+{
+  "teamId": 116,
+  "teamCode": "DET",
+  "teamName": "デトロイト・タイガース",
+  "venueName": "コメリカ・パーク",
+  "manager": {
+    "playerId": 134460,
+    "spotvName": "A・J・ヒンチ",
+    "officialName": "A.J. Hinch"
+  },
+  "players": [
+    {
+      "playerId": 623454,
+      "category": "投手",
+      "jerseyNumber": "38",
+      "spotvName": "ドリュー・アンダーソン",
+      "officialName": "Drew Anderson",
+      "batsThrows": "右右",
+      "birthDate": "1994-03-22",
+      "excelNote": null
+    },
+    {
+      "playerId": 689225,
+      "category": "投手",
+      "jerseyNumber": "4",
+      "spotvName": "ボー・ブリスキー",
+      "officialName": "Beau Brieske",
+      "batsThrows": "右右",
+      "birthDate": "1998-04-04",
+      "excelNote": null
+    },
+    {
+      "playerId": 646241,
+      "category": "投手",
+      "jerseyNumber": "37",
+      "spotvName": "エンマニュエル・デヘスス",
+      "officialName": "Enmanuel De Jesus",
+      "batsThrows": "左左",
+      "birthDate": "1996-12-10",
+      "excelNote": null
+    },
+    {
+      "playerId": 700270,
+      "category": "投手",
+      "jerseyNumber": "62",
+      "spotvName": "ジルバー・ディアス",
+      "officialName": "Yilber Diaz",
+      "batsThrows": "右右",
+      "birthDate": "2000-08-19",
+      "excelNote": null
+    },
+    {
+      "playerId": 640448,
+      "category": "投手",
+      "jerseyNumber": "67",
+      "spotvName": "カイル・フィネガン",
+      "officialName": "Kyle Finnegan",
+      "batsThrows": "右右",
+      "birthDate": "1991-09-04",
+      "excelNote": null
+    },
+    {
+      "playerId": 656427,
+      "category": "投手",
+      "jerseyNumber": "9",
+      "spotvName": "ジャック・フラハティ",
+      "officialName": "Jack Flaherty",
+      "batsThrows": "右右",
+      "birthDate": "1995-10-15",
+      "excelNote": null
+    },
+    {
+      "playerId": 687830,
+      "category": "投手",
+      "jerseyNumber": "66",
+      "spotvName": "ソーヤー・ギプソン＝ロング",
+      "officialName": "Sawyer Gipson-Long",
+      "batsThrows": "右右",
+      "birthDate": "1997-12-12",
+      "excelNote": null
+    },
+    {
+      "playerId": 669724,
+      "category": "投手",
+      "jerseyNumber": "75",
+      "spotvName": "ブレナン・ハニフィー",
+      "officialName": "Brenan Hanifee",
+      "batsThrows": "右右",
+      "birthDate": "1998-05-29",
+      "excelNote": null
+    },
+    {
+      "playerId": 663947,
+      "category": "投手",
+      "jerseyNumber": "87",
+      "spotvName": "タイラー・ホルトン",
+      "officialName": "Tyler Holton",
+      "batsThrows": "左左",
+      "birthDate": "1996-06-13",
+      "excelNote": null
+    },
+    {
+      "playerId": 690544,
+      "category": "投手",
+      "jerseyNumber": "57",
+      "spotvName": "ベイリー・ホーン",
+      "officialName": "Bailey Horn",
+      "batsThrows": "左左",
+      "birthDate": "1998-01-15",
+      "excelNote": "60-IL"
+    },
+    {
+      "playerId": 676428,
+      "category": "投手",
+      "jerseyNumber": "48",
+      "spotvName": "ブラント・ハーター",
+      "officialName": "Brant Hurter",
+      "batsThrows": "左左",
+      "birthDate": "1998-09-06",
+      "excelNote": "60-IL"
+    },
+    {
+      "playerId": 445276,
+      "category": "投手",
+      "jerseyNumber": "74",
+      "spotvName": "ケンリー・ジャンセン",
+      "officialName": "Kenley Jansen",
+      "batsThrows": "右両",
+      "birthDate": "1987-09-30",
+      "excelNote": null
+    },
+    {
+      "playerId": 695549,
+      "category": "投手",
+      "jerseyNumber": "21",
+      "spotvName": "ジャクソン・ジョーブ",
+      "officialName": "Jackson Jobe",
+      "batsThrows": "右右",
+      "birthDate": "2002-07-30",
+      "excelNote": null
+    },
+    {
+      "playerId": 641755,
+      "category": "投手",
+      "jerseyNumber": "55",
+      "spotvName": "タイラー・キンリー",
+      "officialName": "Tyler Kinley",
+      "batsThrows": "右右",
+      "birthDate": "1991-01-31",
+      "excelNote": null
+    },
+    {
+      "playerId": 680744,
+      "category": "投手",
+      "jerseyNumber": "36",
+      "spotvName": "タイ・マッデン",
+      "officialName": "Ty Madden",
+      "batsThrows": "右右",
+      "birthDate": "2000-02-21",
+      "excelNote": null
+    },
+    {
+      "playerId": 675512,
+      "category": "投手",
+      "jerseyNumber": "52",
+      "spotvName": "トロイ・メルトン",
+      "officialName": "Troy Melton",
+      "batsThrows": "右右",
+      "birthDate": "2000-12-03",
+      "excelNote": null
+    },
+    {
+      "playerId": 805725,
+      "category": "投手",
+      "jerseyNumber": "60",
+      "spotvName": "ジェイク・ミラー",
+      "officialName": "Jake Miller",
+      "batsThrows": "左左",
+      "birthDate": "2001-06-27",
+      "excelNote": null
+    },
+    {
+      "playerId": 672456,
+      "category": "投手",
+      "jerseyNumber": "54",
+      "spotvName": "ケイダー・モンテロ",
+      "officialName": "Keider Montero",
+      "batsThrows": "右右",
+      "birthDate": "2000-07-06",
+      "excelNote": null
+    },
+    {
+      "playerId": 681857,
+      "category": "投手",
+      "jerseyNumber": "45",
+      "spotvName": "リース・オルソン",
+      "officialName": "Reese Olson",
+      "batsThrows": "右右",
+      "birthDate": "1999-07-31",
+      "excelNote": "60-IL"
+    },
+    {
+      "playerId": 689981,
+      "category": "投手",
+      "jerseyNumber": "77",
+      "spotvName": "リバー・ライアン",
+      "officialName": "River Ryan",
+      "batsThrows": "右右",
+      "birthDate": "1998-08-17",
+      "excelNote": null
+    },
+    {
+      "playerId": 808825,
+      "category": "投手",
+      "jerseyNumber": "64",
+      "spotvName": "アンドリュー・シアーズ",
+      "officialName": "Andrew Sears",
+      "batsThrows": "左左",
+      "birthDate": "2002-08-30",
+      "excelNote": null
+    },
+    {
+      "playerId": 572143,
+      "category": "投手",
+      "jerseyNumber": "65",
+      "spotvName": "バーチ・スミス",
+      "officialName": "Burch Smith",
+      "batsThrows": "右右",
+      "birthDate": "1990-04-12",
+      "excelNote": "60-IL"
+    },
+    {
+      "playerId": 805427,
+      "category": "投手",
+      "jerseyNumber": "51",
+      "spotvName": "ドリュー・ソマーズ",
+      "officialName": "Drew Sommers",
+      "batsThrows": "左左",
+      "birthDate": "2000-08-14",
+      "excelNote": null
+    },
+    {
+      "playerId": 664285,
+      "category": "投手",
+      "jerseyNumber": "59",
+      "spotvName": "フランバー・バルデス",
+      "officialName": "Framber Valdez",
+      "batsThrows": "左右",
+      "birthDate": "1993-11-19",
+      "excelNote": null
+    },
+    {
+      "playerId": 434378,
+      "category": "投手",
+      "jerseyNumber": "35",
+      "spotvName": "ジャスティン・バーランダー",
+      "officialName": "Justin Verlander",
+      "batsThrows": "右右",
+      "birthDate": "1983-02-20",
+      "excelNote": "60-IL"
+    },
+    {
+      "playerId": 676684,
+      "category": "投手",
+      "jerseyNumber": "19",
+      "spotvName": "ウィル・ベスト",
+      "officialName": "Will Vest",
+      "batsThrows": "右右",
+      "birthDate": "1995-06-06",
+      "excelNote": "60-IL"
+    },
+    {
+      "playerId": 621097,
+      "category": "投手",
+      "jerseyNumber": "58",
+      "spotvName": "ジェイコブ・ワゲスパック",
+      "officialName": "Jacob Waguespack",
+      "batsThrows": "右右",
+      "birthDate": "1993-11-05",
+      "excelNote": null
+    },
+    {
+      "playerId": 693307,
+      "category": "捕手",
+      "jerseyNumber": "13",
+      "spotvName": "ディロン・ディングラー",
+      "officialName": "Dillon Dingler",
+      "batsThrows": "右右",
+      "birthDate": "1998-09-17",
+      "excelNote": null
+    },
+    {
+      "playerId": 699073,
+      "category": "捕手",
+      "jerseyNumber": "49",
+      "spotvName": "タイロン・リランゾ",
+      "officialName": "Thayron Liranzo",
+      "batsThrows": "右両",
+      "birthDate": "2003-07-05",
+      "excelNote": null
+    },
+    {
+      "playerId": 595879,
+      "category": "内野手",
+      "jerseyNumber": "28",
+      "spotvName": "ハビアー・バイエズ",
+      "officialName": "Javier Baez",
+      "batsThrows": "右右",
+      "birthDate": "1992-12-01",
+      "excelNote": null
+    },
+    {
+      "playerId": 690291,
+      "category": "内野手",
+      "jerseyNumber": "17",
+      "spotvName": "ジェイス・ヤング",
+      "officialName": "Jace Jung",
+      "batsThrows": "右左",
+      "birthDate": "2000-10-04",
+      "excelNote": null
+    },
+    {
+      "playerId": 690993,
+      "category": "内野手",
+      "jerseyNumber": "33",
+      "spotvName": "コルト・キース",
+      "officialName": "Colt Keith",
+      "batsThrows": "右左",
+      "birthDate": "2001-08-14",
+      "excelNote": null
+    },
+    {
+      "playerId": 701678,
+      "category": "内野手",
+      "jerseyNumber": "50",
+      "spotvName": "李灝宇（リー・ハオユー）",
+      "officialName": "Hao-Yu Lee",
+      "batsThrows": "右右",
+      "birthDate": "2003-02-03",
+      "excelNote": null
+    },
+    {
+      "playerId": 805808,
+      "category": "内野手",
+      "jerseyNumber": "7",
+      "spotvName": "ケビン・マゴニグル",
+      "officialName": "Kevin McGonigle",
+      "batsThrows": "右左",
+      "birthDate": "2004-08-18",
+      "excelNote": null
+    },
+    {
+      "playerId": 807726,
+      "category": "内野手",
+      "jerseyNumber": "18",
+      "spotvName": "ジョン・ペック",
+      "officialName": "John Peck",
+      "batsThrows": "右右",
+      "birthDate": "2002-07-18",
+      "excelNote": null
+    },
+    {
+      "playerId": 700242,
+      "category": "内野手",
+      "jerseyNumber": "27",
+      "spotvName": "トレイ・スウィーニー",
+      "officialName": "Trey Sweeney",
+      "batsThrows": "右左",
+      "birthDate": "2000-04-24",
+      "excelNote": "60-IL"
+    },
+    {
+      "playerId": 679529,
+      "category": "内野手",
+      "jerseyNumber": "20",
+      "spotvName": "スペンサー・トーケルソン",
+      "officialName": "Spencer Torkelson",
+      "batsThrows": "右右",
+      "birthDate": "1999-08-26",
+      "excelNote": null
+    },
+    {
+      "playerId": 650402,
+      "category": "内野手",
+      "jerseyNumber": "25",
+      "spotvName": "グレイバー・トーレス",
+      "officialName": "Gleyber Torres",
+      "batsThrows": "右右",
+      "birthDate": "1996-12-13",
+      "excelNote": null
+    },
+    {
+      "playerId": 814430,
+      "category": "外野手",
+      "jerseyNumber": "34",
+      "spotvName": "ブレット・キャラハン",
+      "officialName": "Brett Callahan",
+      "batsThrows": "右左",
+      "birthDate": "2001-11-02",
+      "excelNote": null
+    },
+    {
+      "playerId": 681481,
+      "category": "外野手",
+      "jerseyNumber": "30",
+      "spotvName": "ケリー・カーペンター",
+      "officialName": "Kerry Carpenter",
+      "batsThrows": "右左",
+      "birthDate": "1997-09-02",
+      "excelNote": null
+    },
+    {
+      "playerId": 703601,
+      "category": "外野手",
+      "jerseyNumber": "15",
+      "spotvName": "マックス・クラーク",
+      "officialName": "Max Clark",
+      "batsThrows": "左左",
+      "birthDate": "2004-12-21",
+      "excelNote": null
+    },
+    {
+      "playerId": 682985,
+      "category": "外野手",
+      "jerseyNumber": "31",
+      "spotvName": "ライリー・グリーン",
+      "officialName": "Riley Greene",
+      "batsThrows": "左左",
+      "birthDate": "2000-09-28",
+      "excelNote": null
+    },
+    {
+      "playerId": 667452,
+      "category": "外野手",
+      "jerseyNumber": "44",
+      "spotvName": "コリー・ジョークス",
+      "officialName": "Corey Julks",
+      "batsThrows": "右右",
+      "birthDate": "1996-02-27",
+      "excelNote": null
+    },
+    {
+      "playerId": 701162,
+      "category": "外野手",
+      "jerseyNumber": "53",
+      "spotvName": "ベン・マルジェリ",
+      "officialName": "Ben Malgeri",
+      "batsThrows": "右右",
+      "birthDate": "2000-01-12",
+      "excelNote": null
+    },
+    {
+      "playerId": 656716,
+      "category": "外野手",
+      "jerseyNumber": "39",
+      "spotvName": "ザック・マキンストリー",
+      "officialName": "Zach McKinstry",
+      "batsThrows": "右左",
+      "birthDate": "1995-04-29",
+      "excelNote": null
+    },
+    {
+      "playerId": 678009,
+      "category": "外野手",
+      "jerseyNumber": "22",
+      "spotvName": "パーカー・メドーズ",
+      "officialName": "Parker Meadows",
+      "batsThrows": "右左",
+      "birthDate": "1999-11-02",
+      "excelNote": "60-IL"
+    },
+    {
+      "playerId": 672761,
+      "category": "外野手",
+      "jerseyNumber": "46",
+      "spotvName": "ウェンシール・ペレス",
+      "officialName": "Wenceel Perez",
+      "batsThrows": "右両",
+      "birthDate": "1999-10-30",
+      "excelNote": "60-IL"
+    },
+    {
+      "playerId": 663837,
+      "category": "外野手",
+      "jerseyNumber": "8",
+      "spotvName": "マット・ビアーリング",
+      "officialName": "Matt Vierling",
+      "batsThrows": "右右",
+      "birthDate": "1996-09-16",
+      "excelNote": null
+    },
+    {
+      "playerId": 680664,
+      "category": "指名打者",
+      "jerseyNumber": "32",
+      "spotvName": "エデュアルド・バレンシア",
+      "officialName": "Eduardo Valencia",
+      "batsThrows": "右右",
+      "birthDate": "2000-01-25",
+      "excelNote": null
+    }
+  ]
+}
