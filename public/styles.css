@@ -1030,6 +1030,39 @@ button {
 
 .roster-controls button:disabled { cursor: wait; opacity: .55; }
 
+.roster-controls .roster-active-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  margin-right: auto;
+  padding: 0 16px;
+  border-color: #0c5f3d;
+  background: linear-gradient(180deg, #168653, #0c6840);
+  color: #fff;
+  box-shadow: 0 4px 11px rgba(12, 104, 64, .18);
+}
+
+.roster-active-toggle span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #8bf0b4;
+  box-shadow: 0 0 0 3px rgba(139, 240, 180, .18);
+}
+
+.roster-active-toggle[aria-pressed="true"] {
+  border-color: #173b5c;
+  background: #fff;
+  color: #0c2944;
+  box-shadow: none;
+}
+
+.roster-active-toggle[aria-pressed="true"] span {
+  background: #168653;
+  box-shadow: 0 0 0 3px rgba(22, 134, 83, .13);
+}
+
 .roster-message {
   min-height: 0;
   margin: 0;
@@ -1109,6 +1142,9 @@ button {
   border-top: 2px solid #d6dce1;
   background: #e6e8eb;
 }
+
+.roster-active-only .roster-nonactive,
+.roster-active-only .roster-group-no-active { display: none; }
 
 .roster-active .roster-player { background: #fff; }
 .roster-nonactive .roster-player { background: transparent; }
@@ -1190,6 +1226,8 @@ button {
   .roster-ballpark-copy { gap: 8px; padding: 9px 10px; font-size: 10px; }
   .roster-ballpark-copy strong { font-size: 12px; }
   .roster-controls { padding-inline: 14px; }
+  .roster-controls { flex-wrap: wrap; }
+  .roster-controls .roster-active-toggle { flex: 1 0 100%; justify-content: center; margin-right: 0; }
   .roster-columns { gap: 12px; padding: 14px 10px 18px 14px; }
   .roster-column { gap: 12px; }
   .roster-group h2 { gap: 8px; padding-right: 8px; font-size: 13px; }

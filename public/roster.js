@@ -46,7 +46,9 @@
       sections[id][player.status === 'ACTIVE' ? 'active' : 'inactive'].push(playerRow(player));
     }
     for (const [id, groups] of Object.entries(sections)) {
-      document.getElementById(id).innerHTML = [
+      const container = document.getElementById(id);
+      container.closest('.roster-group').classList.toggle('roster-group-no-active', groups.active.length === 0);
+      container.innerHTML = [
         groups.active.length ? `<div class="roster-active">${groups.active.join('')}</div>` : '',
         groups.inactive.length ? `<div class="roster-nonactive">${groups.inactive.join('')}</div>` : '',
       ].join('');
@@ -70,5 +72,13 @@
   }
 
   document.getElementById('refresh-roster').addEventListener('click', () => load({ force: true }));
+  const activeToggle = document.getElementById('toggle-active-roster');
+  activeToggle.addEventListener('click', () => {
+    const activeOnly = document.getElementById('det-roster-sheet').classList.toggle('roster-active-only');
+    activeToggle.setAttribute('aria-pressed', String(activeOnly));
+    activeToggle.innerHTML = activeOnly
+      ? '<span aria-hidden="true"></span>全選手を表示'
+      : '<span aria-hidden="true"></span>ACTIVEのみ表示';
+  });
   window.detRoster = { load };
 })();
