@@ -51,10 +51,17 @@
   }
 
   function render(data) {
+    const logo = `https://www.mlbstatic.com/team-logos/${Number(data.teamId)}.svg`;
+    document.getElementById('roster-team-logo').src = logo;
+    document.getElementById('roster-team-logo').alt = data.teamName;
+    document.getElementById('roster-watermark').src = logo;
+    document.getElementById('roster-kicker').textContent = `${data.teamCode} ROSTER`;
+    document.getElementById('roster-sheet').style.setProperty('--roster-team-color', window.mlbTeamColor?.(data.teamId) ?? '#0b4f82');
     document.getElementById('roster-team-name').textContent = data.teamName;
     document.getElementById('roster-record').textContent = `${data.record.wins}勝 ${data.record.losses}敗`;
     document.getElementById('roster-standing').textContent = `${data.leagueName} ${data.divisionName} ${data.record.divisionRank}位`;
     document.getElementById('roster-venue').textContent = data.venueName;
+    document.getElementById('roster-venue-en').textContent = data.officialVenueName?.toUpperCase() ?? 'BALLPARK';
     document.getElementById('roster-manager').textContent = data.manager.displayName;
     document.getElementById('roster-updated').textContent = `最終更新：${formatUpdated(data.fetchedAt)} JST`;
     const sections = {};
@@ -75,10 +82,14 @@
     }
   }
 
+  let currentTeamId = null;
   let currentDate = '';
+  let currentHasStats = false;
   let currentGameContext = { doubleHeader: 'N', gameNumber: 1 };
-  async function load({ force = false, date = currentDate, doubleHeader = currentGameContext.doubleHeader, gameNumber = currentGameContext.gameNumber } = {}) {
+  async function load({ teamId = currentTeamId, force = false, includeStats = currentHasStats, date = currentDate, doubleHeader = currentGameContext.doubleHeader, gameNumber = currentGameContext.gameNumber } = {}) {
+    currentTeamId = Number(teamId);
     currentDate = date;
+    currentHasStats = includeStats;
     currentGameContext = { doubleHeader, gameNumber };
     const message = document.getElementById('roster-message');
     const refresh = document.getElementById('refresh-roster');
@@ -87,12 +98,16 @@
     try {
       const params = new URLSearchParams();
       if (force) params.set('refresh', '1');
+      if (includeStats) params.set('stats', '1');
       if (currentDate) params.set('date', currentDate);
       params.set('doubleHeader', currentGameContext.doubleHeader);
       params.set('gameNumber', String(currentGameContext.gameNumber));
-      const data = await window.detRosterApi(`/api/roster/det?${params}`);
+      const data = await window.rosterApi(`/api/roster/${currentTeamId}?${params}`);
       render(data);
-      message.textContent = '';
+      const warnings = [];
+      if (data.unmatchedActive?.length) warnings.push(`読み表と一致しないACTIVE選手 ${data.unmatchedActive.length}名`);
+      if (data.unresolved?.length) warnings.push(`playerId未解決 ${data.unresolved.length}名`);
+      message.textContent = warnings.join(' / ');
     } catch (error) {
       message.textContent = error.message;
     } finally {
@@ -103,12 +118,13 @@
   document.getElementById('refresh-roster').addEventListener('click', () => load({ force: true }));
   document.getElementById('print-roster').addEventListener('click', () => window.print());
   const activeToggle = document.getElementById('toggle-active-roster');
-  activeToggle.addEventListener('click', () => {
-    const activeOnly = document.getElementById('det-roster-sheet').classList.toggle('roster-active-only');
+  activeToggle.addEventListener('click', async () => {
+    const activeOnly = document.getElementById('roster-sheet').classList.toggle('roster-active-only');
     activeToggle.setAttribute('aria-pressed', String(activeOnly));
     activeToggle.innerHTML = activeOnly
       ? '<span aria-hidden="true"></span>全選手を表示'
       : '<span aria-hidden="true"></span>ACTIVEのみ表示';
+    if (activeOnly && !currentHasStats) await load({ includeStats: true });
   });
-  window.detRoster = { load };
+  window.roster = { load };
 })();

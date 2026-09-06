@@ -37,7 +37,7 @@ async function api(url, options = {}) {
   if (state.authenticated) armSessionExpiry();
   return data;
 }
-window.detRosterApi = api;
+window.rosterApi = api;
 
 const passwordInput = document.getElementById('password-input');
 const loginMessage = document.getElementById('login-message');
@@ -103,6 +103,7 @@ const teamColors = Object.freeze({
   144: '#ce1141', 145: '#27251f', 146: '#00a3e0', 147: '#003087', 158: '#ffc52f',
 });
 const teamColor = teamId => teamColors[Number(teamId)] ?? '#0b4f82';
+window.mlbTeamColor = teamColor;
 function pitcherCard(starter, side) {
   const fallback = starter ? 'NO PHOTO' : 'TBD';
   const photo = starter?.playerId
@@ -258,11 +259,16 @@ function navigate(hash, { replace = false } = {}) {
 }
 async function restoreRoute({ replace = false } = {}) {
   if (!state.authenticated) return showView('login');
-  if (location.hash === '#roster/det' || location.hash.startsWith('#roster/det?')) {
+  const rosterMatch = location.hash.match(/^#roster\/(\d+)(?:\?|$)/);
+  if (rosterMatch) {
     const params = new URLSearchParams(location.hash.split('?')[1] ?? '');
     showView('roster');
     const date = validDateString(params.get('date')) ? params.get('date') : state.selectedDate ?? mlbDateString();
-    return window.detRoster.load({
+    state.selectedDate = date;
+    const includeStats = document.getElementById('roster-sheet').classList.contains('roster-active-only');
+    return window.roster.load({
+      teamId: Number(rosterMatch[1]),
+      includeStats,
       date,
       doubleHeader: params.get('doubleHeader') ?? 'N',
       gameNumber: Number(params.get('gameNumber') ?? 1),
@@ -281,20 +287,37 @@ async function restoreRoute({ replace = false } = {}) {
 }
 window.addEventListener('popstate', () => restoreRoute());
 document.getElementById('back-to-games').addEventListener('click', () => navigate(`#games/${state.selectedDate ?? mlbDateString()}`));
-document.getElementById('open-det-roster').addEventListener('click', () => navigate(`#roster/det?date=${state.selectedDate ?? mlbDateString()}`));
-const rosterRoutes = new Map([[116, '#roster/det']]);
-function rosterRouteForGame(game) {
-  const supportedTeamId = [game?.away?.id, game?.home?.id].find(teamId => rosterRoutes.has(Number(teamId)));
-  const route = rosterRoutes.get(Number(supportedTeamId)) ?? '#roster/det';
+function rosterRouteForTeam(game, teamId) {
+  if (![game?.away?.id, game?.home?.id].map(Number).includes(Number(teamId))) throw new Error('対象球団を確認できません');
   const params = new URLSearchParams({
     date: state.selectedDate ?? mlbDateString(),
     gamePk: String(game?.gamePk ?? ''),
     doubleHeader: game?.doubleHeader ?? 'N',
     gameNumber: String(game?.gameNumber ?? 1),
   });
-  return `${route}?${params}`;
+  return `#roster/${Number(teamId)}?${params}`;
 }
-document.getElementById('lineup-roster-button').addEventListener('click', () => navigate(rosterRouteForGame(state.currentGame)));
+const rosterDialog = document.getElementById('roster-team-dialog');
+const rosterOptions = document.getElementById('roster-team-options');
+document.getElementById('lineup-roster-button').addEventListener('click', () => {
+  if (!state.currentGame) return;
+  rosterOptions.innerHTML = ['away', 'home'].map(side => {
+    const team = state.currentGame[side];
+    return `<button type="button" data-team-id="${Number(team.id)}">
+      <img src="${teamLogoUrl(team.id)}" alt="" />
+      <span><strong>${escapeHtml(team.code)}</strong><small>${escapeHtml(team.spotvName ?? team.name)}</small></span>
+    </button>`;
+  }).join('');
+  rosterDialog.showModal();
+});
+rosterOptions.addEventListener('click', event => {
+  const button = event.target.closest('button[data-team-id]');
+  if (!button) return;
+  rosterDialog.close();
+  navigate(rosterRouteForTeam(state.currentGame, Number(button.dataset.teamId)));
+});
+document.getElementById('close-roster-team-dialog').addEventListener('click', () => rosterDialog.close());
+rosterDialog.addEventListener('click', event => { if (event.target === rosterDialog) rosterDialog.close(); });
 document.getElementById('lineup-print-button').addEventListener('click', () => {
   document.documentElement.classList.add('printing-lineup');
   document.body.classList.add('printing-lineup');

@@ -8,7 +8,7 @@ import { resolveDisplayName, mergeMlbPeople } from './scripts/lib/player-diction
 import { spotvTeamCode } from './scripts/lib/mlb-team-map.mjs';
 import { buildTemplateInput, LINEUP_WRITE_ALLOWLIST } from './scripts/lib/template-lineup-input.mjs';
 import { writeAllowedCells } from './scripts/lib/ooxml-xlsx.mjs';
-import { buildDetRoster, rosterStatsDate } from './scripts/lib/mlb-roster.mjs';
+import { buildRoster, rosterStatsDate } from './scripts/lib/mlb-roster.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(root, 'public');
@@ -17,7 +17,7 @@ const outputDir = process.env.SPOTV_OUTPUT_DIR ?? (process.env.NODE_ENV === 'pro
 const runtimeDir = process.env.SPOTV_RUNTIME_DIR ?? path.join(root, 'runtime');
 const dictionaryPath = process.env.SPOTV_DICTIONARY_PATH ?? path.join(runtimeDir, 'spotv-player-dictionary.json');
 const businessNamesPath = process.env.SPOTV_BUSINESS_NAMES_PATH ?? path.join(runtimeDir, 'spotv-business-names.json');
-const detRosterPath = path.join(runtimeDir, 'det-roster.json');
+const rosterSourcesPath = path.join(runtimeDir, 'roster-sources.json');
 const mlbCacheDir = process.env.SPOTV_MLB_CACHE_DIR ?? path.join(root, 'private', 'cache', 'mlb');
 const templatePath = process.env.SPOTV_TEMPLATE_PATH ?? path.join(runtimeDir, 'template.xlsx');
 const password = process.env.SPOTV_LINEUP_PASSWORD;
@@ -32,10 +32,10 @@ const sessions = new Map();
 const failedLogins = new Map();
 const downloads = new Map();
 const sourceCache = new Map();
-let detRosterCache = null;
+const rosterCache = new Map();
 const dictionary = JSON.parse(await fs.readFile(dictionaryPath, 'utf8')).players;
 const spotvWorkbook = JSON.parse(await fs.readFile(businessNamesPath, 'utf8'));
-const detRosterSource = JSON.parse(await fs.readFile(detRosterPath, 'utf8'));
+const rosterSources = JSON.parse(await fs.readFile(rosterSourcesPath, 'utf8')).teams;
 const spotvVenueNames = new Map((spotvWorkbook.sheets ?? []).map(sheet => [sheet.team, sheet.venueName]));
 const spotvTeamNames = new Map((spotvWorkbook.sheets ?? []).map(sheet => [sheet.team, sheet.teamName]));
 let mlbPeople = [];
@@ -103,28 +103,31 @@ async function fetchJson(url) {
   return response.json();
 }
 
-async function detRosterView(forceRefresh = false, requestedDate = easternDateString(), doubleHeader = 'N', gameNumber = 1) {
+async function rosterView(teamId, { forceRefresh = false, includeStats = false, requestedDate = easternDateString(), doubleHeader = 'N', gameNumber = 1 } = {}) {
+  const source = rosterSources[teamId];
+  if (!source) throw new Error(`teamId ${teamId}のロースターは利用できません`);
   const officialDate = /^\d{4}-\d{2}-\d{2}$/.test(requestedDate ?? '') ? requestedDate : easternDateString();
   const standingsDate = rosterStatsDate(officialDate, doubleHeader, gameNumber);
-  const cacheKey = `${officialDate}:${standingsDate}`;
-  if (!forceRefresh && detRosterCache?.cacheKey === cacheKey && detRosterCache.expiresAt > Date.now()) return detRosterCache.value;
+  const cacheKey = `${teamId}:${officialDate}:${standingsDate}:${includeStats ? 'stats' : 'base'}`;
+  const cached = rosterCache.get(cacheKey);
+  if (!forceRefresh && cached?.expiresAt > Date.now()) return cached.value;
   const season = Number(officialDate.slice(0, 4));
   const statsHydrate = `person(stats(group=[hitting,pitching],type=byDateRange,startDate=${season}-01-01,endDate=${standingsDate},gameType=R))`;
-  const activeUrl = new URL('https://statsapi.mlb.com/api/v1/teams/116/roster');
+  const activeUrl = new URL(`https://statsapi.mlb.com/api/v1/teams/${teamId}/roster`);
   activeUrl.searchParams.set('rosterType', 'active');
-  activeUrl.searchParams.set('hydrate', statsHydrate);
+  if (includeStats) activeUrl.searchParams.set('hydrate', statsHydrate);
   const [active, fortyMan, standings, coaches, team] = await Promise.all([
     fetchJson(activeUrl),
-    fetchJson('https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=40Man'),
-    fetchJson(`https://statsapi.mlb.com/api/v1/standings?leagueId=103&season=${season}&standingsTypes=regularSeason&date=${standingsDate}&hydrate=team`),
-    fetchJson('https://statsapi.mlb.com/api/v1/teams/116/coaches'),
-    fetchJson('https://statsapi.mlb.com/api/v1/teams/116?hydrate=venue,division'),
+    fetchJson(`https://statsapi.mlb.com/api/v1/teams/${teamId}/roster?rosterType=40Man`),
+    fetchJson(`https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season=${season}&standingsTypes=regularSeason&date=${standingsDate}&hydrate=team`),
+    fetchJson(`https://statsapi.mlb.com/api/v1/teams/${teamId}/coaches`),
+    fetchJson(`https://statsapi.mlb.com/api/v1/teams/${teamId}?hydrate=venue,division`),
   ]);
-  const value = buildDetRoster({
-    source: detRosterSource, active, fortyMan, standings, coaches, team,
+  const value = buildRoster({
+    source, active, fortyMan, standings, coaches, team,
     fetchedAt: new Date().toISOString(),
   });
-  detRosterCache = { cacheKey, expiresAt: Date.now() + 90_000, value };
+  rosterCache.set(cacheKey, { expiresAt: Date.now() + 90_000, value });
   return value;
 }
 
@@ -300,13 +303,19 @@ const server = http.createServer(async (req, res) => {
       catch { return json(res, 400, { error: 'dateは現地日付のYYYY-MM-DD形式で指定してください' }); }
       return json(res, 200, { date, games: await todayGames(date) });
     }
-    if (req.method === 'GET' && url.pathname === '/api/roster/det') {
-      return json(res, 200, await detRosterView(
-        url.searchParams.get('refresh') === '1',
-        url.searchParams.get('date') ?? easternDateString(),
-        url.searchParams.get('doubleHeader') ?? 'N',
-        Number(url.searchParams.get('gameNumber') ?? 1),
-      ));
+    const rosterMatch = url.pathname.match(/^\/api\/roster\/(\d+)$/);
+    if (req.method === 'GET' && rosterMatch) {
+      try {
+        return json(res, 200, await rosterView(Number(rosterMatch[1]), {
+          forceRefresh: url.searchParams.get('refresh') === '1',
+          includeStats: url.searchParams.get('stats') === '1',
+          requestedDate: url.searchParams.get('date') ?? easternDateString(),
+          doubleHeader: url.searchParams.get('doubleHeader') ?? 'N',
+          gameNumber: Number(url.searchParams.get('gameNumber') ?? 1),
+        }));
+      } catch (error) {
+        return json(res, 502, { error: `ロースターを取得できませんでした: ${error.message}` });
+      }
     }
     const gameMatch = url.pathname.match(/^\/api\/games\/(\d+)$/);
     if (req.method === 'GET' && gameMatch) return json(res, 200, detailView(await gameSources(Number(gameMatch[1]))));

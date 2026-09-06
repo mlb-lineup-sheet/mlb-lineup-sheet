@@ -76,7 +76,9 @@ export function parseSpotvWorkbook(file) {
     const rows = parseCells(unzipText(file, `xl/${target}`), strings);
     const headerRow = [...rows].find(([, row]) => String(row.A ?? '').includes('位置') && String(row.B ?? '').includes('背番号'))?.[0];
     if (!headerRow) throw new Error(`Player header not found: ${sheet.name}`);
+    const managerRow = [...rows.values()].find(row => String(row.A ?? '').trim() === '監督') ?? {};
     let count = 0;
+    let currentCategory = null;
     for (const [rowNumber, row] of [...rows].sort((a, b) => a[0] - b[0])) {
       if (rowNumber <= headerRow) continue;
       const officialName = String(row.D ?? '').trim();
@@ -86,9 +88,10 @@ export function parseSpotvWorkbook(file) {
       if (!officialName || !spotvName || !birthDate) {
         throw new Error(`${sheet.name}!${rowNumber}: required player field missing or invalid (${JSON.stringify({ spotvName, officialName, rawBirthDate: row.H, birthDate })})`);
       }
+      currentCategory = String(row.A ?? '').trim() || currentCategory;
       players.push({
         sourceTeam: sheet.name, sourceRow: rowNumber,
-        category: String(row.A ?? '').trim() || null,
+        category: currentCategory,
         jerseyNumber: String(row.B ?? '').trim() || null,
         spotvName, officialName, batsThrows: String(row.E ?? '').trim() || null,
         birthDate, note: String(row.J ?? '').trim() || null,
@@ -99,6 +102,13 @@ export function parseSpotvWorkbook(file) {
       team: sheet.name,
       teamName: String(rows.get(1)?.A ?? '').trim() || null,
       venueName: String(rows.get(2)?.B ?? '').trim() || null,
+      manager: {
+        jerseyNumber: String(managerRow.B ?? '').trim() || null,
+        spotvName: String(managerRow.C ?? '').trim() || null,
+        officialName: String(managerRow.D ?? '').trim() || null,
+        batsThrows: String(managerRow.E ?? '').trim() || null,
+        birthDate: excelDate(managerRow.H),
+      },
       playerCount: count,
     });
   }

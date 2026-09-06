@@ -41,7 +41,7 @@
 
         <div class="header-date" id="header-date"></div>
 
-        <button id="open-det-roster" class="header-roster-button" type="button">ROSTER</button>
+        <button id="open-roster" class="header-roster-button" type="button" hidden>ROSTER</button>
       </header>
 
       <div class="page-shell">
@@ -154,6 +154,14 @@
 
         <p id="output-message" class="output-message"></p>
 
+        <dialog id="roster-team-dialog" class="roster-team-dialog" aria-labelledby="roster-team-dialog-title">
+          <div class="roster-team-dialog-head">
+            <h2 id="roster-team-dialog-title">ロースターを選択</h2>
+            <button id="close-roster-team-dialog" type="button" aria-label="閉じる">×</button>
+          </div>
+          <div id="roster-team-options" class="roster-team-options"></div>
+        </dialog>
+
       </div>
     </section>
 
@@ -166,25 +174,25 @@
       </header>
 
       <div class="roster-page-shell">
-        <section id="det-roster-sheet" class="roster-sheet" aria-labelledby="roster-team-name">
-          <img class="roster-watermark" src="https://www.mlbstatic.com/team-logos/116.svg" alt="" aria-hidden="true" />
+        <section id="roster-sheet" class="roster-sheet" aria-labelledby="roster-team-name">
+          <img id="roster-watermark" class="roster-watermark" alt="" aria-hidden="true" />
           <header class="roster-hero">
             <div class="roster-identity">
-              <img class="roster-team-logo" src="https://www.mlbstatic.com/team-logos/116.svg" alt="Detroit Tigers" />
+              <img id="roster-team-logo" class="roster-team-logo" alt="" />
               <div>
-                <p class="roster-kicker">DET ROSTER</p>
-                <h1 id="roster-team-name">デトロイト・タイガース</h1>
+                <p id="roster-kicker" class="roster-kicker">ROSTER</p>
+                <h1 id="roster-team-name"></h1>
                 <p id="roster-record" class="roster-record"></p>
                 <p id="roster-standing" class="roster-standing"></p>
               </div>
             </div>
             <div class="roster-ballpark">
               <div class="roster-ballpark-placeholder" aria-hidden="true">
-                <span>COMERICA PARK</span>
+                <span id="roster-venue-en">BALLPARK</span>
               </div>
               <div class="roster-ballpark-copy">
-                <strong id="roster-venue">コメリカ・パーク</strong>
-                <span>監督　<span id="roster-manager">A・J・ヒンチ</span></span>
+                <strong id="roster-venue"></strong>
+                <span>監督　<span id="roster-manager"></span></span>
               </div>
             </div>
           </header>
