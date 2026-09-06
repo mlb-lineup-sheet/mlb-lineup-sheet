@@ -273,7 +273,21 @@ async function restoreRoute({ replace = false } = {}) {
 window.addEventListener('popstate', () => restoreRoute());
 document.getElementById('back-to-games').addEventListener('click', () => navigate(`#games/${state.selectedDate ?? mlbDateString()}`));
 document.getElementById('open-det-roster').addEventListener('click', () => navigate('#roster/det'));
-document.getElementById('lineup-roster-button').addEventListener('click', () => navigate('#roster/det'));
+const rosterRoutes = new Map([[116, '#roster/det']]);
+function rosterRouteForGame(game) {
+  const supportedTeamId = [game?.away?.id, game?.home?.id].find(teamId => rosterRoutes.has(Number(teamId)));
+  return rosterRoutes.get(Number(supportedTeamId)) ?? '#roster/det';
+}
+document.getElementById('lineup-roster-button').addEventListener('click', () => navigate(rosterRouteForGame(state.currentGame)));
+document.getElementById('lineup-print-button').addEventListener('click', () => {
+  document.documentElement.classList.add('printing-lineup');
+  document.body.classList.add('printing-lineup');
+  window.print();
+});
+window.addEventListener('afterprint', () => {
+  document.documentElement.classList.remove('printing-lineup');
+  document.body.classList.remove('printing-lineup');
+});
 document.getElementById('back-from-roster').addEventListener('click', () => navigate(`#games/${state.selectedDate ?? mlbDateString()}`));
 document.getElementById('previous-date').addEventListener('click', () => navigate(`#games/${shiftDate(state.selectedDate, -1)}`));
 document.getElementById('next-date').addEventListener('click', () => navigate(`#games/${shiftDate(state.selectedDate, 1)}`));

@@ -1611,13 +1611,14 @@ button {
 .output-bar {
   margin-top: 34px;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 220px));
+  grid-template-columns: repeat(3, minmax(0, 210px));
   justify-content: end;
-  gap: 20px;
+  gap: 18px;
   padding: 0;
   background: transparent;
 }
 
+.lineup-print-button,
 .lineup-roster-button,
 .excel-output-button {
   width: 100%;
@@ -1627,6 +1628,12 @@ button {
   font-weight: 950;
   letter-spacing: .04em;
   transition: .18s ease;
+}
+
+.lineup-print-button {
+  border: 1px solid #9eabb6;
+  background: transparent;
+  color: #425466;
 }
 
 .lineup-roster-button {
@@ -1641,6 +1648,7 @@ button {
   color: white;
 }
 
+.lineup-print-button:hover,
 .lineup-roster-button:hover,
 .excel-output-button:hover {
   transform: translateY(-2px);
@@ -1737,7 +1745,7 @@ button {
   }
 
   .output-bar {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 12px;
   }
 
@@ -1772,6 +1780,99 @@ button {
   .jersey-number,
   .bats { font-size: clamp(14px, 3.8vw, 17px); }
 
+  .lineup-print-button,
   .lineup-roster-button,
   .excel-output-button { height: 54px; font-size: 13px; }
+}
+
+@media (max-width: 620px) {
+  .output-bar { grid-template-columns: 1fr; }
+}
+
+@media print {
+  html.printing-lineup,
+  body.printing-lineup {
+    width: 297mm;
+    min-height: 0;
+    height: auto;
+  }
+
+  body.printing-lineup .login-view,
+  body.printing-lineup .games-view,
+  body.printing-lineup .roster-view,
+  body.printing-lineup .lineup-view .app-header,
+  body.printing-lineup .output-bar,
+  body.printing-lineup .output-message {
+    display: none !important;
+  }
+
+  body.printing-lineup .lineup-view {
+    display: block !important;
+    min-height: 0;
+    background: #fff !important;
+  }
+
+  body.printing-lineup .lineup-view .page-shell {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body.printing-lineup .matchup-hero {
+    min-height: 50mm;
+    height: 50mm;
+    padding: 2mm 7mm 10mm;
+    border-radius: 3mm;
+    box-shadow: none;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  body.printing-lineup .matchup-team-logo { width: 11mm; height: 11mm; }
+  body.printing-lineup .matchup-team strong { font-size: 24pt; }
+  body.printing-lineup .matchup-team small { margin-top: 1mm; font-size: 7pt; }
+  body.printing-lineup .matchup-pitchers { width: 54%; margin-top: -10mm; }
+  body.printing-lineup .matchup-pitcher-photo { height: 27mm; }
+  body.printing-lineup .matchup-pitcher .starter-name { min-height: 3.5mm; font-size: 9pt; }
+  body.printing-lineup .matchup-pitcher .starter-meta { margin-top: .5mm; font-size: 7pt; }
+  body.printing-lineup .matchup-vs { width: 7mm; height: 7mm; margin-top: 5mm; font-size: 5.5pt; }
+  body.printing-lineup .matchup-status { min-height: 4mm; font-size: 7pt; }
+  body.printing-lineup .lineup-change-alert { font-size: 7pt; animation: none; }
+  body.printing-lineup .match-meta { min-height: 9mm; padding: 0 6mm; }
+  body.printing-lineup .match-meta strong { font-size: 14pt; }
+  body.printing-lineup .match-meta span { font-size: 8pt; }
+
+  body.printing-lineup .lineup-section-heading { margin: 3mm 0 2mm; }
+  body.printing-lineup .lineup-section-heading h2 { font-size: 14pt; }
+  body.printing-lineup .lineup-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 4mm;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  body.printing-lineup .team-lineup {
+    border-radius: 2mm;
+    box-shadow: none;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  body.printing-lineup .team-lineup-header { min-height: 13mm; padding: 2mm 4mm 1.5mm; }
+  body.printing-lineup .lineup-board-logo { width: 9mm; height: 9mm; }
+  body.printing-lineup .team-lineup-header h3 { font-size: 12pt; }
+  body.printing-lineup .lineup-list { padding: 0 3mm 1mm; }
+  body.printing-lineup .lineup-player {
+    min-height: 7mm;
+    grid-template-columns: 6mm minmax(0, 1fr) 9mm 8mm 8mm;
+    gap: 1.5mm;
+    padding: .7mm 1mm;
+  }
+  body.printing-lineup .batting-order { font-size: 9pt; }
+  body.printing-lineup .player-name,
+  body.printing-lineup .position,
+  body.printing-lineup .jersey-number,
+  body.printing-lineup .bats { font-size: 9pt; }
+  body.printing-lineup .player-name-input { height: 6mm; padding: 0 1mm; font-size: 8pt; }
+  body.printing-lineup .player-warning { display: none; }
 }
