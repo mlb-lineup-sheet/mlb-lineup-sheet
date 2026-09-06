@@ -1,5 +1,12 @@
 import { mergeRosterStatus, normalizeRosterName } from './roster-match.mjs';
 
+export function pregameStandingsDate(officialDate) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(officialDate ?? '')) throw new Error('現地日付が不正です');
+  const date = new Date(`${officialDate}T12:00:00Z`);
+  date.setUTCDate(date.getUTCDate() - 1);
+  return date.toISOString().slice(0, 10);
+}
+
 function detroitRecord(standings) {
   for (const record of standings.records ?? []) {
     const team = record.teamRecords?.find(item => item.team?.id === 116);

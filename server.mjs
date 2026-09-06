@@ -8,7 +8,7 @@ import { resolveDisplayName, mergeMlbPeople } from './scripts/lib/player-diction
 import { spotvTeamCode } from './scripts/lib/mlb-team-map.mjs';
 import { buildTemplateInput, LINEUP_WRITE_ALLOWLIST } from './scripts/lib/template-lineup-input.mjs';
 import { writeAllowedCells } from './scripts/lib/ooxml-xlsx.mjs';
-import { buildDetRoster } from './scripts/lib/mlb-roster.mjs';
+import { buildDetRoster, pregameStandingsDate } from './scripts/lib/mlb-roster.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(root, 'public');
@@ -104,12 +104,14 @@ async function fetchJson(url) {
 }
 
 async function detRosterView(forceRefresh = false) {
-  if (!forceRefresh && detRosterCache?.expiresAt > Date.now()) return detRosterCache.value;
-  const season = new Date().getUTCFullYear();
+  const officialDate = easternDateString();
+  const standingsDate = pregameStandingsDate(officialDate);
+  if (!forceRefresh && detRosterCache?.officialDate === officialDate && detRosterCache.expiresAt > Date.now()) return detRosterCache.value;
+  const season = Number(officialDate.slice(0, 4));
   const [active, fortyMan, standings, coaches, team] = await Promise.all([
     fetchJson('https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=active'),
     fetchJson('https://statsapi.mlb.com/api/v1/teams/116/roster?rosterType=40Man'),
-    fetchJson(`https://statsapi.mlb.com/api/v1/standings?leagueId=103&season=${season}&standingsTypes=regularSeason&hydrate=team`),
+    fetchJson(`https://statsapi.mlb.com/api/v1/standings?leagueId=103&season=${season}&standingsTypes=regularSeason&date=${standingsDate}&hydrate=team`),
     fetchJson('https://statsapi.mlb.com/api/v1/teams/116/coaches'),
     fetchJson('https://statsapi.mlb.com/api/v1/teams/116?hydrate=venue,division'),
   ]);
@@ -117,7 +119,7 @@ async function detRosterView(forceRefresh = false) {
     source: detRosterSource, active, fortyMan, standings, coaches, team,
     fetchedAt: new Date().toISOString(),
   });
-  detRosterCache = { expiresAt: Date.now() + 90_000, value };
+  detRosterCache = { officialDate, expiresAt: Date.now() + 90_000, value };
   return value;
 }
 

@@ -1,5 +1,10 @@
 import assert from 'node:assert/strict';
 import { classifyRosterStatus, matchRosterPlayer, normalizeRosterName } from '../scripts/lib/roster-match.mjs';
+import { pregameStandingsDate } from '../scripts/lib/mlb-roster.mjs';
+
+assert.equal(pregameStandingsDate('2026-09-06'), '2026-09-05');
+assert.equal(pregameStandingsDate('2026-03-01'), '2026-02-28');
+assert.equal(pregameStandingsDate('2026-01-01'), '2025-12-31');
 
 assert.equal(normalizeRosterName('Yilber Díaz'), normalizeRosterName('Yilber Diaz'));
 assert.equal(normalizeRosterName('Javier Báez'), normalizeRosterName('Javier Baez'));
