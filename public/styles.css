@@ -1786,14 +1786,23 @@ button {
 
 .output-bar {
   margin-top: 34px;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 210px));
-  justify-content: end;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 18px;
   padding: 0;
   background: transparent;
 }
 
+.output-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 210px));
+  justify-content: end;
+  gap: 18px;
+  flex: 1;
+}
+
+.lineup-live-button,
 .lineup-print-button,
 .lineup-roster-button,
 .excel-output-button {
@@ -1804,6 +1813,23 @@ button {
   font-weight: 950;
   letter-spacing: .04em;
   transition: .18s ease;
+}
+
+.lineup-live-button {
+  width: 190px;
+  flex: 0 0 190px;
+  border: 1px solid #173b5c;
+  background: #0c2944;
+  color: #fff;
+}
+
+.live-game-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 9px;
+  border-radius: 50%;
+  background: #8c99a5;
 }
 
 .lineup-print-button {
@@ -1824,6 +1850,7 @@ button {
   color: white;
 }
 
+.lineup-live-button:hover,
 .lineup-print-button:hover,
 .lineup-roster-button:hover,
 .excel-output-button:hover {
@@ -1948,6 +1975,10 @@ button {
   }
 
   .output-bar {
+    gap: 12px;
+  }
+
+  .output-actions {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 12px;
   }
@@ -1983,13 +2014,16 @@ button {
   .jersey-number,
   .bats { font-size: clamp(14px, 3.8vw, 17px); }
 
+  .lineup-live-button,
   .lineup-print-button,
   .lineup-roster-button,
   .excel-output-button { height: 54px; font-size: 13px; }
 }
 
 @media (max-width: 620px) {
-  .output-bar { grid-template-columns: 1fr; }
+  .output-bar { align-items: stretch; flex-direction: column; }
+  .lineup-live-button { width: 100%; flex-basis: auto; }
+  .output-actions { width: 100%; grid-template-columns: 1fr; }
 }
 
 @media print {

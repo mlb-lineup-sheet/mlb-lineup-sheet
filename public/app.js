@@ -229,6 +229,7 @@ function renderGame(game) {
     }
     renderLineup(document.getElementById(`${side}-lineup-list`), game[side].lineup);
   }
+  document.getElementById('lineup-live-button').dataset.gamePk = String(game.gamePk);
   document.getElementById('excel-output-button').disabled = !ready;
   document.getElementById('output-message').textContent = ready ? '' : game.lineupMessage;
 }
@@ -318,6 +319,10 @@ rosterOptions.addEventListener('click', event => {
 });
 document.getElementById('close-roster-team-dialog').addEventListener('click', () => rosterDialog.close());
 rosterDialog.addEventListener('click', event => { if (event.target === rosterDialog) rosterDialog.close(); });
+document.getElementById('lineup-live-button').addEventListener('click', event => {
+  if (!event.currentTarget.dataset.gamePk) return;
+  document.getElementById('output-message').textContent = 'LIVE GAMEは準備中です';
+});
 const printModeClasses = ['printing-lineup', 'printing-roster'];
 function setPrintMode(mode) {
   document.documentElement.classList.remove(...printModeClasses);
