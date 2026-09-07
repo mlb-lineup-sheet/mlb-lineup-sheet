@@ -13,7 +13,11 @@
     .replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 
   function statGrid(player) {
-    if (player.status !== 'ACTIVE' || !player.stats) return '';
+    if (player.status !== 'ACTIVE') return '';
+    if (!player.stats) {
+      const noAppearance = player.category === '投手' ? '登板なし' : '出場なし';
+      return `<div class="roster-player-stats roster-stats-empty"><span>${noAppearance}</span><span></span><span></span><span></span></div>`;
+    }
     const stat = player.stats;
     if (player.category === '投手') {
       return `<div class="roster-player-stats roster-pitching-stats">

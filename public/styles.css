@@ -1201,6 +1201,7 @@ button {
 }
 
 .roster-player-stats span { min-width: 0; }
+.roster-hitting-stats span:nth-child(3) { text-align: right; }
 
 .roster-active-only .roster-player {
   grid-template-columns: 46px minmax(200px, 1.05fr) minmax(220px, .95fr) 40px;
