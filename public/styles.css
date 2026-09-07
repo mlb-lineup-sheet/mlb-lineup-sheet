@@ -1202,8 +1202,9 @@ button {
 .roster-player-stats span { min-width: 0; }
 
 .roster-active-only .roster-player {
-  grid-template-columns: 46px 190px minmax(0, 1fr) 40px;
-  min-height: 68px;
+  grid-template-columns: 46px minmax(220px, 1.25fr) minmax(190px, .75fr) 40px;
+  height: 76px;
+  min-height: 76px;
 }
 
 .roster-active-only .roster-player-names {
@@ -1213,7 +1214,13 @@ button {
 }
 
 .roster-active-only .roster-player-names span { font-size: 13.5px; }
-.roster-active-only .roster-player-stats { display: grid; }
+.roster-active-only .roster-player-names strong,
+.roster-active-only .roster-player-names span { text-overflow: clip; }
+.roster-active-only .roster-player-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  row-gap: 6px;
+}
 .roster-active-only .roster-player-status { display: none; }
 .roster-player-position { color: #707d88; font-size: 12px; font-weight: 800; text-align: center; }
 
@@ -1302,11 +1309,14 @@ button {
     grid-template-areas:
       "number names position"
       "number stats stats";
+    height: 88px;
+    min-height: 88px;
   }
 
   .roster-active-only .roster-player-stats {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    column-gap: 5px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 12px;
+    row-gap: 3px;
     white-space: nowrap;
   }
 }
@@ -1344,14 +1354,14 @@ button {
   .roster-player-position { font-size: 7pt; }
   .roster-player-status { gap: 1mm; padding-right: 1mm; font-size: 7pt; }
   .roster-player-status span { width: 1.3mm; height: 1.3mm; flex-basis: 1.3mm; }
-  .roster-active-only .roster-player { grid-template-columns: 9mm 51mm minmax(0, 1fr) 9mm; min-height: 8.2mm; }
+  .roster-active-only .roster-player { grid-template-columns: 9mm minmax(55mm, 1.2fr) minmax(42mm, .8fr) 9mm; height: 8.2mm; min-height: 8.2mm; }
   .roster-active-only .roster-number { font-size: 10pt; }
   .roster-active-only .roster-player-names { gap: .8mm; }
   .roster-active-only .roster-player-names strong { font-size: 9.5pt; }
   .roster-active-only .roster-player-names span { font-size: 8.5pt; }
   .roster-active-only .roster-player-stats { font-size: 8.3pt; }
   .roster-active-only .roster-player-position { font-size: 7.8pt; }
-  .roster-active-only .roster-player-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .roster-active-only .roster-player-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: .6mm; }
   .roster-active-only .roster-player-status { display: none; }
 }
 

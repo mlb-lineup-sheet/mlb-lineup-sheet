@@ -25,9 +25,9 @@
     }
     return `<div class="roster-player-stats roster-hitting-stats">
       <span>打率${escapeHtml(stat.avg ?? '.---')}</span>
+      <span>OPS ${escapeHtml(stat.ops ?? '.---')}</span>
       <span>${escapeHtml(stat.homeRuns ?? 0)}本塁打</span>
       <span>${escapeHtml(stat.rbi ?? 0)}打点</span>
-      <span>OPS ${escapeHtml(stat.ops ?? '.---')}</span>
     </div>`;
   }
 
