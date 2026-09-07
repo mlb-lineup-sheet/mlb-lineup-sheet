@@ -19,14 +19,14 @@
       return `<div class="roster-player-stats roster-pitching-stats">
         <span>${escapeHtml(stat.gamesPitched ?? stat.gamesPlayed ?? 0)}試合</span>
         <span>${escapeHtml(stat.wins ?? 0)}勝${escapeHtml(stat.losses ?? 0)}敗</span>
-        <span>防御率${escapeHtml(stat.era ?? '-.--')}</span>
-        <span>${Number(stat.saves) > 0 ? `${escapeHtml(stat.saves)}セーブ` : ''}</span>
+        <span>防${escapeHtml(stat.era ?? '-.--')}</span>
+        <span>${Number(stat.saves) > 0 ? `${escapeHtml(stat.saves)}S` : ''}</span>
       </div>`;
     }
     return `<div class="roster-player-stats roster-hitting-stats">
       <span>打率${escapeHtml(stat.avg ?? '.---')}</span>
-      <span>OPS ${escapeHtml(stat.ops ?? '.---')}</span>
-      <span>${escapeHtml(stat.homeRuns ?? 0)}本塁打</span>
+      <span>OPS${escapeHtml(stat.ops ?? '.---')}</span>
+      <span>${escapeHtml(stat.homeRuns ?? 0)}HR</span>
       <span>${escapeHtml(stat.rbi ?? 0)}打点</span>
     </div>`;
   }
