@@ -318,15 +318,26 @@ rosterOptions.addEventListener('click', event => {
 });
 document.getElementById('close-roster-team-dialog').addEventListener('click', () => rosterDialog.close());
 rosterDialog.addEventListener('click', event => { if (event.target === rosterDialog) rosterDialog.close(); });
-document.getElementById('lineup-print-button').addEventListener('click', () => {
-  document.documentElement.classList.add('printing-lineup');
-  document.body.classList.add('printing-lineup');
+const printModeClasses = ['printing-lineup', 'printing-roster'];
+function setPrintMode(mode) {
+  document.documentElement.classList.remove(...printModeClasses);
+  document.body.classList.remove(...printModeClasses);
+  if (!mode) return;
+  document.documentElement.classList.add(`printing-${mode}`);
+  document.body.classList.add(`printing-${mode}`);
+}
+function activePrintMode() {
+  if (views.lineup.classList.contains('view-active')) return 'lineup';
+  if (views.roster.classList.contains('view-active')) return 'roster';
+  return null;
+}
+window.printAppView = mode => {
+  setPrintMode(mode);
   window.print();
-});
-window.addEventListener('afterprint', () => {
-  document.documentElement.classList.remove('printing-lineup');
-  document.body.classList.remove('printing-lineup');
-});
+};
+document.getElementById('lineup-print-button').addEventListener('click', () => window.printAppView('lineup'));
+window.addEventListener('beforeprint', () => setPrintMode(activePrintMode()));
+window.addEventListener('afterprint', () => setPrintMode(null));
 document.getElementById('back-from-roster').addEventListener('click', () => navigate(`#games/${state.selectedDate ?? mlbDateString()}`));
 document.getElementById('previous-date').addEventListener('click', () => navigate(`#games/${shiftDate(state.selectedDate, -1)}`));
 document.getElementById('next-date').addEventListener('click', () => navigate(`#games/${shiftDate(state.selectedDate, 1)}`));

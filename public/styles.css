@@ -1323,13 +1323,28 @@ button {
 }
 
 @media print {
-  @page { size: A4 landscape; margin: 6mm; }
+  @page { margin: 8mm; }
+  @page lineup-page { size: A4 landscape; margin: 6mm; }
+  @page roster-page { margin: 8mm; }
   html, body { width: auto; height: auto; min-height: 0; background: #fff !important; }
   body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
-  .login-view, .games-view, .lineup-view, .roster-site-header, .roster-controls, .roster-message { display: none !important; }
-  .roster-view { display: block !important; min-height: auto; background: #fff !important; }
-  .roster-page-shell { width: 100%; margin: 0; padding: 0; }
-  .roster-sheet { border-radius: 0; box-shadow: none; }
+  body.printing-lineup { page: lineup-page; }
+  body.printing-roster { page: roster-page; }
+  body.printing-roster .login-view,
+  body.printing-roster .games-view,
+  body.printing-roster .lineup-view,
+  body.printing-roster .roster-site-header,
+  body.printing-roster .roster-controls,
+  body.printing-roster .roster-message { display: none !important; }
+  body.printing-roster .roster-view { display: block !important; min-height: auto; background: #fff !important; }
+  body.printing-roster .roster-page-shell {
+    width: 100%;
+    max-width: 280mm;
+    margin: 0 auto;
+    padding: 3mm 0 4mm;
+    box-sizing: border-box;
+  }
+  body.printing-roster .roster-sheet { width: 100%; margin: 0 auto; border-radius: 0; box-shadow: none; overflow: visible; }
   .roster-hero { grid-template-columns: 1.35fr .65fr; min-height: 34mm; gap: 6mm; padding: 4mm 5mm; }
   .roster-team-logo { width: 22mm; height: 22mm; }
   .roster-identity { gap: 4mm; }
@@ -1340,7 +1355,7 @@ button {
   .roster-ballpark-placeholder { min-height: 18mm; }
   .roster-ballpark-copy { padding: 1.2mm 2mm; font-size: 6.5pt; }
   .roster-ballpark-copy strong { font-size: 7.5pt; }
-  .roster-columns { grid-template-columns: 1fr 1fr; gap: 3mm; padding: 2.5mm 3mm 3mm; }
+  .roster-columns { grid-template-columns: repeat(auto-fit, minmax(min(100%, 115mm), 1fr)); gap: 3mm; padding: 2.5mm 3mm 3mm; }
   .roster-column { gap: 2mm; }
   .roster-group { border-radius: 2mm; }
   .roster-group h2 { min-height: 5mm; padding-right: 2mm; gap: 2mm; font-size: 8pt; }

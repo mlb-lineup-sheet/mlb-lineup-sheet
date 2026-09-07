@@ -124,7 +124,10 @@
   }
 
   document.getElementById('refresh-roster').addEventListener('click', () => load({ force: true }));
-  document.getElementById('print-roster').addEventListener('click', () => window.print());
+  document.getElementById('print-roster').addEventListener('click', () => {
+    if (window.printAppView) window.printAppView('roster');
+    else window.print();
+  });
   const activeToggle = document.getElementById('toggle-active-roster');
   activeToggle.addEventListener('click', async () => {
     const activeOnly = document.getElementById('roster-sheet').classList.toggle('roster-active-only');
