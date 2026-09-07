@@ -14,7 +14,10 @@
 
   function statGrid(player) {
     if (player.status !== 'ACTIVE') return '';
-    if (!player.stats) {
+    const appearances = player.category === '投手'
+      ? player.stats?.gamesPitched ?? player.stats?.gamesPlayed
+      : player.stats?.gamesPlayed;
+    if (!player.stats || Number(appearances ?? 0) === 0) {
       const noAppearance = player.category === '投手' ? '登板なし' : '出場なし';
       return `<div class="roster-player-stats roster-stats-empty"><span>${noAppearance}</span><span></span><span></span><span></span></div>`;
     }
