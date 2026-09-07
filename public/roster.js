@@ -5,7 +5,7 @@
     '内野手': 'roster-infielders',
     '外野手': 'roster-outfielders',
     '指名打者': 'roster-dh',
-    '二刀流': 'roster-dh',
+    '二刀流': 'roster-twoway',
   };
 
   const escapeHtml = value => String(value ?? '')
@@ -74,6 +74,7 @@
     }
     for (const [id, groups] of Object.entries(sections)) {
       const container = document.getElementById(id);
+      container.closest('.roster-group').classList.toggle('roster-group-empty', groups.active.length === 0 && groups.inactive.length === 0);
       container.closest('.roster-group').classList.toggle('roster-group-no-active', groups.active.length === 0);
       container.innerHTML = [
         groups.active.length ? `<div class="roster-active">${groups.active.join('')}</div>` : '',

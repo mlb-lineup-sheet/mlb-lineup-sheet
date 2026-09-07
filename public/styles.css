@@ -1160,6 +1160,7 @@ button {
 
 .roster-active-only .roster-nonactive,
 .roster-active-only .roster-group-no-active { display: none; }
+.roster-group-empty { display: none; }
 
 .roster-active .roster-player { background: #fff; }
 .roster-nonactive .roster-player { background: transparent; }
