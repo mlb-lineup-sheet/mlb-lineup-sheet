@@ -1,3 +1,4 @@
+import './pregame-stats.test.mjs';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import crypto from 'node:crypto';

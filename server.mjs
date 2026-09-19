@@ -179,6 +179,7 @@ function lineupView(players) {
       position: player.position.abbreviation, jerseyNumber: player.jerseyNumber,
       name: conversion.displayName, officialName: player.fullName,
       bats: player.batSide?.code ?? null, spotvFound: conversion.spotvFound,
+      pregameStats: player.pregameStats,
     };
   });
 }

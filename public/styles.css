@@ -1191,20 +1191,18 @@ button {
 .roster-player-names span { color: #4f606e; font-size: 13.5px; font-weight: 650; }
 .roster-player-stats {
   display: none;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: center;
   color: #17334c;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 850;
   line-height: 1.35;
   white-space: nowrap;
 }
 
-.roster-player-stats span { min-width: 0; }
-.roster-hitting-stats span:nth-child(3) { text-align: right; }
+.roster-player-stats span { flex: 0 0 auto; text-align: left; }
 
 .roster-active-only .roster-player {
-  grid-template-columns: 46px minmax(200px, 1.05fr) minmax(220px, .95fr) 40px;
+  grid-template-columns: 46px minmax(150px, .95fr) minmax(270px, 1.05fr) 40px;
   height: 68px;
   min-height: 68px;
 }
@@ -1219,9 +1217,8 @@ button {
 .roster-active-only .roster-player-names strong,
 .roster-active-only .roster-player-names span { text-overflow: clip; }
 .roster-active-only .roster-player-stats {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  column-gap: 6px;
+  display: flex;
+  column-gap: 12px;
 }
 .roster-active-only .roster-player-status { display: none; }
 .roster-player-position { color: #707d88; font-size: 12px; font-weight: 800; text-align: center; }
@@ -1304,7 +1301,7 @@ button {
   .roster-player-names span { margin-top: 4px; font-size: 12.5px; }
   .roster-player-position { grid-area: position; align-self: start; text-align: right; font-size: 10.5px; }
   .roster-player-status { grid-area: status; align-self: end; justify-content: flex-end; padding-right: 0; font-size: 10px; }
-  .roster-player-stats { grid-area: stats; padding: 5px 0 0; font-size: 11.5px; text-align: left; white-space: normal; }
+  .roster-player-stats { grid-area: stats; padding: 5px 0 0; font-size: 13.5px; text-align: left; white-space: normal; }
 
   .roster-active-only .roster-player {
     grid-template-columns: 42px minmax(0, 1fr) auto;
@@ -1316,15 +1313,14 @@ button {
   }
 
   .roster-active-only .roster-player-stats {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    column-gap: 5px;
+    column-gap: 12px;
     white-space: nowrap;
   }
 }
 
 @media print {
   @page { margin: 8mm; }
-  @page lineup-page { size: A4 landscape; margin: 6mm; }
+  @page lineup-page { size: A4 portrait; margin: 6mm; }
   @page roster-page { margin: 8mm; }
   html, body { width: auto; height: auto; min-height: 0; background: #fff !important; }
   body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
@@ -1370,14 +1366,14 @@ button {
   .roster-player-position { font-size: 7pt; }
   .roster-player-status { gap: 1mm; padding-right: 1mm; font-size: 7pt; }
   .roster-player-status span { width: 1.3mm; height: 1.3mm; flex-basis: 1.3mm; }
-  .roster-active-only .roster-player { grid-template-columns: 9mm minmax(55mm, 1.2fr) minmax(42mm, .8fr) 9mm; height: 8.2mm; min-height: 8.2mm; }
+  .roster-active-only .roster-player { grid-template-columns: 9mm minmax(40mm, 1fr) minmax(60mm, 1fr) 9mm; height: 8.2mm; min-height: 8.2mm; }
   .roster-active-only .roster-number { font-size: 10pt; }
   .roster-active-only .roster-player-names { gap: .8mm; }
   .roster-active-only .roster-player-names strong { font-size: 9.5pt; }
   .roster-active-only .roster-player-names span { font-size: 8.5pt; }
-  .roster-active-only .roster-player-stats { font-size: 8.3pt; }
+  .roster-active-only .roster-player-stats { font-size: 9.3pt; }
   .roster-active-only .roster-player-position { font-size: 7.8pt; }
-  .roster-active-only .roster-player-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .roster-active-only .roster-player-stats { display: flex; column-gap: 2mm; }
   .roster-active-only .roster-player-status { display: none; }
 }
 
@@ -1711,11 +1707,13 @@ button {
 .lineup-list { position: relative; padding: 0 24px 10px; }
 
 .lineup-player {
-  min-height: 70px;
+  min-height: 105px;
   display: grid;
   grid-template-columns: 28px minmax(0, 1fr) 38px 36px 34px;
   align-items: center;
-  gap: 9px;
+  column-gap: 9px;
+  row-gap: 9px;
+  align-content: center;
   padding: 8px 8px;
   border-bottom: 1px solid var(--line);
   transition: background .16s ease;
@@ -1746,6 +1744,20 @@ button {
 .player-name-wrap {
   min-width: 0;
 }
+
+.player-pregame-stats {
+  grid-column: 2 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 12px;
+  color: #475569;
+  font-size: 16px;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+.player-pregame-stats span { white-space: nowrap; }
+.player-pregame-stats b { margin-left: 3px; font-weight: 700; }
 
 .player-name {
   color: #102233;
@@ -2007,7 +2019,7 @@ button {
   .team-lineup-header > div { gap: 9px; }
   .team-lineup-header h3 { font-size: 21px; }
   .lineup-list { padding-inline: 14px; }
-  .lineup-player { min-height: 67px; grid-template-columns: 22px minmax(0, 1fr) 30px 27px 26px; gap: 7px; padding-inline: 5px; }
+  .lineup-player { min-height: 100px; grid-template-columns: 22px minmax(0, 1fr) 30px 27px 26px; column-gap: 7px; padding-inline: 5px; }
   .batting-order { font-size: 15px; }
   .player-name { font-size: clamp(14px, 3.8vw, 17px); }
   .position,
@@ -2106,9 +2118,10 @@ button {
   body.printing-lineup .team-lineup-header h3 { font-size: 13pt; }
   body.printing-lineup .lineup-list { padding: 0 3mm 1mm; }
   body.printing-lineup .lineup-player {
-    min-height: 8.5mm;
+    min-height: 12.75mm;
     grid-template-columns: 6mm minmax(0, 1fr) 9mm 8mm 8mm;
-    gap: 1.5mm;
+    column-gap: 1.5mm;
+    row-gap: 1.5mm;
     padding: .7mm 1mm;
   }
   body.printing-lineup .batting-order { font-size: 10pt; }
@@ -2118,4 +2131,6 @@ button {
   body.printing-lineup .bats { font-size: 10pt; }
   body.printing-lineup .player-name-input { height: 6mm; padding: 0 1mm; font-size: 8pt; }
   body.printing-lineup .player-warning { display: none; }
+  body.printing-lineup .player-pregame-stats { gap: .5mm 2mm; font-size: 10pt; line-height: 1.3; }
+  body.printing-lineup .player-pregame-stats b { margin-left: .5mm; }
 }

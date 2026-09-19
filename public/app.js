@@ -242,8 +242,12 @@ function renderLineup(container, lineup) {
     const nameContent = player.spotvFound
       ? `<div class="player-name-wrap"><div class="player-name">${escapeHtml(player.name)}</div></div>`
       : `<div class="player-name-wrap"><input class="player-name-input" data-player-id="${player.playerId}" data-original-name="${escapeHtml(player.name)}" value="${escapeHtml(player.name)}" aria-label="${escapeHtml(player.name)} のSPOTV表記"/><div class="player-warning">SPOTV表記未登録 / 編集可能</div></div>`;
+    const stats = player.pregameStats ?? {};
+    const statsContent = [['打率', stats.avg], ['本塁打', stats.homeRuns], ['打点', stats.rbi], ['OPS', stats.ops]]
+      .map(([label, value]) => `<span>${label}<b>${escapeHtml(value ?? '--')}</b></span>`).join('');
     row.innerHTML = `<div class="batting-order">${escapeHtml(player.battingOrder)}</div>${nameContent}
-      <div class="bats">(${escapeHtml(player.bats ?? '--')})</div><div class="position">${escapeHtml(player.position ?? '--')}</div><div class="jersey-number">${player.jerseyNumber ? escapeHtml(player.jerseyNumber) : '--'}</div>`;
+      <div class="bats">(${escapeHtml(player.bats ?? '--')})</div><div class="position">${escapeHtml(player.position ?? '--')}</div><div class="jersey-number">${player.jerseyNumber ? escapeHtml(player.jerseyNumber) : '--'}</div>
+      <div class="player-pregame-stats" aria-label="試合前の成績">${statsContent}</div>`;
     const input = row.querySelector('.player-name-input');
     if (input) input.addEventListener('input', () => {
       row.querySelector('.player-warning').textContent = input.value.trim() && input.value.trim() !== input.dataset.originalName

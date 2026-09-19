@@ -32,9 +32,9 @@
     }
     return `<div class="roster-player-stats roster-hitting-stats">
       <span>打率${escapeHtml(stat.avg ?? '.---')}</span>
-      <span>OPS${escapeHtml(stat.ops ?? '.---')}</span>
       <span>${escapeHtml(stat.homeRuns ?? 0)}HR</span>
       <span>${escapeHtml(stat.rbi ?? 0)}打点</span>
+      <span>OPS${escapeHtml(stat.ops ?? '.---')}</span>
     </div>`;
   }
 
@@ -64,7 +64,18 @@
     document.getElementById('roster-watermark').src = logo;
     document.getElementById('roster-kicker').textContent = `${data.teamCode} ROSTER`;
     document.getElementById('roster-sheet').style.setProperty('--roster-team-color', window.mlbTeamColor?.(data.teamId) ?? '#0b4f82');
-    document.getElementById('roster-team-name').textContent = data.teamName;
+    const teamName = document.getElementById('roster-team-name');
+    const separator = data.teamName.indexOf('・');
+    teamName.replaceChildren();
+    if (separator >= 0) {
+      teamName.append(
+        data.teamName.slice(0, separator),
+        document.createElement('br'),
+        data.teamName.slice(separator + 1),
+      );
+    } else {
+      teamName.textContent = data.teamName;
+    }
     document.getElementById('roster-record').textContent = `${data.record.wins}勝 ${data.record.losses}敗`;
     document.getElementById('roster-standing').textContent = `${data.leagueName} ${data.divisionName} ${data.record.divisionRank}位`;
     document.getElementById('roster-venue').textContent = data.venueName;

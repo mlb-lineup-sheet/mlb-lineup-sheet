@@ -55,6 +55,31 @@ function personDetails(live, id) {
   };
 }
 
+// The game boxscore's season totals include this game's recorded batting.
+// Subtract counts before calculating rates, so live/final games stay pregame
+// and game two of a doubleheader retains the first game's results.
+export function pregameBattingStats(player) {
+  const season = player.seasonStats?.batting;
+  if (!season) return null;
+  const game = player.stats?.batting ?? {};
+  const count = key => {
+    if (!Number.isFinite(season[key])) return null;
+    const value = season[key] - (game[key] ?? 0);
+    return Number.isFinite(value) && value >= 0 ? value : null;
+  };
+  const rate = value => value.toFixed(3).replace(/^0\./, '.');
+  const ab = count('atBats'), hits = count('hits');
+  const walks = count('baseOnBalls'), hbp = count('hitByPitch');
+  const sf = count('sacFlies'), bases = count('totalBases');
+  const avg = ab !== null && hits !== null && ab > 0 ? rate(hits / ab) : null;
+  let ops = null;
+  if ([ab, hits, walks, hbp, sf, bases].every(value => value !== null) && ab > 0) {
+    const obp = (hits + walks + hbp) / (ab + walks + hbp + sf);
+    ops = rate(Number(obp.toFixed(3)) + Number((bases / ab).toFixed(3)));
+  }
+  return { avg, homeRuns: count('homeRuns'), rbi: count('rbi'), ops };
+}
+
 export function extractInitialLineup(box, live, side) {
   const players = Object.values(box.teams?.[side]?.players ?? {});
   const lineup = [];
@@ -80,6 +105,7 @@ export function extractInitialLineup(box, live, side) {
       battingOrder: index + 1,
       ...personDetails(live, id),
       jerseyNumber: player.jerseyNumber ?? null,
+      pregameStats: pregameBattingStats(player),
       position: {
         code: initialPosition?.code ?? null,
         abbreviation: position ?? null,
