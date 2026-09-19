@@ -1377,7 +1377,7 @@ button {
   .roster-active-only .roster-player-names span { font-size: 7.5pt; }
   .roster-active-only .roster-player-stats { font-size: 9.3pt; }
   .roster-active-only .roster-player-position { font-size: 7.8pt; }
-  .roster-active-only .roster-player-stats { display: flex; column-gap: 2mm; }
+  .roster-active-only .roster-player-stats { display: flex; column-gap: 4mm; }
   .roster-active-only .roster-player-status { display: none; }
 }
 
