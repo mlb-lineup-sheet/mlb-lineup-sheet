@@ -1371,12 +1371,12 @@ button {
   .roster-active-only .roster-columns { grid-template-columns: 1fr; gap: 1mm; padding-block: 1.5mm; }
   .roster-active-only .roster-column { gap: 1mm; }
   .roster-active-only .roster-player { grid-template-columns: 9mm minmax(40mm, 1fr) minmax(60mm, 1fr) 9mm; height: 7.5mm; min-height: 7.5mm; padding-block: .4mm; }
-  .roster-active-only .roster-number { font-size: 10pt; }
+  .roster-active-only .roster-number { font-size: 9pt; }
   .roster-active-only .roster-player-names { gap: .2mm; line-height: 1.1; }
-  .roster-active-only .roster-player-names strong { font-size: 8.5pt; }
-  .roster-active-only .roster-player-names span { font-size: 7.5pt; }
-  .roster-active-only .roster-player-stats { font-size: 9.3pt; }
-  .roster-active-only .roster-player-position { font-size: 7.8pt; }
+  .roster-active-only .roster-player-names strong { font-size: 7.5pt; }
+  .roster-active-only .roster-player-names span { font-size: 6.5pt; }
+  .roster-active-only .roster-player-stats { font-size: 8.3pt; }
+  .roster-active-only .roster-player-position { font-size: 7pt; }
   .roster-active-only .roster-player-stats { display: flex; column-gap: 4mm; }
   .roster-active-only .roster-player-status { display: none; }
 }
