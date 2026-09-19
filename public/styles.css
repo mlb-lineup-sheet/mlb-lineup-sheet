@@ -1341,6 +1341,8 @@ button {
     box-sizing: border-box;
   }
   body.printing-roster .roster-sheet { width: 100%; margin: 0 auto; border-radius: 0; box-shadow: none; overflow: visible; }
+  /* Leave room for Safari's printer margins and enabled page headers. */
+  body.printing-roster .roster-sheet.roster-active-only { zoom: .88; }
   .roster-hero { grid-template-columns: 1.35fr .65fr; min-height: 34mm; gap: 6mm; padding: 4mm 5mm; }
   .roster-team-logo { width: 22mm; height: 22mm; }
   .roster-identity { gap: 4mm; }
