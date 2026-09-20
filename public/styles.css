@@ -2094,7 +2094,15 @@ button {
   body.printing-lineup .matchup-pitcher-photo { height: 32mm; }
   body.printing-lineup .matchup-pitcher .starter-name { min-height: 4mm; font-size: 10pt; }
   body.printing-lineup .matchup-pitcher .starter-meta { margin-top: .5mm; font-size: 7pt; }
-  body.printing-lineup .matchup-vs { width: 7mm; height: 7mm; margin-top: 5mm; font-size: 5.5pt; }
+  body.printing-lineup .matchup-vs {
+    width: 7mm;
+    height: 7mm;
+    margin-top: 5mm;
+    font-size: 5.5pt;
+    background: #142b3e;
+    border-color: #fff;
+    box-shadow: none;
+  }
   body.printing-lineup .matchup-status { min-height: 4mm; font-size: 7pt; }
   body.printing-lineup .lineup-change-alert { font-size: 7pt; animation: none; }
   body.printing-lineup .match-meta { min-height: 9mm; padding: 0 6mm; }
