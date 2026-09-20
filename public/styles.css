@@ -2079,8 +2079,8 @@ button {
 
   body.printing-lineup .matchup-hero {
     min-height: 58mm;
-    height: 58mm;
-    padding: 2.5mm 7mm 11mm;
+    height: auto;
+    padding: 2.5mm 7mm 0;
     border-radius: 3mm;
     box-shadow: none;
     break-inside: avoid;
@@ -2105,7 +2105,12 @@ button {
   }
   body.printing-lineup .matchup-status { min-height: 4mm; font-size: 7pt; }
   body.printing-lineup .lineup-change-alert { font-size: 7pt; animation: none; }
-  body.printing-lineup .match-meta { min-height: 9mm; padding: 0 6mm; }
+  body.printing-lineup .match-meta {
+    position: static;
+    min-height: 9mm;
+    margin: 2mm -7mm 0;
+    padding: 0 6mm;
+  }
   body.printing-lineup .match-meta strong { font-size: 14pt; }
   body.printing-lineup .match-meta span { font-size: 8pt; }
 
