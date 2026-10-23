@@ -8,7 +8,7 @@ import { resolveDisplayName, mergeMlbPeople } from './scripts/lib/player-diction
 import { spotvTeamCode } from './scripts/lib/mlb-team-map.mjs';
 import { buildTemplateInput, LINEUP_WRITE_ALLOWLIST } from './scripts/lib/template-lineup-input.mjs';
 import { writeAllowedCells } from './scripts/lib/ooxml-xlsx.mjs';
-import { buildRoster, rosterStatsDate } from './scripts/lib/mlb-roster.mjs';
+import { buildRoster, fetchRosterStandings, rosterStatsDate } from './scripts/lib/mlb-roster.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(root, 'public');
@@ -119,7 +119,7 @@ async function rosterView(teamId, { forceRefresh = false, includeStats = false, 
   const [active, fortyMan, standings, coaches, team] = await Promise.all([
     fetchJson(activeUrl),
     fetchJson(`https://statsapi.mlb.com/api/v1/teams/${teamId}/roster?rosterType=40Man`),
-    fetchJson(`https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season=${season}&standingsTypes=regularSeason&date=${standingsDate}&hydrate=team`),
+    fetchRosterStandings(fetchJson, { season, date: standingsDate, teamId }),
     fetchJson(`https://statsapi.mlb.com/api/v1/teams/${teamId}/coaches`),
     fetchJson(`https://statsapi.mlb.com/api/v1/teams/${teamId}?hydrate=venue,division`),
   ]);

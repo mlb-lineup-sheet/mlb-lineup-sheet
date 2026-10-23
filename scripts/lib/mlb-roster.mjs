@@ -38,8 +38,25 @@ const DIVISIONS = Object.freeze({
   205: ['ナショナル・リーグ', '中地区'],
 });
 
+export async function fetchRosterStandings(fetchJson, { season, date, teamId }) {
+  const url = day => `https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season=${season}&standingsTypes=regularSeason&date=${day}&hydrate=team`;
+  const hasTeam = data => data?.records?.some(record => record.teamRecords?.some(team => team.team?.id === Number(teamId)));
+  try {
+    const standings = await fetchJson(url(date));
+    if (hasTeam(standings)) return standings;
+    const calendar = await fetchJson(`https://statsapi.mlb.com/api/v1/seasons/${season}?sportId=1`);
+    const end = calendar.seasons?.find(item => String(item.seasonId) === String(season))?.regularSeasonEndDate;
+    // Never substitute later results for a historical pregame date.
+    if (end && date > end) return await fetchJson(url(end));
+    return standings;
+  } catch {
+    // Standings are supplementary; a failure must not hide the roster.
+    return { records: [] };
+  }
+}
+
 function teamRecord(standings, teamId) {
-  for (const record of standings.records ?? []) {
+  for (const record of standings?.records ?? []) {
     const team = record.teamRecords?.find(item => item.team?.id === Number(teamId));
     if (team) return {
       wins: team.wins,
@@ -48,7 +65,7 @@ function teamRecord(standings, teamId) {
       lastUpdated: team.lastUpdated ?? record.lastUpdated ?? null,
     };
   }
-  throw new Error(`${teamId}の順位情報を取得できませんでした`);
+  return null;
 }
 
 function selectedTeam(teamPayload, teamId) {

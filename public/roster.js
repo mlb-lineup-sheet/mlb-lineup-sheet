@@ -76,8 +76,8 @@
     } else {
       teamName.textContent = data.teamName;
     }
-    document.getElementById('roster-record').textContent = `${data.record.wins}勝 ${data.record.losses}敗`;
-    document.getElementById('roster-standing').textContent = `${data.leagueName} ${data.divisionName} ${data.record.divisionRank}位`;
+    document.getElementById('roster-record').textContent = data.record ? `${data.record.wins}勝 ${data.record.losses}敗` : '勝敗情報未取得';
+    document.getElementById('roster-standing').textContent = `${data.leagueName} ${data.divisionName}${data.record?.divisionRank ? ` ${data.record.divisionRank}位` : ''}`;
     document.getElementById('roster-venue').textContent = data.venueName;
     document.getElementById('roster-venue-en').textContent = data.officialVenueName?.toUpperCase() ?? 'BALLPARK';
     document.getElementById('roster-manager').textContent = data.manager.displayName;
@@ -124,6 +124,7 @@
       const data = await window.rosterApi(`/api/roster/${currentTeamId}?${params}`);
       render(data);
       const warnings = [];
+      if (!data.record) warnings.push('順位情報を取得できませんでした（選手一覧は表示しています）');
       if (data.unmatchedActive?.length) warnings.push(`読み表と一致しないACTIVE選手 ${data.unmatchedActive.length}名`);
       if (data.unresolved?.length) warnings.push(`playerId未解決 ${data.unresolved.length}名`);
       message.textContent = warnings.join(' / ');
