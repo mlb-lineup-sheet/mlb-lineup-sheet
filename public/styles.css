@@ -2210,8 +2210,8 @@ button {
 .live-center { display: flex; flex-direction: column; min-width: 0; border-left: 1px solid #cbd7e2; border-right: 1px solid #cbd7e2; }
 .live-center-status { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; font-size: 12px; color: #23724f; }
 .live-center-score-scroll { overflow-x: auto; }
-.live-center-score table { table-layout: fixed; width: 100%; min-width: 400px; border-collapse: collapse; text-align: center; font-size: 13px; font-variant-numeric: tabular-nums; }
-.live-center-score th, .live-center-score td { padding: 6px 3px; border-top: 1px solid #e2e8ed; }
+.live-center-score table { table-layout: fixed; width: 100%; border-collapse: collapse; text-align: center; font-size: 13px; font-variant-numeric: tabular-nums; }
+.live-center-score th, .live-center-score td { padding: 6px 0; border-top: 1px solid #e2e8ed; }
 .live-center-score thead th { color: #657d91; background: #f4f7fa; font-size: 10px; }
 .live-center-score tbody th { width: 45px; }
 .live-center-score img { width: 25px; height: 25px; object-fit: contain; vertical-align: middle; }
