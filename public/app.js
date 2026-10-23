@@ -1,6 +1,7 @@
-const views = { games: document.getElementById('games-view'), lineup: document.getElementById('lineup-view'), roster: document.getElementById('roster-view') };
+const views = { games: document.getElementById('games-view'), lineup: document.getElementById('lineup-view'), roster: document.getElementById('roster-view'), live: document.getElementById('live-view') };
 const state = { games: [], currentGame: null, selectedDate: null, lineupSnapshots: new Map(), lineupChanged: false };
 function showView(name) {
+  if (name !== 'live') window.liveGame.stop();
   Object.values(views).forEach(view => view.classList.remove('view-active'));
   views[name].classList.add('view-active');
   window.scrollTo(0, 0);
@@ -198,6 +199,12 @@ function navigate(hash, { replace = false } = {}) {
   restoreRoute();
 }
 async function restoreRoute({ replace = false } = {}) {
+  const liveMatch = location.hash.match(/^#live\/(\d+)(?:\?date=(\d{4}-\d{2}-\d{2}))?$/);
+  if (liveMatch) {
+    state.selectedDate = validDateString(liveMatch[2]) ? liveMatch[2] : mlbDateString();
+    showView('live');
+    return window.liveGame.open(Number(liveMatch[1]));
+  }
   const rosterMatch = location.hash.match(/^#roster\/(\d+)(?:\?|$)/);
   if (rosterMatch) {
     const params = new URLSearchParams(location.hash.split('?')[1] ?? '');
@@ -259,7 +266,11 @@ document.getElementById('close-roster-team-dialog').addEventListener('click', ()
 rosterDialog.addEventListener('click', event => { if (event.target === rosterDialog) rosterDialog.close(); });
 document.getElementById('lineup-live-button').addEventListener('click', event => {
   if (!event.currentTarget.dataset.gamePk) return;
-  document.getElementById('output-message').textContent = 'LIVE GAMEは準備中です';
+  navigate(`#live/${event.currentTarget.dataset.gamePk}?date=${state.selectedDate ?? mlbDateString()}`);
+});
+document.getElementById('back-from-live').addEventListener('click', () => {
+  const gamePk = location.hash.match(/^#live\/(\d+)/)?.[1];
+  navigate(gamePk ? `#lineup/${gamePk}?date=${state.selectedDate ?? mlbDateString()}` : '#games');
 });
 const printModeClasses = ['printing-lineup', 'printing-roster'];
 function setPrintMode(mode) {

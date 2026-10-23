@@ -1,4 +1,5 @@
 import http from 'node:http';
+import { buildLiveView } from './scripts/lib/mlb-live.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
@@ -116,7 +117,7 @@ async function gameSources(gamePk) {
   const scheduledGame = findScheduledGame(schedule, gamePk, live);
   if (!scheduledGame) throw new Error(`gamePk ${gamePk} not found`);
   const value = { schedule, live, box, scheduledGame, fixture: buildGameFixture({ scheduledGame, live, box }) };
-  sourceCache.set(key, { expiresAt: Date.now() + 30_000, value });
+  sourceCache.set(key, { expiresAt: Date.now() + 15_000, value });
   return value;
 }
 
@@ -239,7 +240,7 @@ async function serveLoginAsset(url, res) {
 }
 async function serveStatic(url, res) {
   const relative = url.pathname === '/' ? 'index.html' : url.pathname.slice(1);
-  if (!['index.html', 'styles.css', 'app.js', 'roster.js'].includes(relative)) return false;
+  if (!['index.html', 'styles.css', 'app.js', 'roster.js', 'live.js'].includes(relative)) return false;
   const file = path.join(publicDir, relative);
   res.writeHead(200, { ...baseHeaders(), 'Content-Type': mime[path.extname(file)], 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' });
   res.end(await fs.readFile(file));
@@ -270,6 +271,14 @@ const server = http.createServer(async (req, res) => {
       } catch (error) {
         return json(res, 502, { error: `ロースターを取得できませんでした: ${error.message}` });
       }
+    }
+    const liveMatch = url.pathname.match(/^\/api\/games\/(\d+)\/live$/);
+    if (req.method === 'GET' && liveMatch) {
+      const { live } = await gameSources(Number(liveMatch[1]));
+      return json(res, 200, buildLiveView(live, {
+        teamName: team => spotvTeamNames.get(spotvTeamCode(team.id)) ?? team.name,
+        playerName: person => resolveDisplayName({ ...person, playerId: person.id }, dictionary).displayName,
+      }));
     }
     const gameMatch = url.pathname.match(/^\/api\/games\/(\d+)$/);
     if (req.method === 'GET' && gameMatch) return json(res, 200, detailView(await gameSources(Number(gameMatch[1]))));

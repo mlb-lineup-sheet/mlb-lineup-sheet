@@ -206,9 +206,24 @@
       </div>
     </section>
 
+    <section id="live-view" class="view live-view">
+      <header class="app-header">
+        <button id="back-from-live" class="back-button" type="button">← スタメン表</button>
+        <div class="app-title-small">LIVE GAME</div><div></div>
+      </header>
+      <div class="page-shell live-shell">
+        <div class="live-toolbar">
+          <div><p class="eyebrow">LIVE GAME</p><h1>試合速報</h1></div>
+          <div class="live-update"><span id="live-updated"></span><button id="live-preview" class="back-button" type="button" aria-pressed="false">打者・走者を仮配置</button><button id="live-sub-demo" class="back-button" type="button" hidden>交代デモ</button><button id="live-refresh" class="back-button" type="button">更新</button></div>
+        </div>
+        <p id="live-message" role="status" aria-live="polite"></p>
+        <div id="live-content"></div>
+      </div>
+    </section>
   </main>
 
   <script src="./roster.js"></script>
+  <script src="./live.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>

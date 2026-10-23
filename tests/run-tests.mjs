@@ -1,3 +1,4 @@
+import './live-game.test.mjs';
 import './pregame-stats.test.mjs';
 import './roster-standings.test.mjs';
 import assert from 'node:assert/strict';
