@@ -16,7 +16,7 @@
   function pitchingResults(stats) {
     if (!stats) return '';
     const match = /^(\d+)(?:\.([012]))?$/.exec(String(stats.inningsPitched ?? ''));
-    const innings = match ? `${match[1]}${match[2] && match[2] !== '0' ? ` ${match[2]}/3` : ''}` : '—';
+    const innings = match ? `${match[1]}.${match[2] ?? '0'}` : '—';
     const fields = [['球',stats.numberOfPitches ?? stats.pitchesThrown],['回',innings],['失',stats.runs],['自',stats.earnedRuns],['三',stats.strikeOuts],['安',stats.hits],['四',stats.baseOnBalls],['死',stats.hitBatsmen ?? stats.hitByPitch]];
     return `<div class="live-member-results live-pitching-results" aria-label="本日の投手成績">${fields.map(([label,stat]) => `<span class="live-pitching-stat"><b>${label}</b>${value(stat)}</span>`).join('')}</div>`;
   }
