@@ -17,12 +17,12 @@
     const appearances = player.category === '投手' ? stat?.gamesPitched ?? stat?.gamesPlayed : stat?.gamesPlayed;
     if (!stat || Number(appearances ?? 0) === 0) {
       const message = !available ? '取得できませんでした' : player.category === '投手' ? '登板なし' : '出場なし';
-      return `<div class="roster-stat-line">${labelHtml}<span>${message}</span></div>`;
+      return `<div class="roster-stat-line${label === 'PS' ? ' roster-stat-ps' : ''}">${labelHtml}<span>${message}</span></div>`;
     }
     const values = player.category === '投手'
       ? [`${stat.gamesPitched ?? stat.gamesPlayed ?? 0}試合`, `${stat.wins ?? 0}勝${stat.losses ?? 0}敗`, `防${stat.era ?? '-.--'}`, Number(stat.saves) > 0 ? `${stat.saves}S` : '']
       : [`打率${stat.avg ?? '.---'}`, `${stat.homeRuns ?? 0}HR`, `${stat.rbi ?? 0}打点`, `OPS${stat.ops ?? '.---'}`];
-    return `<div class="roster-stat-line">${labelHtml}${values.map(value => `<span>${escapeHtml(value)}</span>`).join('')}</div>`;
+    return `<div class="roster-stat-line${label === 'PS' ? ' roster-stat-ps' : ''}">${labelHtml}${values.map(value => `<span>${escapeHtml(value)}</span>`).join('')}</div>`;
   }
 
   function statGrid(player) {

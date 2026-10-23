@@ -1202,6 +1202,9 @@ button {
 .roster-player-stats span { flex: 0 0 auto; text-align: left; }
 .roster-stat-line { display: flex; align-items: baseline; gap: 6px; }
 .roster-stat-label { width: 18px; font-size: 9px; color: #64717b; }
+.roster-stat-ps,
+.roster-stat-ps .roster-stat-label { color: #16804a; }
+
 
 .roster-active-only .roster-player {
   grid-template-columns: 46px minmax(150px, .95fr) minmax(270px, 1.05fr) 40px;
@@ -1321,6 +1324,25 @@ button {
     column-gap: 12px;
     white-space: nowrap;
   }
+}
+
+@media screen and (min-width: 601px) {
+  .roster-active-only .roster-player {
+    grid-template-columns: 46px minmax(220px, 1fr) minmax(270px, 1fr) 40px;
+    column-gap: 10px;
+    height: auto;
+    padding-block: 8px;
+  }
+  .roster-active-only .roster-player-names strong,
+  .roster-active-only .roster-player-names span { white-space: normal; overflow-wrap: anywhere; }
+}
+
+@media screen and (min-width: 901px) {
+  .roster-page-shell:has(.roster-active-only) { width: min(1380px, calc(100% - 56px)); }
+}
+
+@media screen and (min-width: 601px) and (max-width: 1340px) {
+  .roster-active-only .roster-columns { grid-template-columns: 1fr; }
 }
 
 @media print {
