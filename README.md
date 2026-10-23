@@ -50,12 +50,12 @@ The workbook is copied into `outputs/integrated-lineup-test/`. Only 64 declared 
 
 ## Local production UI
 
-The localhost server exposes only `public/index.html`, `public/styles.css`, `public/app.js`, and authenticated `/api/*` routes. Files below `private/` and the source Excel files are never served directly.
+The localhost server exposes only `public/index.html`, `public/styles.css`, `public/app.js`, and password-free `/api/*` routes. Files below `private/` and the source Excel files are never served directly.
 
-Set the password at runtime and start the server:
+Start the server (no password configuration is required):
 
 ```text
-SPOTV_LINEUP_PASSWORD='set-on-the-SPOTV-PC' npm start
+npm start
 ```
 
 Optional environment variables:

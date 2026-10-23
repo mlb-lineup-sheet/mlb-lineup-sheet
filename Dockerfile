@@ -8,8 +8,7 @@ WORKDIR /app
 COPY . .
 
 ENV NODE_ENV=production \
-    HOST=0.0.0.0 \
-    TRUST_PROXY=1
+    HOST=0.0.0.0
 
 EXPOSE 10000
 CMD ["node", "server.mjs"]

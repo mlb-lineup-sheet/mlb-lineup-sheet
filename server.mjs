@@ -20,16 +20,9 @@ const businessNamesPath = process.env.SPOTV_BUSINESS_NAMES_PATH ?? path.join(run
 const rosterSourcesPath = path.join(runtimeDir, 'roster-sources.json');
 const mlbCacheDir = process.env.SPOTV_MLB_CACHE_DIR ?? path.join(root, 'private', 'cache', 'mlb');
 const templatePath = process.env.SPOTV_TEMPLATE_PATH ?? path.join(runtimeDir, 'template.xlsx');
-const password = process.env.SPOTV_LINEUP_PASSWORD;
 const port = Number(process.env.PORT ?? 4173);
 const host = process.env.HOST ?? '0.0.0.0';
-const trustProxy = process.env.TRUST_PROXY === '1';
-const secureCookies = process.env.NODE_ENV === 'production' || process.env.SECURE_COOKIES === '1';
-const sessionIdleMs = 60 * 60 * 1000;
-if (!password) throw new Error('SPOTV_LINEUP_PASSWORD is required');
 
-const sessions = new Map();
-const failedLogins = new Map();
 const downloads = new Map();
 const sourceCache = new Map();
 const rosterCache = new Map();
@@ -63,29 +56,6 @@ function baseHeaders() {
 function json(res, status, value, headers = {}) {
   res.writeHead(status, { ...baseHeaders(), 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...headers });
   res.end(JSON.stringify(value));
-}
-
-function cookieMap(req) {
-  return new Map((req.headers.cookie ?? '').split(';').map(item => item.trim().split('=').map(decodeURIComponent)).filter(parts => parts.length === 2));
-}
-
-function clientIp(req) {
-  if (trustProxy) {
-    const forwarded = String(req.headers['x-forwarded-for'] ?? '').split(',')[0].trim();
-    if (forwarded) return forwarded;
-  }
-  return req.socket.remoteAddress ?? 'unknown';
-}
-
-function session(req) {
-  const token = cookieMap(req).get('spotv_session');
-  const expiresAt = token && sessions.get(token);
-  if (!expiresAt || expiresAt < Date.now()) {
-    if (token) sessions.delete(token);
-    return null;
-  }
-  sessions.set(token, Date.now() + sessionIdleMs);
-  return token;
 }
 
 async function bodyJson(req) {
@@ -279,28 +249,8 @@ async function serveStatic(url, res) {
 const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, `http://${req.headers.host ?? `${host}:${port}`}`);
-    if (req.method === 'POST' && url.pathname === '/api/login') {
-      const ip = clientIp(req);
-      const failures = failedLogins.get(ip) ?? { count: 0, lockedUntil: 0 };
-      if (failures.lockedUntil > Date.now()) return json(res, 429, { error: 'しばらく待ってから再試行してください' });
-      const supplied = String((await bodyJson(req)).password ?? '');
-      const a = Buffer.from(supplied); const b = Buffer.from(password);
-      const valid = a.length === b.length && crypto.timingSafeEqual(a, b);
-      if (!valid) {
-        failures.count += 1;
-        if (failures.count >= 5) { failures.count = 0; failures.lockedUntil = Date.now() + 5 * 60 * 1000; }
-        failedLogins.set(ip, failures);
-        return json(res, 401, { error: 'PASSWORDが正しくありません' });
-      }
-      failedLogins.delete(ip);
-      const token = crypto.randomBytes(32).toString('base64url');
-      sessions.set(token, Date.now() + sessionIdleMs);
-      const secure = secureCookies ? '; Secure' : '';
-      return json(res, 200, { ok: true }, { 'Set-Cookie': `spotv_session=${token}; HttpOnly; SameSite=Strict; Path=/; Max-Age=43200${secure}` });
-    }
     if (req.method === 'GET' && url.pathname === '/api/health') return json(res, 200, { ok: true });
-    if (req.method === 'GET' && url.pathname === '/api/session') return json(res, 200, { authenticated: Boolean(session(req)) });
-    if (url.pathname.startsWith('/api/') && !session(req)) return json(res, 401, { error: '認証が必要です' });
+    if (req.method === 'GET' && url.pathname === '/api/session') return json(res, 200, { authenticated: true });
     if (req.method === 'GET' && url.pathname === '/api/games') {
       const date = url.searchParams.get('date') ?? easternDateString();
       try { gamesOnOfficialDate({ dates: [] }, date); }
@@ -346,4 +296,4 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(port, host, () => console.log(`SPOTV LINEUP GENERATOR: http://${host}:${port}`));
+server.listen(port, host, () => console.log(`SPOTV LINEUP GENERATOR: http://${host}:${server.address().port}`));

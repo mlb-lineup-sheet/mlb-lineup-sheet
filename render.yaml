@@ -5,11 +5,7 @@ services:
     plan: starter
     healthCheckPath: /api/health
     envVars:
-      - key: SPOTV_LINEUP_PASSWORD
-        sync: false
       - key: NODE_ENV
         value: production
       - key: HOST
         value: 0.0.0.0
-      - key: TRUST_PROXY
-        value: "1"

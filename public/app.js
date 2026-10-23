@@ -1,16 +1,5 @@
-const views = { login: document.getElementById('login-view'), games: document.getElementById('games-view'), lineup: document.getElementById('lineup-view'), roster: document.getElementById('roster-view') };
-const state = { authenticated: false, games: [], currentGame: null, selectedDate: null, lineupSnapshots: new Map(), lineupChanged: false };
-const sessionIdleMs = 60 * 60 * 1000;
-let sessionExpiryTimer;
-
-function armSessionExpiry() {
-  clearTimeout(sessionExpiryTimer);
-  sessionExpiryTimer = setTimeout(() => {
-    state.authenticated = false;
-    showView('login');
-  }, sessionIdleMs);
-}
-
+const views = { games: document.getElementById('games-view'), lineup: document.getElementById('lineup-view'), roster: document.getElementById('roster-view') };
+const state = { games: [], currentGame: null, selectedDate: null, lineupSnapshots: new Map(), lineupChanged: false };
 function showView(name) {
   Object.values(views).forEach(view => view.classList.remove('view-active'));
   views[name].classList.add('view-active');
@@ -32,64 +21,10 @@ document.getElementById('header-date').textContent = easternFormat({ year: 'nume
 async function api(url, options = {}) {
   const response = await fetch(url, { ...options, headers: { 'Content-Type': 'application/json', ...(options.headers ?? {}) } });
   const data = (response.headers.get('content-type') ?? '').includes('application/json') ? await response.json() : null;
-  if (response.status === 401 && !['/api/login', '/api/session'].includes(url)) { state.authenticated = false; showView('login'); }
   if (!response.ok) throw new Error(data?.error ?? `HTTP ${response.status}`);
-  if (state.authenticated) armSessionExpiry();
   return data;
 }
 window.rosterApi = api;
-
-const passwordInput = document.getElementById('password-input');
-const loginMessage = document.getElementById('login-message');
-const loginForm = document.getElementById('login-form');
-const loginButton = loginForm.querySelector('button[type="submit"]');
-const loginButtonLabel = loginButton.innerHTML;
-const enablePasswordInput = () => { passwordInput.readOnly = false; };
-passwordInput.addEventListener('pointerdown', enablePasswordInput);
-passwordInput.addEventListener('focus', enablePasswordInput);
-loginForm.addEventListener('submit', async event => {
-  event.preventDefault();
-  if (loginButton.disabled) return;
-  loginButton.disabled = true;
-  loginButton.classList.add('is-loading');
-  loginButton.textContent = 'ログイン中…';
-  loginMessage.className = 'login-message login-message-loading';
-  loginMessage.textContent = '認証しています。しばらくお待ちください…';
-  const submittedPassword = passwordInput.value;
-  passwordInput.value = '';
-  passwordInput.readOnly = true;
-  try {
-    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-    await api('/api/login', { method: 'POST', body: JSON.stringify({ password: submittedPassword }) });
-    state.authenticated = true;
-    armSessionExpiry();
-    loginMessage.textContent = '試合情報を読み込んでいます…';
-    const loginDate = mlbDateString();
-    state.selectedDate = loginDate;
-    history.replaceState({ route: `#games/${loginDate}`, date: loginDate }, '', `#games/${loginDate}`);
-    await loadGames(loginDate);
-  } catch (error) {
-    passwordInput.readOnly = false;
-    loginMessage.className = 'login-message';
-    loginMessage.textContent = error.message;
-  } finally {
-    loginButton.disabled = false;
-    loginButton.classList.remove('is-loading');
-    loginButton.innerHTML = loginButtonLabel;
-    if (state.authenticated) loginMessage.textContent = '';
-  }
-});
-
-document.addEventListener('visibilitychange', async () => {
-  if (document.visibilityState !== 'visible' || !state.authenticated) return;
-  try {
-    state.authenticated = (await api('/api/session')).authenticated;
-  } catch {
-    state.authenticated = false;
-  }
-  if (state.authenticated) armSessionExpiry();
-  else showView('login');
-});
 
 const statusLabel = game => game.lineupStatus === 'available' ? 'スタメン情報取得済み' : 'スタメン未発表または取得不完全';
 const teamLogoUrl = teamId => `https://www.mlbstatic.com/team-logos/${Number(teamId)}.svg`;
@@ -263,7 +198,6 @@ function navigate(hash, { replace = false } = {}) {
   restoreRoute();
 }
 async function restoreRoute({ replace = false } = {}) {
-  if (!state.authenticated) return showView('login');
   const rosterMatch = location.hash.match(/^#roster\/(\d+)(?:\?|$)/);
   if (rosterMatch) {
     const params = new URLSearchParams(location.hash.split('?')[1] ?? '');
@@ -374,8 +308,4 @@ function escapeHtml(value) {
   return String(value ?? '').replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 }
 
-(async () => {
-  try { state.authenticated = (await api('/api/session')).authenticated; } catch { state.authenticated = false; }
-  if (state.authenticated) armSessionExpiry();
-  await restoreRoute({ replace: !location.hash });
-})();
+restoreRoute({ replace: !location.hash });
