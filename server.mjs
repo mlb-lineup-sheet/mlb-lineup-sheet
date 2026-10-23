@@ -116,15 +116,18 @@ async function rosterView(teamId, { forceRefresh = false, includeStats = false, 
   const activeUrl = new URL(`https://statsapi.mlb.com/api/v1/teams/${teamId}/roster`);
   activeUrl.searchParams.set('rosterType', 'active');
   if (includeStats) activeUrl.searchParams.set('hydrate', statsHydrate);
-  const [active, fortyMan, standings, coaches, team] = await Promise.all([
+  const psUrl = new URL(activeUrl);
+  psUrl.searchParams.set('hydrate', statsHydrate.replace('gameType=R', 'gameType=P'));
+  const [active, fortyMan, standings, coaches, team, postseason] = await Promise.all([
     fetchJson(activeUrl),
     fetchJson(`https://statsapi.mlb.com/api/v1/teams/${teamId}/roster?rosterType=40Man`),
     fetchRosterStandings(fetchJson, { season, date: standingsDate, teamId }),
     fetchJson(`https://statsapi.mlb.com/api/v1/teams/${teamId}/coaches`),
     fetchJson(`https://statsapi.mlb.com/api/v1/teams/${teamId}?hydrate=venue,division`),
+    includeStats ? fetchJson(psUrl).catch(() => null) : null,
   ]);
   const value = buildRoster({
-    source, active, fortyMan, standings, coaches, team,
+    source, active, fortyMan, standings, coaches, team, postseason,
     fetchedAt: new Date().toISOString(),
   });
   rosterCache.set(cacheKey, { expiresAt: Date.now() + 90_000, value });

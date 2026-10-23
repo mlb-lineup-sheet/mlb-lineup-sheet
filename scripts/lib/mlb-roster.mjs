@@ -85,16 +85,19 @@ function managerView(source, coaches) {
   };
 }
 
-export function buildRoster({ source, active, fortyMan, standings, coaches, team, fetchedAt }) {
+export function buildRoster({ source, active, fortyMan, standings, coaches, team, postseason = null, fetchedAt }) {
   const merged = mergeRosterStatus(source.players, active.roster, fortyMan.roster);
   const counts = { ACTIVE: 0, IL: 0, MINOR: 0, '40-MAN': 0, OTHER: 0 };
   for (const player of merged.players) counts[player.status] += 1;
   const teamData = selectedTeam(team, source.teamId);
   const [leagueName, divisionName] = DIVISIONS[teamData.division?.id] ?? ['MLB', '地区不明'];
   const statsByPlayerId = activePlayerStats(active.roster);
+  const psByPlayerId = activePlayerStats(postseason?.roster ?? []);
   const players = merged.players.map(player => ({
     ...player,
     stats: player.status === 'ACTIVE' ? statsByPlayerId.get(Number(player.playerId)) ?? null : null,
+    postseasonStats: player.status === 'ACTIVE' ? psByPlayerId.get(Number(player.playerId)) ?? null : null,
+    postseasonStatsAvailable: psByPlayerId.has(Number(player.playerId)),
   }));
   const matchedIds = new Set(players.map(player => Number(player.playerId)).filter(Boolean));
   const unmatchedActive = active.roster

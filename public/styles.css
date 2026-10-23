@@ -1200,6 +1200,8 @@ button {
 }
 
 .roster-player-stats span { flex: 0 0 auto; text-align: left; }
+.roster-stat-line { display: flex; align-items: baseline; gap: 6px; }
+.roster-stat-label { width: 18px; font-size: 9px; color: #64717b; }
 
 .roster-active-only .roster-player {
   grid-template-columns: 46px minmax(150px, .95fr) minmax(270px, 1.05fr) 40px;
@@ -1218,6 +1220,9 @@ button {
 .roster-active-only .roster-player-names span { text-overflow: clip; }
 .roster-active-only .roster-player-stats {
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  row-gap: 5px;
   column-gap: 12px;
 }
 .roster-active-only .roster-player-status { display: none; }
@@ -1378,6 +1383,9 @@ button {
   .roster-active-only .roster-player-stats { font-size: 8.3pt; }
   .roster-active-only .roster-player-position { font-size: 7pt; }
   .roster-active-only .roster-player-stats { display: flex; column-gap: 4mm; }
+  .roster-active-only .roster-player-stats { row-gap: .5mm; }
+  .roster-stat-line { gap: 2mm; }
+  .roster-stat-label { width: 6mm; font-size: 6pt; }
   .roster-active-only .roster-player-status { display: none; }
 }
 

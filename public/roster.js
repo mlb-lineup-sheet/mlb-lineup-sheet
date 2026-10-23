@@ -12,30 +12,22 @@
     .replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
     .replaceAll('"', '&quot;').replaceAll("'", '&#039;');
 
+  function statLine(player, stat, label, available = true) {
+    const labelHtml = `<span class="roster-stat-label" title="${label === 'PS' ? 'ポストシーズン' : 'レギュラーシーズン'}">${label}</span>`;
+    const appearances = player.category === '投手' ? stat?.gamesPitched ?? stat?.gamesPlayed : stat?.gamesPlayed;
+    if (!stat || Number(appearances ?? 0) === 0) {
+      const message = !available ? '取得できませんでした' : player.category === '投手' ? '登板なし' : '出場なし';
+      return `<div class="roster-stat-line">${labelHtml}<span>${message}</span></div>`;
+    }
+    const values = player.category === '投手'
+      ? [`${stat.gamesPitched ?? stat.gamesPlayed ?? 0}試合`, `${stat.wins ?? 0}勝${stat.losses ?? 0}敗`, `防${stat.era ?? '-.--'}`, Number(stat.saves) > 0 ? `${stat.saves}S` : '']
+      : [`打率${stat.avg ?? '.---'}`, `${stat.homeRuns ?? 0}HR`, `${stat.rbi ?? 0}打点`, `OPS${stat.ops ?? '.---'}`];
+    return `<div class="roster-stat-line">${labelHtml}${values.map(value => `<span>${escapeHtml(value)}</span>`).join('')}</div>`;
+  }
+
   function statGrid(player) {
     if (player.status !== 'ACTIVE') return '';
-    const appearances = player.category === '投手'
-      ? player.stats?.gamesPitched ?? player.stats?.gamesPlayed
-      : player.stats?.gamesPlayed;
-    if (!player.stats || Number(appearances ?? 0) === 0) {
-      const noAppearance = player.category === '投手' ? '登板なし' : '出場なし';
-      return `<div class="roster-player-stats roster-stats-empty"><span>${noAppearance}</span><span></span><span></span><span></span></div>`;
-    }
-    const stat = player.stats;
-    if (player.category === '投手') {
-      return `<div class="roster-player-stats roster-pitching-stats">
-        <span>${escapeHtml(stat.gamesPitched ?? stat.gamesPlayed ?? 0)}試合</span>
-        <span>${escapeHtml(stat.wins ?? 0)}勝${escapeHtml(stat.losses ?? 0)}敗</span>
-        <span>防${escapeHtml(stat.era ?? '-.--')}</span>
-        <span>${Number(stat.saves) > 0 ? `${escapeHtml(stat.saves)}S` : ''}</span>
-      </div>`;
-    }
-    return `<div class="roster-player-stats roster-hitting-stats">
-      <span>打率${escapeHtml(stat.avg ?? '.---')}</span>
-      <span>${escapeHtml(stat.homeRuns ?? 0)}HR</span>
-      <span>${escapeHtml(stat.rbi ?? 0)}打点</span>
-      <span>OPS${escapeHtml(stat.ops ?? '.---')}</span>
-    </div>`;
+    return `<div class="roster-player-stats">${statLine(player, player.postseasonStats, 'PS', player.postseasonStatsAvailable === true)}${statLine(player, player.stats, 'RS')}</div>`;
   }
 
   function playerRow(player) {
