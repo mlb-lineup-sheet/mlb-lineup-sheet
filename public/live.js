@@ -6,6 +6,7 @@
   const refresh = document.getElementById('live-refresh');
   const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
   const value = number => esc(number ?? '—');
+  const scoreValue = number => esc(number ?? '');
   let session = null;
   function stop() {
     if (session) { clearTimeout(session.timer); clearTimeout(session.demoTimer); clearTimeout(session.transitionTimer); session.controller?.abort(); }
@@ -91,7 +92,7 @@
     const innings = Array.from({length:Math.max(9,game.inning ?? 0,...game.innings.map(i=>i.num))},(_,i)=>i+1);
     const battingSide = game.inProgress && !game.finished && !['Middle','End'].includes(game.inningState)
       ? (game.half === '表' ? 'away' : game.half === '裏' ? 'home' : null) : null;
-    return `<section class="live-center-score"><div class="live-center-status"><strong>${esc(game.status)}</strong><span>${game.inning ? `${esc(game.inning)}回${esc(game.half)}` : ''}</span></div><div class="live-center-score-scroll"><table><caption class="sr-only">イニング別スコア</caption><colgroup><col class="live-score-team-col">${innings.map(()=>'<col>').join('')}<col class="live-score-total-col" span="3"></colgroup><thead><tr><th scope="col">TEAM</th>${innings.map(i=>`<th scope="col">${i}</th>`).join('')}<th scope="col">R</th><th scope="col">H</th><th scope="col">E</th></tr></thead><tbody>${['away','home'].map(side=>`<tr><th scope="row">${logo(game.teams[side].id)}<span class="sr-only">${esc(game.teams[side].name)}</span></th>${innings.map(num=>`<td data-inning="${num}" data-side="${side}"${side === battingSide && num === game.inning ? ' class="live-inning-active" aria-label="攻撃中"' : ''}>${value(game.innings.find(i=>i.num===num)?.[side])}</td>`).join('')}${['runs','hits','errors'].map(key=>`<td class="live-total">${value(game.teams[side][key])}</td>`).join('')}</tr>`).join('')}</tbody></table></div></section>`;
+    return `<section class="live-center-score"><div class="live-center-status"><strong>${esc(game.status)}</strong><span>${game.inning ? `${esc(game.inning)}回${esc(game.half)}` : ''}</span></div><div class="live-center-score-scroll"><table><caption class="sr-only">イニング別スコア</caption><colgroup><col class="live-score-team-col">${innings.map(()=>'<col>').join('')}<col class="live-score-total-col" span="3"></colgroup><thead><tr><th scope="col">TEAM</th>${innings.map(i=>`<th scope="col">${i}</th>`).join('')}<th scope="col">R</th><th scope="col">H</th><th scope="col">E</th></tr></thead><tbody>${['away','home'].map(side=>`<tr><th scope="row">${logo(game.teams[side].id)}<span class="sr-only">${esc(game.teams[side].name)}</span></th>${innings.map(num=>`<td data-inning="${num}" data-side="${side}"${side === battingSide && num === game.inning ? ' class="live-inning-active" aria-label="攻撃中"' : ''}>${scoreValue(game.innings.find(i=>i.num===num)?.[side])}</td>`).join('')}${['runs','hits','errors'].map(key=>`<td class="live-total">${scoreValue(game.teams[side][key])}</td>`).join('')}</tr>`).join('')}</tbody></table></div></section>`;
   }
   function changesView(game, side) {
     const history = [...(game.substitutions?.[side] ?? [])].reverse();
