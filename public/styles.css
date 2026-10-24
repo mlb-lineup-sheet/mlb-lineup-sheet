@@ -2204,9 +2204,14 @@ button {
 .live-member-copy strong { display: block; font-size: 16px; line-height: 1.4; overflow-wrap: anywhere; }
 .live-member-copy small { display: block; font-size: 11px; line-height: 1.6; color: #546d83; font-variant-numeric: tabular-nums; }
 .member-atbat { background: #e8f5ed; box-shadow: inset 4px 0 #238459; }
-.member-changed { animation: live-member-change 1.5s ease-in-out 10; }
-@keyframes live-member-change { 0%,100% { background-color: #ffb8d7; } 50% { background-color: #fff; } }
-@media (prefers-reduced-motion: reduce) { .member-changed { animation: none; background: #ffb8d7; } }
+.change-outgoing { animation: live-change-outgoing 1s ease-in-out 2; }
+.member-entering .live-member-copy { animation: live-change-enter 1s cubic-bezier(.2,.75,.25,1) both, live-change-incoming 1s ease-in-out 13; }
+.position-entering { animation: live-change-incoming 1s ease-in-out 13; }
+.live-field-name strong.field-entering { animation: live-change-enter 1s cubic-bezier(.2,.75,.25,1) both, live-field-change-incoming 1s ease-in-out 13; }
+@keyframes live-change-outgoing { 0%,100% { opacity: 1; background-color: transparent; } 50% { opacity: .28; background-color: #ffb8d7; } }
+@keyframes live-change-enter { from { transform: translateX(36px); } to { transform: translateX(0); } }
+@keyframes live-change-incoming { 0%,100% { background-color: transparent; } 50% { background-color: #ffb8d7; } }
+@keyframes live-field-change-incoming { 0%,100% { background-color: #102e2dde; color: #fff; } 50% { background-color: #ffb8d7; color: #422039; } }
 .live-center { display: flex; flex-direction: column; min-width: 0; border-left: 1px solid #cbd7e2; border-right: 1px solid #cbd7e2; }
 .live-center-status { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; font-size: 12px; color: #23724f; }
 .live-center-score-scroll { overflow-x: auto; }
@@ -2282,13 +2287,11 @@ button {
 .live-field-batter[data-bat-side="L"] { left: 56%; transform: translate(0, -50%); }
 .live-field-batter[data-bat-side="unknown"] { top: 80%; }
 
-.live-field-name strong.field-changed { animation: live-field-change 1.5s ease-in-out 10; }
-@keyframes live-field-change {
-  0%,100% { background-color: #ffb8d7; color: #422039; }
-  50% { background-color: #102e2d; color: #fff; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .live-field-name strong.field-changed { animation: none; background: #ffb8d7; color: #422039; }
+  .change-outgoing,
+  .member-entering .live-member-copy,
+  .position-entering,
+  .live-field-name strong.field-entering { animation: none; }
 }
 
 .live-score-team-col { width: 45px; }

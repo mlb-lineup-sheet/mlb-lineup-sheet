@@ -8,7 +8,7 @@
   const value = number => esc(number ?? '—');
   let session = null;
   function stop() {
-    if (session) { clearTimeout(session.timer); clearTimeout(session.demoTimer); session.controller?.abort(); }
+    if (session) { clearTimeout(session.timer); clearTimeout(session.demoTimer); clearTimeout(session.transitionTimer); session.controller?.abort(); }
     session = null;
   }
   const logo = id => `<img src="https://www.mlbstatic.com/team-logos/${Number(id)}.svg" alt="">`;
@@ -20,11 +20,11 @@
     return `<div class="live-member-results live-pitching-results" aria-label="本日の投手成績">${fields.map(([label,stat]) => `<span class="live-pitching-stat"><b>${label}</b>${value(stat)}</span>`).join('')}</div>`;
   }
   function memberRow(player, order, side) {
-    const until = session?.changes?.get(`${side}:${order}`) ?? 0;
-    const changed = until > Date.now();
+    const transition = session?.transitions?.get(`${side}:${order}`);
+    const changed = transition?.until > Date.now();
     const results = (player?.today ?? []).map(result => `<span class="${result.rbi > 0 ? 'live-result-rbi' : result.isHit ? 'live-result-hit' : result.isOut ? 'live-result-out' : ''}" title="${value(result.inning)}回・${value(result.rbi)}打点">${esc(result.label)}</span>`).join('');
-    return `<div class="live-member ${changed ? 'member-changed' : ''} ${player?.id === session?.game?.matchup?.batter?.id ? 'member-atbat' : ''}" data-member="${side}:${order}" style="animation-delay:${changed ? Math.min(0, until-Date.now()-15000) : 0}ms">
-      <b class="live-member-order">${order}</b><span class="live-member-position">${esc(player?.position ?? '—')}</span><div class="live-member-copy"><strong>${esc(player?.name ?? '未発表')}</strong>${player?.pitching ? pitchingResults(player.todayPitching) : ''}${player && !player.pitching && results ? `<div class="live-member-results" aria-label="本日の打席結果">${results}</div>` : ''}</div>
+    return `<div class="live-member ${changed && transition.type === 'player' ? 'member-entering' : ''} ${player?.id === session?.game?.matchup?.batter?.id ? 'member-atbat' : ''}" data-member="${side}:${order}">
+      <b class="live-member-order">${order}</b><span class="live-member-position ${changed && transition.type === 'position' ? 'position-entering' : ''}">${esc(player?.position ?? '—')}</span><div class="live-member-copy"><strong>${esc(player?.name ?? '未発表')}</strong>${player?.pitching ? pitchingResults(player.todayPitching) : ''}${player && !player.pitching && results ? `<div class="live-member-results" aria-label="本日の打席結果">${results}</div>` : ''}</div>
     </div>`;
   }
 
@@ -33,17 +33,9 @@
     const members = game.members?.[side];
     return `<section class="live-members live-members-${side}" aria-label="${esc(team.name)}の出場メンバー"><header>${logo(team.id)}<h2>${esc(team.name)}</h2></header><div class="live-members-body">${Array.from({length:9},(_,i)=>memberRow(members?.lineup?.find(p=>p.order===i+1),i+1,side)).join('')}${memberRow(members?.pitcher,'P',side)}</div></section>`;
   }
-  function fieldFlash(player, game) {
-    if (!player?.id) return '';
-    let until = session?.changes?.get(`field:${player.id}`) ?? 0;
-    for (const side of ['away','home']) {
-      const members = game.members?.[side];
-      for (const member of members?.lineup ?? []) {
-        if (member.id === player.id) until = Math.max(until, session?.changes?.get(`${side}:${member.order}`) ?? 0);
-      }
-      if (members?.pitcher?.id === player.id) until = Math.max(until, session?.changes?.get(`${side}:P`) ?? 0);
-    }
-    return until > Date.now() ? `class="field-changed" style="animation-delay:${Math.min(0,until-Date.now()-15000)}ms"` : '';
+  function fieldFlash(key) {
+    const transition = session?.transitions?.get(`field:${key}`);
+    return transition?.until > Date.now() && transition.type === 'player' ? 'class="field-entering"' : '';
   }
   function fieldView(game) {
     if (session?.preview) {
@@ -90,9 +82,9 @@
         <path d="M293 419 H307 V428 L300 435 L293 428 Z" fill="white"/>
 
       </svg>
-      ${(game.defense ?? []).map(({key,player})=>{const [x,y]=positions[key];return `<div class="live-field-name live-field-defender" style="left:${x}%;top:${y}%"><strong ${fieldFlash(player,game)}>${esc(player?.name ?? '—')}</strong></div>`;}).join('')}
-      ${(game.bases ?? []).map((runner,i)=>runner ? `<div class="live-field-name live-field-runner" style="left:${runnerPositions[i][0]}%;top:${runnerPositions[i][1]}%"><strong ${fieldFlash(runner,game)}>${esc(runner.name)}</strong></div>` : '').join('')}
-      <div class="live-field-name live-field-batter" data-bat-side="${boxSide}"><strong ${fieldFlash(game.matchup?.batter,game)}>${esc(game.matchup?.batter?.name ?? '—')}</strong></div>
+      ${(game.defense ?? []).map(({key,player})=>{const [x,y]=positions[key];return `<div class="live-field-name live-field-defender" data-field-key="${key}" style="left:${x}%;top:${y}%"><strong ${fieldFlash(key)}>${esc(player?.name ?? '—')}</strong></div>`;}).join('')}
+      ${(game.bases ?? []).map((runner,i)=>runner ? `<div class="live-field-name live-field-runner" style="left:${runnerPositions[i][0]}%;top:${runnerPositions[i][1]}%"><strong>${esc(runner.name)}</strong></div>` : '').join('')}
+      <div class="live-field-name live-field-batter" data-bat-side="${boxSide}"><strong>${esc(game.matchup?.batter?.name ?? '—')}</strong></div>
     </div></section>`;
   }
   function scoreView(game) {
@@ -113,16 +105,14 @@
     content.innerHTML = `<div class="live-reference-board">${membersView(game,'away')}<div class="live-center">${scoreView(game)}${fieldView(game)}</div>${membersView(game,'home')}</div><div class="live-change-grid">${changesView(game,'away')}${changesView(game,'home')}</div>`;
     content.querySelectorAll('img').forEach(img=>{img.onerror=()=>{img.hidden=true;};});
   }
-  function detectChanges(active, game) {
-    const previous = active.game;
-    active.changes ??= new Map();
-    const now = Date.now();
-    for (const [key, until] of active.changes) if (until < now) active.changes.delete(key);
-    if (!previous) return;
+  function detectChanges(previous, game) {
+    const transitions = [];
+    if (!previous) return transitions;
     if (previous.defenseTeamId === game.defenseTeamId) {
       for (const defender of game.defense ?? []) {
         const old = previous.defense?.find(p => p.key === defender.key);
-        if (old?.player && defender.player && old.player.id !== defender.player.id) active.changes.set(`field:${defender.player.id}`,now+15000);
+        const alreadyOnField = previous.defense?.some(p => p.player?.id === defender.player?.id);
+        if (old?.player && defender.player && old.player.id !== defender.player.id && !alreadyOnField) transitions.push({ key: `field:${defender.key}`, type: 'player' });
       }
     }
     for (const side of ['away','home']) {
@@ -130,13 +120,69 @@
       if (!before?.lineup?.length || !after?.lineup?.length) continue;
       for (const player of after.lineup) {
         const old = before.lineup.find(p=>p.order===player.order);
-        if (old && (old.id!==player.id || old.position!==player.position)) active.changes.set(`${side}:${player.order}`,now+15000);
+        if (old?.id !== player.id) transitions.push({ key: `${side}:${player.order}`, type: 'player' });
+        else if (old && old.position !== player.position) transitions.push({ key: `${side}:${player.order}`, type: 'position' });
       }
-      if (before.pitcher && after.pitcher && before.pitcher.id!==after.pitcher.id) active.changes.set(`${side}:P`,now+15000);
+      if (before.pitcher && after.pitcher && before.pitcher.id!==after.pitcher.id) transitions.push({ key: `${side}:P`, type: 'player' });
+    }
+    return transitions;
+  }
+  function markOutgoingTransitions(transitions) {
+    for (const transition of transitions) {
+      if (transition.key.startsWith('field:')) {
+        content.querySelector(`[data-field-key="${CSS.escape(transition.key.slice(6))}"] strong`)?.classList.add('change-outgoing');
+        continue;
+      }
+      const row = content.querySelector(`[data-member="${CSS.escape(transition.key)}"]`);
+      (transition.type === 'position' ? row?.querySelector('.live-member-position') : row)?.classList.add('change-outgoing');
     }
   }
+  function applyGameTransition(active, game, transitions) {
+    clearTimeout(active.transitionTimer);
+    if (!transitions.length || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      active.transitioning = false;
+      active.transitions = new Map();
+      active.game = game;
+      render(game);
+      return;
+    }
+    active.transitioning = true;
+    markOutgoingTransitions(transitions);
+    active.transitionTimer = setTimeout(() => {
+      if (session !== active) return;
+      const until = Date.now() + 700;
+      active.transitions = new Map(transitions.map(transition => [transition.key, { ...transition, until }]));
+      active.game = game;
+      active.transitioning = false;
+      render(game);
+      refresh.disabled = false;
+    }, 2050);
+  }
+  function applyDemoTransition(active, game, transitions) {
+    clearTimeout(active.transitionTimer);
+    if (!transitions.length || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      active.demoGame = game;
+      active.demoPending = false;
+      active.transitions = new Map();
+      render(active.game);
+      return;
+    }
+    active.transitioning = true;
+    demoButton.disabled = true;
+    markOutgoingTransitions(transitions);
+    active.transitionTimer = setTimeout(() => {
+      if (session !== active) return;
+      const until = Date.now() + 700;
+      active.transitions = new Map(transitions.map(transition => [transition.key, { ...transition, until }]));
+      active.demoGame = game;
+      active.demoPending = false;
+      active.transitioning = false;
+      render(active.game);
+      demoButton.disabled = false;
+    }, 2050);
+  }
   async function load(active) {
-    if (session !== active || active.loading || document.hidden) return;
+    if (session !== active || active.loading || active.transitioning || document.hidden) return;
     clearTimeout(active.timer);
     active.loading = true;
     refresh.disabled = true;
@@ -147,9 +193,8 @@
       const game = await response.json();
       if (!response.ok) throw new Error(game.error ?? `HTTP ${response.status}`);
       if (session !== active) return;
-      detectChanges(active, game);
-      active.game = game;
-      render(game);
+      const transitions = detectChanges(active.game, game);
+      applyGameTransition(active, game, transitions);
       active.finished = game.finished;
       active.hasData = true;
       message.textContent = '';
@@ -161,7 +206,7 @@
       clearTimeout(timeout);
       active.loading = false;
       if (session === active) {
-        refresh.disabled = false;
+        refresh.disabled = Boolean(active.transitioning);
         if (!active.finished && !document.hidden) active.timer = setTimeout(() => load(active), 15000);
       }
     }
@@ -170,21 +215,16 @@
     const active = session;
     if (!active?.preview || !active.game) return;
     if (active.demoPending && active.defenseDemoAfter) {
-      active.demoGame = active.defenseDemoAfter; active.demoPending = false;
-      for (const player of active.defenseDemoPlayers) {
-        active.changes.set(`field:${player.id}`, Date.now() + 15000);
-        const member = active.demoGame.members.away.lineup.find(p => p.id === player.id);
-        if (member) active.changes.set(`away:${member.order}`, Date.now() + 15000);
-      }
-      render(active.game); return;
+      const after = active.defenseDemoAfter;
+      applyDemoTransition(active, after, detectChanges(active.demoGame, after));
+      return;
     }
     if (active.demoPending) {
       const { demoSide: side, demoChange: change } = active;
       const after = structuredClone(active.game);
       after.substitutions[side] = after.substitutions[side].map(c => c.key === change.key ? { ...c, type: '投手交代（デモ）' } : c);
-      active.demoGame = after; active.demoPending = false;
-      active.changes.set(`${side}:P`, Date.now() + 15000);
-      render(active.game); return;
+      applyDemoTransition(active, after, detectChanges(active.demoGame, after));
+      return;
     }
     if (active.demoGame) {
       clearTimeout(active.demoTimer); active.demoGame = null; active.demoPending = false; active.defenseDemoAfter = null; active.changes.clear();
@@ -231,7 +271,7 @@
     content.innerHTML = '';
     updated.textContent = '';
     message.textContent = 'MLB公式データを取得しています…';
-    session = { gamePk, loading: false, finished: false, preview: new URLSearchParams(location.search).get('preview') === '1' };
+    session = { gamePk, loading: false, finished: false, preview: new URLSearchParams(location.search).get('preview') === '1', changes: new Map() };
     return load(session);
   } };
 })();
