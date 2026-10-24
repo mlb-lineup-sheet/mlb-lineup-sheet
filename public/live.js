@@ -3,7 +3,6 @@
   const message = document.getElementById('live-message');
   const updated = document.getElementById('live-updated');
   const demoButton = document.getElementById('live-sub-demo');
-  const preview = document.getElementById('live-preview');
   const refresh = document.getElementById('live-refresh');
   const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
   const value = number => esc(number ?? '—');
@@ -111,8 +110,6 @@
     demoButton.hidden = !session?.preview;
     demoButton.disabled = false;
     demoButton.textContent = session?.demoPending ? '交代を実行' : session?.demoGame ? 'デモを終了' : '交代デモ';
-    preview.setAttribute('aria-pressed', String(Boolean(session?.preview)));
-    preview.textContent = session?.preview ? '仮配置を解除' : '打者・走者を仮配置';
     content.innerHTML = `<div class="live-reference-board">${membersView(game,'away')}<div class="live-center">${scoreView(game)}${fieldView(game)}</div>${membersView(game,'home')}</div><div class="live-change-grid">${changesView(game,'away')}${changesView(game,'home')}</div>`;
     content.querySelectorAll('img').forEach(img=>{img.onerror=()=>{img.hidden=true;};});
   }
@@ -223,7 +220,6 @@
     render(game);
 
   });
-  preview.addEventListener('click', () => { if (!session?.game) return; clearTimeout(session.demoTimer); session.demoGame = null; session.demoPending = false; session.preview = !session.preview; render(session.game); });
   refresh.addEventListener('click', () => { if (session) load(session); });
   document.addEventListener('visibilitychange', () => {
     if (!session) return;
