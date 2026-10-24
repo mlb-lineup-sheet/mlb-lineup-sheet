@@ -2297,6 +2297,7 @@ button {
 .live-score-team-col { width: 45px; }
 .live-score-total-col { width: 32px; }
 .live-center-score td.live-inning-active { background: #ffe58a; color: #59420c; font-weight: 800; box-shadow: inset 0 0 0 1px #e9c54c; }
+.live-unplayed-mark { display: inline-block; font-size: 22px; line-height: 1; font-weight: 400; }
 
 .live-member-results { display: flex; flex-wrap: wrap; gap: 3px 5px; margin-top: 5px; font-size: 10px; line-height: 1.4; font-weight: 700; }
 .live-member-results span { display: inline-flex; align-items: center; justify-content: center; min-width: 2em; padding: 1px 3px; border: 1px solid #b8c7d4; border-radius: 0; white-space: nowrap; }
