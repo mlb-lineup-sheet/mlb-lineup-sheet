@@ -64,9 +64,8 @@
     return `<section class="live-diamond-panel"><div class="live-bso" role="group" aria-label="ボール・ストライク・アウト">${counter}</div>${session?.preview ? `<div class="live-preview-notice">${session?.demoGame ? esc(`${session.demoPending ? '交代前' : '交代後'}：${session.demoChange?.outgoing?.name ?? ''} → ${session.demoChange?.incoming?.name ?? ''}（デモ）`) : '配置確認用：打者・走者は仮の配置です'}</div>` : ''}<div class="live-diamond">
 
       <svg viewBox="0 0 600 500" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-        <defs><radialGradient id="live-turf"><stop stop-color="#397e5d"/><stop offset="1" stop-color="#143f35"/></radialGradient></defs>
         <rect width="600" height="500" fill="#397e5d"/>
-        <path d="M300 435 L20 155 Q300 -90 580 155 Z" fill="url(#live-turf)" stroke="#81ad92" stroke-width="3"/>
+        <path d="M300 435 L20 155 Q300 -90 580 155 Z" fill="#397e5d" stroke="#81ad92" stroke-width="3"/>
         <path d="M300 435 L75 210 Q300 0 525 210 Z" fill="#fff" opacity=".04"/>
         <path d="M300 435 L125 265 Q300 75 475 265 Z" fill="#fff" opacity=".04"/>
         <path d="M300 211 L412 323 L300 435 L188 323 Z" fill="#397e5d"/>
