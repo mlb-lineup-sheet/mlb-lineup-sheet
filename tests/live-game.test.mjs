@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { buildLiveView } from '../scripts/lib/mlb-live.mjs';
 const fixture = {
-  gamePk: 123, gameData: { status: { abstractGameState: 'Live', detailedState: 'In Progress' }, teams: { away: { id: 1, name: 'Away' }, home: { id: 2, name: 'Home' } }, players: { ID10: { id: 10, fullName: 'Batter' } } },
+  gamePk: 123, gameData: { game: { type: 'W' }, status: { abstractGameState: 'Live', detailedState: 'In Progress' }, teams: { away: { id: 1, name: 'Away', record: { wins: 2 } }, home: { id: 2, name: 'Home', record: { wins: 1 } } }, players: { ID10: { id: 10, fullName: 'Batter' } } },
   liveData: { linescore: { currentInning: 10, isTopInning: true, inningState: 'Top', balls: 2, strikes: 1, outs: 0, offense: { second: { id: 20, fullName: 'Runner' } }, innings: [{ num: 10, away: { runs: 0 } }], teams: { away: { runs: 0, hits: 0, errors: 0 } } }, plays: { currentPlay: { about: { isComplete: false }, matchup: { batter: { id: 10 }, pitcher: { id: 30, fullName: 'Pitcher' } } }, allPlays: [
     { atBatIndex: 0, about: { isComplete: true, inning: 1, isTopInning: true }, result: { eventType: 'home_run', rbi: 1, awayScore: 1, homeScore: 0 } },
     { atBatIndex: 1, about: { isComplete: true, inning: 1, isTopInning: false }, result: { eventType: 'strikeout', awayScore: 1, homeScore: 0 } },
@@ -14,6 +14,10 @@ assert.equal(game.count.balls, 2);
 assert.equal(game.bases[1].name, 'JP:Runner');
 assert.equal(game.teams.away.runs, 0);
 assert.equal(game.teams.home.runs, null);
+assert.deepEqual(game.series, { winsNeeded: 4, awayWins: 2, homeWins: 1 });
+const regularGame = structuredClone(fixture);
+regularGame.gameData.game.type = 'R';
+assert.equal(buildLiveView(regularGame).series, null);
 assert.deepEqual(game.innings, [{ num: 10, away: 0, home: null }]);
 assert.deepEqual(game.plays.map(p => p.index), [1, 0]);
 assert.equal(game.plays[1].event, '本塁打');

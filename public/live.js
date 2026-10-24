@@ -32,7 +32,9 @@
   function membersView(game, side) {
     const team = game.teams[side];
     const members = game.members?.[side];
-    return `<section class="live-members live-members-${side}" aria-label="${esc(team.name)}の出場メンバー"><header>${logo(team.id)}<h2>${esc(team.name)}</h2></header><div class="live-members-body">${Array.from({length:9},(_,i)=>memberRow(members?.lineup?.find(p=>p.order===i+1),i+1,side)).join('')}${memberRow(members?.pitcher,'P',side)}</div></section>`;
+    const wins = game.series?.[`${side}Wins`] ?? 0;
+    const stars = game.series ? `<span class="live-series-stars" role="img" aria-label="シリーズ${wins}勝">${Array.from({ length: game.series.winsNeeded }, (_, i) => `<span class="${i < wins ? 'is-won' : ''}" aria-hidden="true">${i < wins ? '★' : '☆'}</span>`).join('')}</span>` : '';
+    return `<section class="live-members live-members-${side}" aria-label="${esc(team.name)}の出場メンバー"><header>${logo(team.id)}<h2>${esc(team.name)}</h2>${stars}</header><div class="live-members-body">${Array.from({length:9},(_,i)=>memberRow(members?.lineup?.find(p=>p.order===i+1),i+1,side)).join('')}${memberRow(members?.pitcher,'P',side)}</div></section>`;
   }
   function fieldFlash(key) {
     const transition = session?.transitions?.get(`field:${key}`);

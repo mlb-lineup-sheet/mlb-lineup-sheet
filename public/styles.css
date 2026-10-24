@@ -2197,6 +2197,8 @@ button {
 .live-members header { min-height: 62px; box-sizing: border-box; padding: 12px; display: flex; align-items: center; gap: 10px; background: #f1f5f8; border-bottom: 2px solid #193b59; }
 .live-members header img { width: 35px; height: 35px; object-fit: contain; }
 .live-members header h2 { font-size: 16px; margin: 0; overflow-wrap: anywhere; }
+.live-series-stars { display: inline-flex; flex: 0 0 auto; gap: 2px; margin-left: 3px; color: #173b5c; font-size: 17px; line-height: 1; letter-spacing: -.08em; white-space: nowrap; }
+.live-series-stars .is-won { color: #e0a21a; }
 .live-member { display: grid; grid-template-columns: 25px 26px minmax(0, 1fr); align-items: center; min-height: 56px; padding: 5px 10px; box-sizing: border-box; border-bottom: 1px solid #dae3ec; }
 .live-member-order { font-size: 17px; text-align: center; }
 .live-member-position { font-size: 14px; color: #556d81; text-align: center; }
@@ -2262,6 +2264,7 @@ button {
  .live-center { grid-row: 1; grid-column: 1 / -1; border: 0; }
  .live-members-away { border-right: 1px solid #cbd7e2; }
  .live-members header h2 { font-size: 13px; }
+ .live-series-stars { gap: 1px; margin-left: 1px; font-size: 14px; }
  .live-member { grid-template-columns: 22px 26px minmax(0,1fr); padding: 5px; min-height: 68px; }
  .live-member-copy strong { font-size: 14px; }
  .live-member-copy small { font-size: 10px; }

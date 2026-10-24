@@ -106,6 +106,11 @@ export function buildLiveView(live, { teamName = team => team.name, playerName =
   return {
     members, substitutions, defense, defenseTeamId: score.defense?.team?.id ?? null,
     gamePk: live.gamePk, updatedAt: live.metaData?.timeStamp ?? null,
+    series: data.game?.type === 'W' ? {
+      winsNeeded: 4,
+      awayWins: Number(data.teams?.away?.record?.wins ?? 0),
+      homeWins: Number(data.teams?.home?.record?.wins ?? 0),
+    } : null,
     finished, inProgress, status: finished ? '試合終了' : interrupted ? (statusLabels[status.detailedState] ?? status.detailedState) : inProgress ? '試合中' : (statusLabels[status.detailedState] ?? '試合開始前'),
     detailStatus: status.detailedState,
     inning: score.currentInning ?? null, half: score.isTopInning === true ? '表' : score.isTopInning === false ? '裏' : '',
