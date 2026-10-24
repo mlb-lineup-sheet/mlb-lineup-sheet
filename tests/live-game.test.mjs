@@ -84,4 +84,6 @@ const todayFixture = structuredClone(rosterFixture);
 todayFixture.liveData.plays.allPlays[0].matchup = {batter:{id:11}};
 const today = buildLiveView(todayFixture).members.away.lineup[0].today;
 assert.deepEqual(today, [{label:'本',isOut:false,isHit:true,rbi:1,inning:1}]);
+todayFixture.liveData.plays.allPlays.push({about:{isComplete:true,inning:5},matchup:{batter:{id:11}},result:{type:'atBat',event:'Caught Stealing 3B',eventType:'caught_stealing_3b',isOut:true}});
+assert.deepEqual(buildLiveView(todayFixture).members.away.lineup[0].today, [{label:'本',isOut:false,isHit:true,rbi:1,inning:1}]);
 console.log('PASS batting result abbreviations, missing direction, player attribution and RBI');

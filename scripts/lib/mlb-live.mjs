@@ -90,7 +90,11 @@ export function buildLiveView(live, { teamName = team => team.name, playerName =
     return { ...person(player.person), order, position: positions[position] ?? position ?? '—',
       stats: player.seasonStats?.[pitching ? 'pitching' : 'batting'] ?? {}, pitching,
       todayPitching: pitching ? player.stats?.pitching ?? null : null,
-      today: pitching ? [] : (plays.allPlays ?? []).filter(play => play.about?.isComplete && play.matchup?.batter?.id === id && (!play.result?.type || play.result.type === 'atBat')).map(play => ({ label: battingResult(play), isOut: Boolean(play.result?.isOut), isHit: ['single', 'double', 'triple', 'home_run'].includes(play.result?.eventType), rbi: play.result?.rbi ?? 0, inning: play.about.inning })) };
+      today: pitching ? [] : (plays.allPlays ?? []).filter(play => {
+        const eventType = play.result?.eventType ?? '';
+        const isBaserunningResult = /^(?:caught_stealing|stolen_base|pickoff|pickoff_caught_stealing|runner_double_play|other_advance)(?:_|$)/.test(eventType);
+        return play.about?.isComplete && play.matchup?.batter?.id === id && (!play.result?.type || play.result.type === 'atBat') && !isBaserunningResult;
+      }).map(play => ({ label: battingResult(play), isOut: Boolean(play.result?.isOut), isHit: ['single', 'double', 'triple', 'home_run'].includes(play.result?.eventType), rbi: play.result?.rbi ?? 0, inning: play.about.inning })) };
   };
   const members = Object.fromEntries(['away', 'home'].map(side => {
     const team = boxTeams[side] ?? {};
